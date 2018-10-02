@@ -1,0 +1,469 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 <script type="text/javascript">\par
+//<![CDATA[\par
+var multiquote_img_off = '\{JS_MULTIQUOTE_IMG_OFF\}', multiquote_img_on = '\{JS_MULTIQUOTE_IMG_ON\}', _atr = '\{JS_DIR\}addthis/', _ati = '\{PATH_IMG_FA\}addthis/'\{ADDTHIS_LANG\}, addthis_localize = \{ share_caption: "\{L_SHARE_CAPTION\}", email: "\{L_EMAIL\}", email_caption: "\{L_EMAIL_CAPTION\}", favorites: "\{L_SHARE_BOOKMARKS\}", print: "\{L_PRINT\}", more: "\{L_MORE\}" \};\par
+\par
+\par
+$(function()\{\par
+\par
+    if(typeof(_atc) == "undefined") \{\par
+        _atc = \{  \};\par
+    \}\par
+\par
+    _atc.cwait = 0;\par
+    $('.addthis_button').mouseup(function()\{\par
+        if ($('#at15s').css('display') == 'block') \{\par
+            addthis_close();\par
+        \}\par
+    \});\par
+\});\par
+\par
+var hiddenMsgLabel = \{ visible:'\{JS_HIDE_HIDDEN_MESSAGE\}', hidden:'\{JS_SHOW_HIDDEN_MESSAGE\}' \};\par
+showHiddenMessage = function(id)\par
+\{\par
+    try\par
+    \{\par
+        var regId = parseInt(id, 10);\par
+        if( isNaN(regId) ) \{ regId = 0; \}\par
+\par
+        if( regId > 0)\par
+        \{\par
+            $('.post--' + id).toggle(0, function()\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab if( $(this).is(":visible") )\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab $('#hidden-title--' + id).html(hiddenMsgLabel.visible);\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab else\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab $('#hidden-title--' + id).html(hiddenMsgLabel.hidden);\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\});\par
+        \}\par
+    \}\par
+    catch(e) \{ \}\par
+\par
+\tab return false;\par
+\};\par
+\par
+//]]>\par
+</script>\par
+\par
+<h1 class="page-title">\par
+\tab <a href="\{TOPIC_URL\}">\{TOPIC_TITLE\}</a>\par
+</h1>\par
+<div class="topic-actions">\par
+\tab <div class="buttons">\par
+\par
+\tab\tab <!-- BEGIN switch_user_authpost -->\par
+\tab\tab <a href="\{U_POST_NEW_TOPIC\}" rel="nofollow"><img src="\{POST_IMG\}" class="\{POST_IMG_CLASS\}" alt="\{L_POST_NEW_TOPIC\}" /></a>&nbsp;&nbsp;&nbsp;\par
+\tab\tab <!-- END switch_user_authpost -->\par
+\par
+\tab\tab <!-- BEGIN switch_user_authreply -->\par
+\tab\tab <a href="\{U_POST_REPLY_TOPIC\}"><img src="\{REPLY_IMG\}" class="i_reply" alt="\{L_POST_REPLY_TOPIC\}" /></a>\par
+\tab\tab <!-- END switch_user_authreply -->\par
+\tab </div>\par
+\par
+\tab <div class="pathname-box">\par
+\tab\tab <p itemscope itemtype="http://data-vocabulary.org/Breadcrumb">\par
+            <a class="nav" href="\{U_INDEX\}" itemprop="url"><span itemprop="title">\{L_INDEX\}</span></a>\par
+            <!--\{NAV_SEP\}<a class="nav" href="\{U_ALBUM\}" itemprop="url"><span itemprop="title">\{L_ALBUM\}</span></a>-->\par
+            \{NAV_CAT_DESC\}\par
+        </p>\par
+\tab </div>\par
+\par
+\tab <p class="right">\par
+\tab\tab <!-- BEGIN switch_fb_likebtn -->\par
+\tab\tab <script>(function(d, s, id) \{\par
+\tab\tab   var js, fjs = d.getElementsByTagName(s)[0];\par
+\tab\tab   if (d.getElementById(id)) return;\par
+\tab\tab   js = d.createElement(s); js.id = id;\par
+\tab\tab   js.src = "{{\field{\*\fldinst{HYPERLINK https://connect.facebook.net/\{LANGUAGE\}/all.js#xfbml=1 }}{\fldrslt{https://connect.facebook.net/\{LANGUAGE\}/all.js#xfbml=1\ul0\cf0}}}}\f0\fs22 ";\par
+\tab\tab   fjs.parentNode.insertBefore(js, fjs);\par
+\tab\tab\}(document, 'script', 'facebook-jssdk'));</script>\par
+\tab\tab <span class="fb-like" data-href="\{FORUM_URL\}\{TOPIC_URL\}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>\par
+\tab\tab <!-- END switch_fb_likebtn -->\par
+\tab </p>\par
+\par
+\tab <div class="pagination">\par
+\tab\tab\{PAGE_NUMBER\}\par
+\tab\tab &nbsp;&bull;&nbsp;\par
+\tab\tab <a class="addthis_button" href="https://www.addthis.com/bookmark.php?v=250&amp;pub=forumotion">\{L_SHARE\}</a>\par
+\tab\tab <!-- BEGIN switch_plus_menu -->\par
+\tab\tab &nbsp;&bull;&nbsp;\par
+\tab\tab <script type="text/javascript">//<![CDATA[\par
+\tab\tab\tab var url_favourite = '\{U_FAVOURITE_JS_PLUS_MENU\}';\par
+\tab\tab\tab var url_newposts = '\{U_NEWPOSTS_JS_PLUS_MENU\}';\par
+\tab\tab\tab var url_egosearch = '\{U_EGOSEARCH_JS_PLUS_MENU\}';\par
+\tab\tab\tab var url_unanswered = '\{U_UNANSWERED_JS_PLUS_MENU\}';\par
+\tab\tab\tab var url_watchsearch = '\{U_WATCHSEARCH_JS_PLUS_MENU\}';\par
+\tab\tab\tab\par
+\tab\tab\tab insert_plus_menu_new('f\{FORUM_ID\}&amp;t=\{TOPIC_ID\}','\{JS_SESSION_ID\}', \{JS_AUTH_FAVOURITES\});\par
+\tab\tab //]]>\par
+\tab\tab </script>\par
+\tab\tab <!-- END switch_plus_menu -->\par
+\tab </div>\par
+\tab <div class="clear"></div>\par
+</div>\par
+\par
+<!-- BEGIN topicpagination -->\par
+<p class="pagination">\{PAGINATION\}</p>\par
+<!-- END topicpagination -->\par
+<p class="left-box"><a href="\{U_VIEW_OLDER_TOPIC\}">\{L_VIEW_PREVIOUS_TOPIC\}</a>&nbsp;<a href="\{U_VIEW_NEWER_TOPIC\}">\{L_VIEW_NEXT_TOPIC\}</a>&nbsp;<a href="#bottom">\{L_GOTO_DOWN\}</a></p>\par
+<div class="clear"></div>\par
+\{POLL_DISPLAY\}\par
+\par
+<!-- BEGIN postrow -->\par
+\tab <!-- BEGIN hidden -->\par
+\tab\tab <div class="post \{postrow.hidden.ROW_COUNT\}">\par
+\tab\tab\tab <div class="inner">\par
+\tab\tab\tab\tab <span class="corners-top"><span></span></span>\par
+\tab\tab\tab\tab <p style="text-align:center">\{postrow.hidden.MESSAGE\}</p>\par
+\tab\tab\tab\tab <div class="clear"></div>\par
+\tab\tab\tab\tab <span class="corners-bottom"><span></span></span>\par
+\tab\tab\tab </div>\par
+\tab\tab </div>\par
+\tab <!-- END hidden -->\par
+\tab <!-- BEGIN displayed -->\par
+\tab\tab <div id="p\{postrow.displayed.U_POST_ID\}" class="post \{postrow.displayed.ROW_COUNT\}\{postrow.displayed.ONLINE_IMG_NEW\} post--\{postrow.displayed.U_POST_ID\}"\{postrow.displayed.THANK_BGCOLOR\} style="\{postrow.displayed.DISPLAYABLE_STATE\}">\par
+\tab\tab\tab <div class="inner"><span class="corners-top"><span></span></span>\par
+    <div style="position: relative; top: -30px; width: 1px;" id="\{postrow.displayed.U_POST_ID\}"></div>\par
+    <div class="postNumberContainer"><a href="\{postrow.displayed.POST_URL\}" class="postNumber">#\{postrow.displayed.COUNT_POSTS\}</a></div>\par
+\tab\tab\tab <div class="postbody">\par
+\par
+\tab\tab\tab\tab <ul class="profile-icons">\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.THANK_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.MULTIQUOTE_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.QUOTE_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.EDIT_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.DELETE_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.IP_IMG\}</li>\par
+\tab\tab\tab\tab\tab <li>\{postrow.displayed.REPORT_IMG_NEW\}</li>\par
+\tab\tab\tab\tab </ul>\par
+\par
+\tab\tab\tab\tab <h2 class="topic-title">\{postrow.displayed.ICON\} <a href="\{postrow.displayed.POST_URL\}">\{postrow.displayed.POST_SUBJECT\}</a></h2>\par
+\tab\tab\tab\tab <p class="author"><img src="\{postrow.displayed.MINI_POST_IMG\}" alt="\{postrow.displayed.L_MINI_POST_ALT\}" title="\{postrow.displayed.L_MINI_POST_ALT\}" />&nbsp;\{L_TOPIC_BY\}&nbsp;\{postrow.displayed.POSTER_NAME\} \{postrow.displayed.POST_DATE_NEW\}</p>\par
+\tab\tab\tab\tab <div class="clearfix"></div>\par
+\par
+\tab\tab\tab\tab <!-- BEGIN switch_vote_active -->  \par
+\tab\tab\tab\tab <div class="vote gensmall">\par
+\tab\tab\tab\tab\tab <!-- BEGIN switch_vote -->\par
+\tab\tab\tab\tab\tab <div class="vote-button"><a href="\{postrow.displayed.switch_vote_active.switch_vote.U_VOTE_PLUS\}">+</a></div>\par
+\tab\tab\tab\tab\tab <!-- END switch_vote -->\par
+\par
+\tab\tab\tab\tab\tab <!-- BEGIN switch_bar -->\par
+\tab\tab\tab\tab\tab <div class="vote-bar" title="\{postrow.displayed.switch_vote_active.L_VOTE_TITLE\}">\par
+\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_vote_plus -->\par
+\tab\tab\tab\tab\tab\tab <div class="vote-bar-plus" style="height:\{postrow.displayed.switch_vote_active.switch_bar.switch_vote_plus.HEIGHT_PLUS\}px;"></div>\par
+\tab\tab\tab\tab\tab\tab <!-- END switch_vote_plus -->\par
+\par
+\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_vote_minus -->\par
+\tab\tab\tab\tab\tab\tab <div class="vote-bar-minus" style="height:\{postrow.displayed.switch_vote_active.switch_bar.switch_vote_minus.HEIGHT_MINUS\}px;"></div>\par
+\tab\tab\tab\tab\tab\tab <!-- END switch_vote_minus -->\par
+\tab\tab\tab\tab\tab </div>\par
+\tab\tab\tab\tab\tab <!-- END switch_bar -->\par
+\par
+\tab\tab\tab\tab\tab <!-- BEGIN switch_no_bar -->\par
+\tab\tab\tab\tab\tab <div title="\{postrow.displayed.switch_vote_active.L_VOTE_TITLE\}" class="vote-no-bar">----</div>\par
+\tab\tab\tab\tab\tab <!-- END switch_no_bar -->\par
+\par
+\tab\tab\tab\tab\tab <!-- BEGIN switch_vote -->\par
+\tab\tab\tab\tab\tab <div class="vote-button"><a href="\{postrow.displayed.switch_vote_active.switch_vote.U_VOTE_MINUS\}">-</a></div>\par
+\tab\tab\tab\tab\tab <!-- END switch_vote -->\par
+\tab\tab\tab\tab </div>\par
+\tab\tab\tab\tab <!-- END switch_vote_active -->\par
+\par
+\tab\tab\tab\tab <div style="display:none"></div>\par
+\tab\tab\tab\tab <div class="content clearfix">\par
+\tab\tab\tab\tab\tab <div>\{postrow.displayed.MESSAGE\}</div>\par
+\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_attachments -->\par
+\tab\tab\tab\tab\tab\tab <dl class="attachbox">\par
+\tab\tab\tab\tab\tab\tab\tab <dt>\{postrow.displayed.switch_attachments.L_ATTACHMENTS\}</dt>\par
+\tab\tab\tab\tab\tab\tab\tab <dd class="attachments">\par
+\tab\tab\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_post_attachments -->\par
+\tab\tab\tab\tab\tab\tab\tab\tab <dl class="file clearfix">\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab <dt>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <img src="\{postrow.displayed.switch_attachments.switch_post_attachments.U_IMG\}" alt=""/>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab </dt>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab <dd>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_dl_att -->\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <span><a class="postlink" href="\{postrow.displayed.switch_attachments.switch_post_attachments.switch_dl_att.U_ATTACHMENT\}">\{postrow.displayed.switch_attachments.switch_post_attachments.switch_dl_att.ATTACHMENT\}</a> \{postrow.displayed.switch_attachments.switch_post_attachments.switch_dl_att.ATTACHMENT_DEL\}</span>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- END switch_dl_att -->\par
+\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_no_dl_att -->\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <span>\{postrow.displayed.switch_attachments.switch_post_attachments.switch_no_dl_att.ATTACHMENT\} \{postrow.displayed.switch_attachments.switch_post_attachments.switch_no_dl_att.ATTACHMENT_DEL\}</span>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- END switch_no_dl_att -->\par
+\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_no_comment -->\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <span>\{postrow.displayed.switch_attachments.switch_post_attachments.switch_no_comment.ATTACHMENT_COMMENT\}</span>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- END switch_no_comment -->\par
+\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- BEGIN switch_no_dl_att -->\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <span><strong>\{postrow.displayed.switch_attachments.switch_post_attachments.switch_no_dl_att.TEXT_NO_DL\}</strong></span>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <!-- END switch_no_dl_att -->\par
+\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab <span>(\{postrow.displayed.switch_attachments.switch_post_attachments.FILE_SIZE\}) \{postrow.displayed.switch_attachments.switch_post_attachments.NB_DL\}</span>\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab </dd>\par
+\tab\tab\tab\tab\tab\tab\tab\tab </dl>\par
+\tab\tab\tab\tab\tab\tab\tab\tab <!-- END switch_post_attachments -->\par
+\tab\tab\tab\tab\tab\tab\tab </dd>\par
+\tab\tab\tab\tab\tab\tab </dl>\par
+\tab\tab\tab\tab\tab\tab <!-- END switch_attachments -->\par
+\tab\tab\tab\tab </div>\par
+\tab\tab\tab\tab\{postrow.displayed.EDITED_MESSAGE\}\par
+\tab\tab\tab\tab <!-- BEGIN switch_signature -->\par
+\tab\tab\tab\tab <div class="signature_div" id="sig\{postrow.displayed.U_POST_ID\}">\{postrow.displayed.SIGNATURE_NEW\}</div>\par
+\tab\tab\tab\tab <!-- END switch_signature -->\par
+\tab\tab\tab </div>\par
+\par
+\tab\tab\tab <div class="postprofile" id="profile\{postrow.displayed.U_POST_ID\}">\par
+                          \par
+\tab\tab\tab\tab <!-- div class="online2"></div-->\par
+\tab\tab\tab\tab <dl>\par
+\tab\tab\tab\tab\tab <dt>\par
+\tab\tab\tab\tab\tab\tab\{postrow.displayed.POSTER_AVATAR\}\par
+\tab\tab\tab\tab\tab\tab <br /><strong style="font-size:1.2em">\{postrow.displayed.POSTER_NAME\}</strong>\par
+\tab\tab\tab\tab\tab </dt>\par
+\tab\tab\tab\tab\tab <dd>\{postrow.displayed.POSTER_RANK_NEW\}\{postrow.displayed.RANK_IMAGE\}</dd>\par
+\tab\tab\tab\tab\tab <dd><br /></dd>\par
+\tab\tab\tab\tab\tab <dd>\par
+\par
+\tab\tab\tab\tab\tab\tab <!-- BEGIN profile_field -->\par
+\tab\tab\tab\tab\tab\tab\{postrow.displayed.profile_field.LABEL\} \{postrow.displayed.profile_field.CONTENT\}\{postrow.displayed.profile_field.SEPARATOR\}\par
+\tab\tab\tab\tab\tab\tab <!-- END profile_field -->\par
+\tab\tab\tab\tab\tab\tab\{postrow.displayed.POSTER_RPG\}\par
+\tab\tab\tab\tab\tab </dd>\par
+\tab\tab\tab\tab\tab <dd><br /></dd>\par
+\tab\tab\tab\tab\tab <dd>\par
+\tab\tab\tab\tab\tab\tab\{postrow.displayed.PROFILE_IMG\} \{postrow.displayed.PM_IMG\} \{postrow.displayed.EMAIL_IMG\}<!-- BEGIN contact_field --> \{postrow.displayed.contact_field.CONTENT\}<!-- END contact_field -->\par
+\tab\tab\tab\tab\tab </dd>\par
+\tab\tab\tab\tab </dl>\par
+\tab\tab\tab </div>\par
+\par
+\tab\tab\tab <div class="clear"></div>\par
+\par
+\tab\tab\tab <p class="right"><a href="#top">\{L_BACK_TO_TOP\}</a>&nbsp;<a href="#bottom">\{L_GOTO_DOWN\}</a></p>\par
+\tab\tab\tab <span class="corners-bottom"><span></span></span></div>\par
+\tab\tab </div>\par
+\tab\tab <!-- BEGIN first_post_br -->\par
+\tab\tab <hr id="first-post-br" />\par
+\tab\tab <!-- END first_post_br -->\par
+\tab <!-- END displayed -->\par
+<!-- END postrow -->\par
+\par
+<a name="bottomtitle"></a>\par
+\par
+<!-- BEGIN topicpagination -->\par
+<p class="pagination">\{PAGINATION\}</p>\par
+<!-- END topicpagination -->\par
+\par
+<p class="left-box"><a href="\{U_VIEW_OLDER_TOPIC\}">\{L_VIEW_PREVIOUS_TOPIC\}</a>&nbsp;<a href="\{U_VIEW_NEWER_TOPIC\}">\{L_VIEW_NEXT_TOPIC\}</a>&nbsp;<a href="#top">\{L_BACK_TO_TOP\}</a></p>\par
+\par
+<div class="clear"></div>\par
+\par
+<div class="noprint">\par
+<!-- BEGIN switch_user_logged_in -->\par
+<!-- BEGIN watchtopic -->\par
+<p class="right">\{S_WATCH_TOPIC\}</p>\par
+<!-- END watchtopic -->\par
+<!-- END switch_user_logged_in -->\par
+</div>\par
+\par
+<!-- BEGIN promot_trafic -->\par
+<div class="post row2" id="ptrafic_close" style="display:none;font-size:1.3em;line-height:1.4em">\par
+\tab <span class="corners-top"><span></span></span>\par
+\tab <span class="gensmall"><a href="javascript:ShowHideLayer('ptrafic_open','ptrafic_close');"><img src="\{TABS_MORE_IMG\}" alt="+" align="" border="0" /></a></span>\par
+\tab <span class="ptrafic">&nbsp;\{PROMOT_TRAFIC_TITLE\}</span>\par
+\tab <span class="corners-bottom"><span></span></span>\par
+</div>\par
+<div class="post row2" id="ptrafic_open" style="display:'';font-size:1.3em;line-height:1.4em">\par
+\tab <span class="corners-top"><span></span></span>\par
+\tab <span class="gensmall"><a href="javascript:ShowHideLayer('ptrafic_open','ptrafic_close');"><img src="\{TABS_LESS_IMG\}" alt="-" align="" border="0" /></a></span>\par
+\tab <span class="ptrafic">&nbsp;\{PROMOT_TRAFIC_TITLE\}</span>\par
+\tab <div class="clear"></div>\par
+\tab <div>\par
+\tab\tab <!-- BEGIN link -->\par
+\tab\tab &raquo;&nbsp;<a href="\{promot_trafic.link.U_HREF\}" target="_blank" title="\{promot_trafic.link.TITLE\}" rel="nofollow">\{promot_trafic.link.TITLE\}</a><br />\par
+\tab\tab <!-- END link -->\par
+\tab </div>\par
+\tab <span class="corners-bottom"><span></span></span>\par
+</div>\par
+<!-- END promot_trafic -->\par
+\par
+<!-- BEGIN switch_forum_rules -->\par
+<div class="post row1" id="forum_rules">\par
+\tab <span class="corners-top"><span></span></span>\par
+\tab <div class="h3">&nbsp;\{L_FORUM_RULES\}</div>\par
+\tab <div class="clear"></div>\par
+\tab <table class="postbody">\par
+\tab\tab <tr>\par
+\tab\tab\tab <!-- BEGIN switch_forum_rule_image -->\par
+\tab\tab\tab <td class="logo">\par
+\tab\tab\tab\tab <img src="\{RULE_IMG_URL\}" alt="" />\par
+\tab\tab\tab </td>\par
+\tab\tab\tab <!-- END switch_forum_rule_image -->\par
+\tab\tab\tab <td class="rules content">\par
+\tab\tab\tab\tab\{RULE_MSG\}\par
+\tab\tab\tab </td>\par
+\tab\tab </tr>\par
+\tab </table>\par
+\tab <span class="corners-bottom"><span></span></span>\par
+</div>\par
+<!-- END switch_forum_rules -->\par
+\par
+<!-- BEGIN switch_user_logged_in -->\par
+<a name="quickreply"></a>\par
+\{QUICK_REPLY_FORM\}\par
+<!-- END switch_user_logged_in -->\par
+\par
+<hr />\par
+\par
+<div class="topic-actions">\par
+\tab <div class="buttons">\par
+\tab\tab <!-- BEGIN switch_user_authpost -->\par
+\tab\tab <a href="\{U_POST_NEW_TOPIC\}" rel="nofollow"><img src="\{POST_IMG\}" class="\{POST_IMG_CLASS\}" alt="\{L_POST_NEW_TOPIC\}" /></a>&nbsp;&nbsp;&nbsp;\par
+\tab\tab <!-- END switch_user_authpost -->\par
+\par
+\tab\tab <!-- BEGIN switch_user_authreply -->\par
+\tab\tab <a href="\{U_POST_REPLY_TOPIC\}"><img src="\{REPLY_IMG\}" class="i_reply" alt="\{L_POST_REPLY_TOPIC\}" /></a>\par
+\tab\tab <!-- END switch_user_authreply -->\par
+\tab </div>\par
+\par
+\tab <div class="pathname-box">\par
+\tab\tab <p><a class="nav" href="\{U_INDEX\}">\{L_INDEX\}</a>\{NAV_SEP\}<a class="nav" href="\{U_ALBUM\}">\{L_ALBUM\}</a>\{NAV_CAT_DESC\}</p>\par
+\tab </div>\par
+\par
+\tab <div class="pagination">\par
+\tab\tab\{PAGE_NUMBER\}\par
+\tab </div>\par
+</div>\par
+<div class="clear"></div>\par
+\par
+<!-- BEGIN viewtopic_bottom -->\par
+<form action="\{S_JUMPBOX_ACTION\}" method="get" onsubmit="if(document.jumpbox.f.value == -1)\{return false;\}">\par
+<fieldset class="jumpbox">\par
+\tab <label>\{L_JUMP_TO\}:&nbsp;</label>\par
+\tab\{S_JUMPBOX_SELECT\}&nbsp;\par
+\tab <input class="button2" type="submit" value="\{L_GO\}" />\par
+</fieldset>\par
+</form>\par
+<!-- END viewtopic_bottom -->\par
+\par
+<!-- BEGIN viewtopic_bottom -->\par
+<form method="get" action="\{S_FORM_MOD_ACTION\}">\par
+<fieldset class="quickmod">\par
+\tab <input type="hidden" name="t" value="\{TOPIC_ID\}" />\par
+\par
+\tab <!-- <input type="hidden" name="sid" value="\{S_SID\}" /> -->\par
+\tab <input type="hidden" name="\{SECURE_ID_NAME\}" value="\{SECURE_ID_VALUE\}" />\par
+\tab <label>\{L_MOD_TOOLS\}:&nbsp;</label>\par
+\tab\{S_SELECT_MOD\}&nbsp;\par
+\tab <input class="button2" type="submit" value="\{L_GO\}" />\par
+</fieldset>\par
+</form>\par
+<div class="clear"></div>\par
+<p class="right">\{S_TOPIC_ADMIN\}</p>\par
+<!-- END viewtopic_bottom -->\par
+\par
+<!-- BEGIN show_permissions -->\par
+\tab <div class="h3">\{L_TABS_PERMISSIONS\}</div>\par
+\tab\{S_AUTH_LIST\}\par
+<!-- END show_permissions -->\par
+\par
+<!-- BEGIN switch_image_resize -->\par
+<script type="text/javascript">\par
+//<![CDATA[\par
+$(resize_images(\{ 'selector' : '.postbody .content', 'max_width' : \{switch_image_resize.IMG_RESIZE_WIDTH\}, 'max_height' : \{switch_image_resize.IMG_RESIZE_HEIGHT\} \}));\par
+//]]>\par
+</script>\par
+<!-- END switch_image_resize -->\par
+  <script> \par
+    $(window).load(function() \{\par
+    $('.post:eq(0)').after('<div class="sharepostadipst">\par
+    <a id="favoritosharepost" href="/search.forum?search_id=favouritesearch&amp;add_favourite=\{TOPIC_ID\}">Add Favorites</a>\par
+    <a id="friendsharepost" href="https://www.facebook.com/sharer/sharer.php?u==\{TOPIC_ID\}">Share to Facebook</a>\par
+    <a id="linksharepost" href="\{TOPIC_URL\}" onclick="link_bbcode();return false">Copy Link</a>   \par
+    </div>');\par
+    \});\par
+    </script>\par
+    <style>\par
+    .sharepostadipst \{\par
+    background: #F5F8FA;\par
+    min-height: 30px;\par
+    padding-top: 15px;\par
+    text-align: center;\par
+    \}\par
+    #favoritosharepost \{\par
+    padding: 7px;\par
+    background-image: url("https://i.imgur.com/f84f9.png");\par
+    background-repeat: no-repeat;\par
+    background-position: left;\par
+    background-color: #fcfcfc;\par
+    border: 1px solid #C4C4C4;\par
+    border-radius: 2px;\par
+    box-shadow: 0 1px 0px #B1B1B1;\par
+    padding-left: 35px;\par
+    text-shadow: 1px 1px white;\par
+    font-weight: bold;\par
+    \}\par
+    #friendsharepost \{\par
+    padding: 7px;\par
+    background-image: url("https://i.servimg.com/u/f39/14/94/21/38/fb-30x10.png");\par
+    background-repeat: no-repeat;\par
+    background-position: left;\par
+    background-color: #fcfcfc;\par
+    border: 1px solid #C4C4C4;\par
+    border-radius: 2px;\par
+    box-shadow: 0 1px 0px #B1B1B1;\par
+    padding-left: 35px;\par
+    text-shadow: 1px 1px white;\par
+    font-weight: bold;\par
+    \}\par
+    #linksharepost \{\par
+    padding: 7px;\par
+    background-image: url("https://i.imgur.com/U9PWu.png");\par
+    background-repeat: no-repeat;\par
+    background-position: left;\par
+    background-color: #fcfcfc;\par
+    border: 1px solid #C4C4C4;\par
+    border-radius: 2px;\par
+    box-shadow: 0 1px 0px #B1B1B1;\par
+    padding-left: 35px;\par
+    text-shadow: 1px 1px white;\par
+    font-weight: bold;\par
+    \}\par
+    #favoritosharepost:hover , #friendsharepost:hover , #linksharepost:hover \{\par
+    background-color: #ffff00;\par
+    \}\par
+    .sharepostadipst a \{\par
+    margin: 0px 10px;\par
+    \}\par
+    .postNumberContainer \{ text-align:right \}\par
+a.postNumber \{\par
+    border-radius: 14px;\par
+    box-sizing: border-box;\par
+    color: #fff;\par
+    display: inline-block!important;\par
+    font-family: Verdana,Arial,Helvetica,sans-serif;\par
+    font-size: 0.9em;\par
+    font-weight: 700;\par
+    height: 10px;\par
+    padding: 2px 3px;\par
+    margin-top:-17px;\par
+\}\par
+.postbody h2.topic-title a \{\par
+    font-size: 0.7em;\par
+    font-weight: 500;\par
+  margin-top:-22px;\par
+    color: #fff;\par
+   letter-spacing: 2px;\par
+\}\par
+    </style>\par
+\par
+<script src="\{JS_DIR\}addthis/addthis_widget.js" type="text/javascript"></script>\par
+\par
+<img src="\{postrow.displayed.MINI_POST_IMG\}" alt="\{postrow.displayed.L_MINI_POST_ALT\}" title="\{postrow.displayed.L_MINI_POST_ALT\}" />&nbsp;\{L_TOPIC_BY\}&nbsp;\{postrow.displayed.POSTER_NAME\} \par
+}
+ 

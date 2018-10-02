@@ -1,0 +1,2128 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Bookman Old Style;}{\f1\fnil\fcharset2 Wingdings;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 $(function() \{\par
+    var fields = [document.getElementById('profile_field_2_-20'), document.getElementById('profile_field_2_5')],\par
+        i = 0,\par
+        j = fields.length;\par
+    for (; i < j; i++) \{\par
+        if (fields[i]) \{\par
+            fields[i].onfocus = function() \{\par
+                this.onfocus = null;\par
+                this.value += (this.value ? '\\n' : '') + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + (new Date().getFullYear() - 2000) + ' ([url=http://help.forumotion.com/u' + _userdata.user_id + '][b]' + _userdata.username + '[/b][/url]) : ';\par
+                this.scrollTop = 99999\par
+            \}\par
+        \}\par
+    \}\par
+\});\par
+$(function() \{\par
+    var right, area, share, s = document.createElement('SPAN'),\par
+        pinterest = document.createElement('A');\par
+    $(function() \{\par
+        right = document.getElementById('fa_right');\par
+        area = document.getElementById('fa_textarea');\par
+        share = document.getElementById('fa_share');\par
+        if (share) \{\par
+            pinterest.id = 'fa_pinterest';\par
+            pinterest.onclick = function(e) \{\par
+                var media = prompt('You\\'re about to pin this page. Share an image ?');\par
+                if (media == null) return false;\par
+                else if (media == '') media = $('meta[property="og:image"]').attr('content') || '';\par
+                window.open('http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(window.location.href) + (media ? '&media=' + encodeURIComponent(media) : '') + '&description=' + encodeURIComponent(document.title), '', 'menubar=no,status=no,scrollbars=no,width=800,height=600');\par
+                e.preventDefault()\par
+            \};\par
+            share.insertBefore(pinterest, document.getElementById('fa_mail'))\par
+        \}\par
+        if (area) \{\par
+            if (area.setAttribute) area.setAttribute('style', 'text-indent:0px !important;');\par
+            area.value = 'Search...';\par
+            area.onclick = function() \{\par
+                if (this.value == 'Search...') this.value = ''\par
+            \};\par
+            area.onblur = function() \{\par
+                if (!this.value) this.value = 'Search...'\par
+            \};\par
+            document.getElementById('fa_magnifier').onclick = function() \{\par
+                this.parentNode.submit()\par
+            \}\par
+        \}\par
+        if (_userdata.session_logged_in) \{\par
+            s.innerHTML = _userdata.avatar.replace(/<img (src=".*)/, '<img style="height:25px;width:25px;vertical-align:middle;margin-bottom:-3px;margin-right:3px;" $1');\par
+            right && right.insertBefore(s, right.firstChild)\par
+        \}\par
+    \})\par
+\});\par
+(function($) \{\par
+    if (typeof FA === 'undefined') FA = \{\};\par
+    FA.Ready = function(callback, id) \{\par
+        var ready, node;\par
+        if (!id) id = 'page-footer';\par
+        (function crawl() \{\par
+            node = document.getElementById(id);\par
+            node || ready ? callback(node) : window.setTimeout(crawl, 100)\par
+        \})();\par
+        $(function() \{\par
+            ready = true\par
+        \})\par
+    \};\par
+    FA.Encode = function(string) \{\par
+        return encodeURIComponent(escape(string).replace(/%u[A-F0-9]\{4\}/g, function(match) \{\par
+            return '&#' + parseInt(match.substr(2), 16) + ';'\par
+        \})).replace(/%25/g, '%')\par
+    \};\par
+    'outils additionnel';\par
+    'par ange tuteur'\par
+\})(jQuery);\par
+location.pathname == '/post' && $(function() \{\par
+    if (!document.post || document.post.mode.value != 'newtopic' || (document.post.f.value != 30 && document.post.f.value != 28)) return;\par
+    $(document.post.poll_title).closest('fieldset').html('<strong>The poll will be added automatically.</strong><input type="hidden" name="poll_title" value="Do you agree or disagree ?" /><input type="hidden" name="poll_option_text" value="Agree\\nDisagree"><input type="hidden" name="poll_length" value="0" /><input type="hidden" name="poll_cancel_vote" value="1" />')\par
+\});\par
+$(function() \{\par
+    var head = document.getElementById('page-header');\par
+    if (head) \{\par
+        for (var cleanURI = window.location.href.replace(/\\?.*|#.*/, ''), a = head.getElementsByTagName('A'), i = 0, j = a.length; i < j; i++) \{\par
+            if (/mainmenu/.test(a[i].className) && cleanURI == a[i].href.replace(/\\?.*|#.*/, '')) \{\par
+                a[i].className += ' fa_navactif';\par
+                break\par
+            \}\par
+        \}\par
+    \}\par
+\});\par
+\par
+function selectCode(e) \{\par
+    var doc = document,\par
+        text = $(e).closest("dl").find(".cont_code,code").get(0),\par
+        range, selection;\par
+    if (doc.body.createTextRange) \{\par
+        range = document.body.createTextRange();\par
+        range.moveToElementText(text);\par
+        range.select()\par
+    \} else if (window.getSelection) \{\par
+        selection = window.getSelection();\par
+        range = document.createRange();\par
+        range.selectNodeContents(text);\par
+        selection.removeAllRanges();\par
+        selection.addRange(range)\par
+    \}\par
+\};\par
+$(function() \{\par
+    $("dl.codebox:not(.spoiler,.hidecode)  > dd.code, dl.codebox:not(.spoiler,.hidecode)  > dd > code").closest("dl").find('dt').append('<span onClick="selectCode(this)" class="selectCode">Select Content</span>')\par
+\});\par
+$(function() \{\par
+    if (!_userdata.user_level || !$.sceditor) return;\par
+    var username = _userdata.username,\par
+        id = 'u' + _userdata.user_id,\par
+        color = '#3399CC',\par
+        i, mods = \{\par
+            u1: '#FFA500',\par
+            u6001: '#FF6600',\par
+            u12326: '#F82A08',\par
+            u26520: '#FF7F50',\par
+            u51230: '#008000',\par
+            u62751: '#990099',\par
+            u92718: '#68b800',\par
+            u46681: '#E25038',\par
+            u7426: '#8AAC02',\par
+            u103250: '#003366',\par
+            u34860: '#F5AE42',\par
+            u84023: '#0000FF',\par
+            u56695: '#00B2FF'\par
+        \};\par
+    for (i in mods) \{\par
+        if (id == i) \{\par
+            color = mods[i];\par
+            break\par
+        \}\par
+    \}\par
+    presets = \{\par
+        general: \{\par
+            'Topic Solved': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]Problem solved & topic archived.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Explicit Title': '[table class="modAlert modAlertEdit"][tr][td class="modAlertImage"][/td]\\n[td class="modAlertText"]Please change the title of your topic to something that is related to your question\\/issue, so that other users will be able to find their question\\/issue using the search engine.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Double Post': '[table class="modAlert modAlertEdit"][tr][td class="modAlertImage"][/td]\\n[td class="modAlertText"]Please don\\'t double post. Your posts need to be separated by 24 hours before bumping. Please use the edit button, instead!\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Bold and Color': '[table class="modAlert modAlertEdit1"][tr][td class="modAlertImage1"][/td]\\n[td class="modAlertText"]Please don\\'t use bold or color and keep to the default text. This is reserved for the staff for moderation.  Thank you.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Backseat Moderation': '[table class="modAlert modAlertEdit3"][tr][td class="modAlertImage3"][/td]\\n[td class="modAlertText"]Please refrain from moderating members, as this is a staff member\\'s job.  Thank you.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Excessive Caps': '[table class="modAlert modAlertEdit1"][tr][td class="modAlertImage1"][/td]\\n[td class="modAlertText"]Please avoid using caps, as it is considered screaming and is very hard to read.  Thank you.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Wrong Section': '[table class="modAlert modAlertEdit1"][tr][td class="modAlertImage1"][/td]\\n[td class="modAlertText"]The topic was posted in the wrong section, so I have moved it to the correct section.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Language not English': '[table class="modAlert modAlertEdit4"][tr][td class="modAlertImage4"][/td]\\n[td class="modAlertText"]Please speak in English, as this is an English support forum.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Garbaged': '[table class="modAlert modAlertEdit6"][tr][td class="modAlertImage6"][/td]\\n[td class="modAlertText"]Topic moved to the garbage.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t93820-general-rules]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]'\par
+        \},\par
+        graphic: \{\par
+            'Mark as Solved': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]Please mark your request as \\'\\'solved\\'\\' if it is completed.\\nClick on the edit button, select solved, and then hit save.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Only 2 requests a week': '[table class="modAlert modAlertEdit10"][tr][td class="modAlertImage10"][/td]\\n[td class="modAlertText"]You can have only 2(two) requests per week(7 days).\\n[size=10]Feel free to make a request 7 days after your last request.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Double Post': '[table class="modAlert modAlertEdit5"][tr][td class="modAlertImage5"][/td]\\n[td class="modAlertText"]Please do not double\\/triple post. Your posts need to be separated by 24 hours before bumping your request.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Request layout incomplete': '[table class="modAlert modAlertEdit7"][tr][td class="modAlertImage7"][/td]\\n[td class="modAlertText"]Please complete the [u]entire[/u] graphic request layout within 24 hours or your request will be declined.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Request refused': '[table class="modAlert modAlertEdit3"][tr][td class="modAlertImage3"][/td]\\n[td class="modAlertText"]You have not added the requested missing information within 24 hours, so your request is refused.\\n[size=10]Feel free to open a new topic with all the required information.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Request unclear': '[table class="modAlert modAlertEdit4"][tr][td class="modAlertImage4"][/td]\\n[td class="modAlertText"]Please be more specific, your request is unclear.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Provide forum link': '[table class="modAlert modAlertEdit9"][tr][td class="modAlertImage9"][/td]\\n[td class="modAlertText"]Please provide the link of your Forumotion forum within 24 hours or your request will be refused.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'No reply in 10 days': '[table class="modAlert modAlertEdit8"][tr][td class="modAlertImage8"][/td]\\n[td class="modAlertText"]Your request has passed 10 days without any reply from you, therefore your topic is moved to \\'\\'Completed Graphic Requests.\\'\\'\\n[size=10]If your request was not completed, feel free to open a new topic with your request.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Thanks for helping': '[table class="modAlert modAlertEdit11"][tr][td class="modAlertImage11"][/td]\\n[td class="modAlertText"]Nice job! Thanks for helping out!\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Garbaged': '[table class="modAlert modAlertEdit6"][tr][td class="modAlertImage6"][/td]\\n[td class="modAlertText"]Topic moved to the garbage.\\n[table class="modAlertExtra"][tr][td]Please read our forum rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]ESF General Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Complete': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]Request complete.\\n[table class="modAlertExtra"][tr][td]Topic moved to [url=https://help.forumotion.com/f34-completed-graphic-requests][b]Completed Graphic Requests[/b][/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Accepted': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]Your gallery proposal is accepted.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Declined': '[table class="modAlert modAlertEdit3"][tr][td class="modAlertImage3"][/td]\\n[td class="modAlertText"]Your gallery proposal is declined.\\n[size=10]The reasons for this decision will be listed below.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t147586-rules-of-the-graphic-design-section]Graphic Request & Proposal Rules[/url][/td][/tr][/table][/td][/tr][/table]'\par
+        \},\par
+        review: \{\par
+            'Complex Review': '#Review #Complex #' + username + '_Review \\n\\n[hr]\\n\\n[table class="tuto-header review"][tr]\\n[td class="tuto-logo"][/td]\\n[td class="tuto-title"]Free Forumotion Service: Complex Review[/td]\\n[td class="tuto-type"][/td]\\n[/tr][/table]\\n[table class="tuto-content"][tr][td]\\n\\n[center][img]https://i.servimg.com/u/f18/16/89/96/68/yfr11.png[/img]\\n[size=18][font=Trebuchet MS]Forum Title[/font][/size][/center]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3776?[/font][/b][/color] [/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]First Impressions[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3476?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Forum Appearance [/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\f1\'c0\f0 [/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Members and Forum Activity[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3492?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Staff and Usergroups[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\f1\'d0\f0 [/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Forum Originality[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3812?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Grammar and Spelling[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\u-3624?[/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Reviewer\\'s Feedback[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[hr]\\n[table  style="width:100%;"][tr][td style="text-align:center;"][b][color=#3399cc]Average[/color] [color=#333333]Review[/color] [color=#3399cc]Score[/color]:[/b] Enter Score Here /10[/td][/tr][/table]\\n\\n[hr]\\n\\nWould you like to share your review on your forum, on another forum, or with your friends? Then here you go... grab the code!\\n[code]Paste your review here[/code]\\n\\n[/td][/tr][/table]\\n[table class="tuto-footer"][tr][td class="tuto-credit"]\\nForum Review Supplied By: [url=https://help.forumotion.com/' + id + '][b]' + username + '[/b][/url]\\n[color=#ff0000][b]Note: Please be reminded that members are not allowed to use this template for reviewing as it is reserved for the staff only. Thank you.[/b][/color]\\n[b][color=#3399cc]Foru[/color][color=#333333]motion[/color] [color=#3BB675]Review Team[/color][/b]\\n[/td][td class="tuto-brand"][/td][/tr][/table]',\par
+            'Simple Review': '#Review #Simple #' + username + '_Review \\n\\n[hr]\\n\\n[table class="tuto-header review"][tr]\\n[td class="tuto-logo"][/td]\\n[td class="tuto-title"]Free Forumotion Service: Simple Review[/td]\\n[td class="tuto-type"][/td]\\n[/tr][/table]\\n[table class="tuto-content"][tr][td]\\n[center][img]https://i.servimg.com/u/f18/16/89/96/68/yfr11.png[/img]\\n[size=18][font=Trebuchet MS]Forum Title[/font][/size][/center]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3776?[/font][/b][/color] [/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]First Impressions[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3476?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Forum Appearance [/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\f1\'c0\f0 [/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Members and Forum Activity[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3492?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Staff and Usergroups[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\f1\'d0\f0 [/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Forum Originality[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3812?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Grammar and Spelling[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"][color=#ffffff][b][font=FontAwesome]\u-3624?[/font][/b][/color][/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]Reviewer\\'s Feedback[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n\\n[hr]\\n[list][*][b]Feedback[/b]\\n[list]\\n[*] Give a short feedback for all areas here\\n[/list]\\n\\n[*][b]Forum Strengths[/b]\\n[list]\\n[*] List the forum strengths here\\n[/list]\\n\\n[*][b]Forum Weaknesses[/b]\\n[list]\\n[*] List the forum weaknesses here\\n[/list][/list]\\n[hr]\\n[table  style="width:100%;"][tr][td style="text-align:center;"][b][color=#3399cc]Average[/color] [color=#333333]Review[/color] [color=#3399cc]Score[/color]:[/b] Enter Score Here /10[/td][/tr][/table]\\n\\n[hr]\\n\\nWould you like to share your review on your forum, on another forum, or with your friends? Then here you go... grab the code!\\n[code]Paste your review here[/code]\\n\\n[/td][/tr][/table]\\n[table class="tuto-footer"][tr][td class="tuto-credit"]\\nForum Review Supplied By: [url=https://help.forumotion.com/' + id + '][b]' + username + '[/b][/url]\\n[color=#ff0000][b]Note: Please be reminded that members are not allowed to use this template for reviewing as it is reserved for the staff only. Thank you.[/b][/color]\\n[b][color=#3399cc]Foru[/color][color=#333333]Motion[/color] [color=#3BB675]Review Team[/color][/b]\\n[/td][td class="tuto-brand"][/td][/tr][/table]',\par
+            'Two Area Review': '#Review #Two_area #' + username + '_Review \\n\\n[hr]\\n\\n[table class="tuto-header review"][tr]\\n[td class="tuto-logo"][/td]\\n[td class="tuto-title"]Free Forumotion Service: Two Area Review[/td]\\n[td class="tuto-type"][/td]\\n[/tr][/table]\\n[table class="tuto-content"][tr][td]\\n\\n[center][img]https://i.servimg.com/u/f18/16/89/96/68/yfr11.png[/img]\\n[size=18][font=Trebuchet MS]Forum Title[/font][/size][/center]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3776?[/font][/b][/color] [/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]AREA NAME[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#333;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3476?[/font][/b][/color][/td][td style="background:#333;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]AREA NAME[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[hr]\\n[table  style="width:100%;"][tr][td style="text-align:center;"][b][color=#3399cc]Average[/color] [color=#333333]Review[/color] [color=#3399cc]Score[/color]:[/b] Enter Score Here /10[/td][/tr][/table]\\n\\n[hr]\\n\\nWould you like to share your review on your forum, on another forum, or with your friends? Then here you go... grab the code!\\n[code]Paste your review here[/code]\\n\\n[/td][/tr][/table]\\n[table class="tuto-footer"][tr][td class="tuto-credit"]\\nForum Review Supplied By: [url=https://help.forumotion.com/' + id + '][b]' + username + '[/b][/url]\\n[color=#ff0000][b]Note: Please be reminded that members are not allowed to use this template for reviewing as it is reserved for the staff only. Thank you.[/b][/color]\\n[b][color=#3399cc]Foru[/color][color=#333333]Motion[/color] [color=#3BB675]Review Team[/color][/b]\\n[/td][td class="tuto-brand"][/td][/tr][/table]',\par
+            'One Area Review': '#Review #One_area #' + username + '_Review \\n\\n[hr]\\n\\n[table class="tuto-header review"][tr]\\n[td class="tuto-logo"][/td]\\n[td class="tuto-title"]Free Forumotion Service: One Area Review[/td]\\n[td class="tuto-type"][/td]\\n[/tr][/table]\\n[table class="tuto-content"][tr][td]\\n\\n[center][img]https://i.servimg.com/u/f18/16/89/96/68/yfr11.png[/img]\\n[size=18][font=Trebuchet MS]Forum Title[/font][/size][/center]\\n\\n[table  width="100%;"][tr][td valign="middle" width="50px" style="font-size:20px;background:#39c;padding:8px;text-align:center;border-radius:2px 0 0 2px;"] [color=#ffffff][b][font=FontAwesome]\u-3776?[/font][/b][/color] [/td][td style="background:#39c;padding-left:5px;width:38%;text-align:center;border-radius:0 2px 2px 0"][color=#FFFFFF][b][size=14]AREA NAME[/size][/b][/color][/td][td style="text-align:right;" align="right" valign="middle"][img]INSERT YOUR RATE IMAGE URL HERE[/img][/td][/tr][/table]\\n[list]\\n[*]Feedback here\\n[/list]\\n[hr]\\n[table  style="width:100%;"][tr][td style="text-align:center;"][b][color=#3399cc]Average[/color] [color=#333333]Review[/color] [color=#3399cc]Score[/color]:[/b] Enter Score Here /10[/td][/tr][/table]\\n\\n[hr]\\n\\nWould you like to share your review on your forum, on another forum, or with your friends? Then here you go... grab the code!\\n[code]Paste your review here[/code]\\n\\n[/td][/tr][/table]\\n[table class="tuto-footer"][tr][td class="tuto-credit"]\\nForum Review Supplied By: [url=https://help.forumotion.com/' + id + '][b]' + username + '[/b][/url]\\n[color=#ff0000][b]Note: Please be reminded that members are not allowed to use this template for reviewing as it is reserved for the staff only. Thank you.[/b][/color]\\n[b][color=#3399cc]Foru[/color][color=#333333]Motion[/color] [color=#3BB675]Review Team[/color][/b]\\n[/td][td class="tuto-brand"][/td][/tr][/table]',\par
+            'Give Rating': function() \{\par
+                var n = prompt('For Blue ratings use numbers 1 to 10. For Black ratings use numbers 11 to 20.'),\par
+                    rating = ['{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f38/17/11/51/16/rna_zp10.png }}{\fldrslt{https://i.servimg.com/u/f38/17/11/51/16/rna_zp10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/110.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/110.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/210.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/210.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/310.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/310.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/410.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/410.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/510.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/510.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/610.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/610.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/710.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/710.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/810.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/810.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/910.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/910.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/1011.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/1011.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/1_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/1_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/2_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/2_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/3_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/3_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/4_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/4_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/5_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/5_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/6_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/6_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/7_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/7_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/8_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/8_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/9_b10.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/9_b10.png\ul0\cf0}}}}\f0\fs22 ', '{{\field{\*\fldinst{HYPERLINK https://i.servimg.com/u/f62/18/64/98/14/10_b11.png }}{\fldrslt{https://i.servimg.com/u/f62/18/64/98/14/10_b11.png\ul0\cf0}}}}\f0\fs22 '];\par
+                n = +n;\par
+                return rating[!n ? 0 : n > 20 ? 20 : n]\par
+            \},\par
+            'Tagged': '[table class="modAlert modAlertEdit12"][tr][td class="modAlertImage12"][/td]\\n[td class="modAlertText"]Tagged:  This request will be completed within 24 to 72 hours.\\nThank you for your patience!\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Double Post': '[table class="modAlert modAlertEdit"][tr][td class="modAlertImage"][/td]\\n[td class="modAlertText"]Please don\\'t double post. Your posts need to be separated by 72 hours before bumping. Please use the edit button, instead!\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Foreign Language': '[table class="modAlert modAlertEdit4"][tr][td class="modAlertImage4"][/td]\\n[td class="modAlertText"]We can\\'t review your forum due to the spoken language within it. We only review English forums without any exceptions, unfortunately your request has been refused.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Does not meet Requirements': '[table class="modAlert modAlertEdit5"][tr][td class="modAlertImage5"][/td]\\n[td class="modAlertText"]Your forum does not meet the specific requirements for the requested review type. Please update your request within 24 hours with a review type that meets our requirements.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Requester not Admin': '[table class="modAlert modAlertEdit13"][tr][td class="modAlertImage13"][/td]\\n[td class="modAlertText"]You must be an Administrator of your forum to request a review.  Feel free to ask your administrators to request a review in the future.\\n[size=10]Request refused.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Request not in proper format': '[table class="modAlert modAlertEdit7"][tr][td class="modAlertImage7"][/td]\\n[td class="modAlertText"]Your request is not in the proper format mentioned in the guidelines. Next time, copy and paste the code given in the code box in the guidelines.\\n[size=10]Your request has been refused.[/size]\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Cannot review': '[table class="modAlert modAlertEdit3"][tr][td class="modAlertImage3"][/td]\\n[td class="modAlertText"]Your forum cannot be reviewed because a review of your forum has already been completed. You must wait until the time span finished in order for you to request a new review with this type.\\n[table class="modAlertExtra"][tr][td]Please read our section rules:  [url=https://help.forumotion.com/t155944-review-section-rules-templates]Review Section Requesting Guidelines[/url][/td][/tr][/table][/td][/tr][/table]',\par
+            'Member Completed Review': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]Your review has been proofread and marked \\'\\'Complete\\'\\'.\\n[table class="modAlertExtra"][tr][td]This topic is now moved to \\'\\'[url=https://help.forumotion.com/f61-completed-review-requests]Completed Review Requests[/url].\\'\\'[/td][/tr][/table][/td][/tr][/table]',\par
+            'Reviewer Completed Review': '[table class="modAlert modAlertEdit2"][tr][td class="modAlertImage2"][/td]\\n[td class="modAlertText"]This review is now marked as \\'\\'Completed\\'\\'.\\n[table class="modAlertExtra"][tr][td]This topic is now moved to \\'\\'[url=https://help.forumotion.com/f61-completed-review-requests]Completed Review Requests[/url].\\'\\'[/td][/tr][/table][/td][/tr][/table]'\par
+        \},\par
+        tutorial: \{\par
+            'New Template': function() \{\par
+                var type = prompt('What type of template do you want ? Options : announcement, tutorial, rules, graphic'),\par
+                    closing = '';\par
+                if (type) \{\par
+                    type = type.toLowerCase();\par
+                    if (!/announcement|tutorial|rules|review|graphic/.test(type)) type = 'announcement'\par
+                \} else type = 'announcement';\par
+                switch (type) \{\par
+                    case 'tutorial':\par
+                        closing = 'This tutorial was written by [url=https://help.forumotion.com/' + _userdata.user_id + '][b]' + _userdata.username + '[/b][/url].';\par
+                        break;\par
+                    default:\par
+                        closing = '[center]A [b][color=#3399CC]Forum[/color][color=#333333]otion[/color][/b] Important Announcement[/center]';\par
+                        break\par
+                \}\par
+                return ['[table class="tuto-header ' + type + '"][tr]\\n[td class="tuto-logo"][/td]\\n[td class="tuto-title"]' + type + ' title[/td]\\n[td class="tuto-type"][/td]\\n[/tr][/table]\\n[table class="tuto-content"][tr][td]\\n\\n', '\\n\\n[/td][/tr][/table]\\n[table class="tuto-footer"][tr][td class="tuto-credit"]' + closing + '[/td][td class="tuto-brand"][/td][/tr][/table]']\par
+            \},\par
+            'Post Button': function() \{\par
+                var color = prompt('Please choose a color. Available colors are : red, green, and yellow. (default is blue)'),\par
+                    url = prompt('Next, please insert an URL for this button.'),\par
+                    text = prompt('Lastly, please insert the text you want displayed.');\par
+                if (!/red|green|yellow/i.test(color)) color = '';\par
+                else color = color.toLowerCase();\par
+                if (!url) url = window.location.href;\par
+                if (!text) text = 'Button';\par
+                return ['[table class="post-button ' + color + '"][tr][td][url=' + url + ']' + text, '[/url][/td][/tr][/table]']\par
+            \},\par
+            '<span style="color:#1675BC;font-weight:bold;border-bottom:1px solid;padding-bottom:3px;">Section Title</span>': ['[h2][img]https://i.servimg.com/u/f39/18/51/81/51/09615110.png[/img]', '[/h2]'],\par
+            '<strong style="color:#39C">Forum<span style="color:#333">otion</span></strong>': '[b][color=#3399CC]Forum[/color][color=#333333]otion[/color][/b]',\par
+            '<span style="color:#936;font-size:11px;font-weight:bold;font-family:\\'Courier New\\';">Keyword</span>': ['[color=#993366][font=Courier New][b]', '[/b][/font][/color]'],\par
+            '<img src="https://i.servimg.com/u/f39/18/51/81/51/10-10-13.png">Red bubble': '[img]https://i.servimg.com/u/f39/18/51/81/51/10-10-13.png[/img]',\par
+            '<img src="https://i.servimg.com/u/f39/18/51/81/51/09615110.png">Blue bubble': '[img]https://i.servimg.com/u/f39/18/51/81/51/09615110.png[/img]',\par
+            '<img src="https://i.servimg.com/u/f39/18/51/81/51/image110.png">Arrow': '[img]https://i.servimg.com/u/f39/18/51/81/51/image110.png[/img]'\par
+        \}\par
+    \};\par
+    $.sceditor.command.set('modcolor', \{\par
+        exec: function() \{\par
+            this.insertText('[color=' + color + '][b]', '[/b][/color]')\par
+        \},\par
+        txtExec: function() \{\par
+            this.insertText('[color=' + color + '][b]', '[/b][/color]')\par
+        \},\par
+        tooltip: 'Insert mod color (CTRL+M)',\par
+        shortcut: 'ctrl+m'\par
+    \});\par
+    $.sceditor.command.set('presets', \{\par
+        dropDown: function(editor, caller, callback) \{\par
+            var b, c = document.createElement('DIV'),\par
+                d, i, j, k;\par
+            c.innerHTML = '<a class="sceditor-font-option toggler" style="color:#7BB92B" title="Preset messages for moderation on any board."><i class="fa">\f1\'ac\f0 </i> Global presets</a><div class="group" style="display:none"></div><a class="sceditor-font-option toggler" style="color:#D42F58" title="Preset messages for moderation in the graphic section."><i class="fa">\u-3588?</i> Designer presets</a><div class="group" style="display:none"></div><a class="sceditor-font-option toggler" style="color:#32B585" title="Preset messages for moderation in the review section."><i class="fa">\f1\'a1\f0 </i> Reviewer presets</a><div class="group" style="display:none"></div><a class="sceditor-font-option toggler" style="color:#C39300" title="Tools for creating tutorials."><i class="fa">\f1\'d0\f0 </i> Tutorial tools</a><div class="group" style="display:none"></div>';\par
+            b = c.getElementsByTagName('A'), d = c.getElementsByTagName('DIV');\par
+            for (i = 0, j = b.length; i < j; i++) \{\par
+                b[i].onclick = function() \{\par
+                    var n = this.nextSibling,\par
+                        state = n.style.display,\par
+                        d = this.parentNode.getElementsByTagName('DIV');\par
+                    for (var i = 0, j = d.length; i < j; i++) d[i].style.display = 'none';\par
+                    n.style.display = /none/.test(state) ? 'block' : 'none';\par
+                    return false\par
+                \}\par
+            \}\par
+\par
+            function opts(k, i, p) \{\par
+                var a = document.createElement('A');\par
+                a.className = 'sceditor-font-option';\par
+                a.innerHTML = i;\par
+                if (p.constructor != Function) \{\par
+                    a.title = (p.constructor === Array ? p.join('') : p).replace(/\\[.*?\\]|http:\\/\\/.*?\\.(png|gif|jpg|bmp)/g, '').replace(/^\\n+|\\n+$|^\\s+|\\s+$/g, '');\par
+                    a.onclick = function() \{\par
+                        callback(p);\par
+                        editor.closeDropDown(true);\par
+                        return false\par
+                    \}\par
+                \} else \{\par
+                    a.onclick = function() \{\par
+                        callback(p());\par
+                        editor.closeDropDown(true);\par
+                        return false\par
+                    \}\par
+                \}\par
+                switch (k) \{\par
+                    case 'general':\par
+                        d[0].appendChild(a);\par
+                        break;\par
+                    case 'graphic':\par
+                        d[1].appendChild(a);\par
+                        break;\par
+                    case 'review':\par
+                        d[2].appendChild(a);\par
+                        break;\par
+                    case 'tutorial':\par
+                        d[3].appendChild(a);\par
+                        break\par
+                \}\par
+            \};\par
+            for (k in presets)\par
+                for (i in presets[k]) opts(k, i, presets[k][i]);\par
+            editor.createDropDown(caller, 'presets', c)\par
+        \},\par
+        exec: function(c) \{\par
+            insert(c, this)\par
+        \},\par
+        txtExec: function(c) \{\par
+            insert(c, this)\par
+        \},\par
+        tooltip: 'Preset messages (CTRL+P)',\par
+        shortcut: 'ctrl+p'\par
+    \});\par
+    toolbar += '|modcolor,presets';\par
+\par
+    function insert(c, e) \{\par
+        $.sceditor.command.get('presets').dropDown(e, c, function(content) \{\par
+            content.constructor === Array ? e.insertText(content[0], content[1]) : e.insertText(content)\par
+        \})\par
+    \};\par
+    'par ange tuteur'\par
+\});\par
+$(function() \{\par
+    var a = document.getElementById('text_editor_textarea'),\par
+        d = document.getElementById('textarea_content'),\par
+        c = window.location.search,\par
+        id = c.replace(/.*?f=(\\d+).*/, '$1'),\par
+        requests = '[color=#3399CC][b]Creation Type[/b][/color]:\\n[color=#333333][b]Size (In Pixels)[/b][/color]:\\n[color=#3399CC][b]Primary Colors[/b][/color]:\\n[color=#333333][b]Secondary Colors[/b][/color]:\\n[color=#3399CC][b]Images to include[/b][/color]:\\n[color=#333333][b]Text to Insert[/b][/color]:\\n[color=#3399CC][b]Font (Provide Download Link)[/b][/color]:\\n[color=#333333][b]Font Color[/b][/color]:\\n[color=#3399CC][b]Link to My Forumotion Forum[/b][/color]:\\n[color=#333333][b]Username on Your Forum[/b][/color]:\\n[color=#3399CC][b]Link to your Last Graphics Request[/b][/color]:\\n[color=#333333][b]Detailed Description[/b][/color]:',\par
+        proposals = '[color=#3399CC][b]Font[/b][/color]:\\n[color=#333333][b]Font Size[/b][/color]:\\n[color=#3399CC][b]Blank Image[/b][/color]:\\n[color=#333333][b]Creation File[/b][/color]:',\par
+        b;\par
+    if (a && $.sceditor) \{\par
+        $(function() \{\par
+            b = $(a).sceditor('instance');\par
+            a.value && b.val(a.value);\par
+            if (/mode=newtopic/.test(c)) \{\par
+                if (id == 31) b.val(requests);\par
+                else if (id == 8) b.val(proposals)\par
+            \}\par
+            $('.sceditor-container iframe', d).contents().find('body').css('font-family', 'Verdana,Arial,Helvetica,sans-serif,FontAwesome')\par
+        \})\par
+    \} else if (a && /mode=newtopic/.test(c)) \{\par
+        if (id == 31) a.value = requests;\par
+        else if (id == 8) a.value = proposals\par
+    \}\par
+\});\par
+$(function() \{\par
+    location.href == "{{\field{\*\fldinst{HYPERLINK http://help.forumotion.com/f123-topic-it-support }}{\fldrslt{http://help.forumotion.com/f123-topic-it-support\ul0\cf0}}}}\f0\fs22 " && $(function() \{\par
+        window.location.replace("https://support.topicit.net")\par
+    \});\par
+    if ($('#topicitsupport').length) \{\par
+        $('#topicitsupport').closest('dl.icon').find('dd.topics, dd.posts').remove()\par
+    \}\par
+\});\par
+$(function() \{\par
+    if (_userdata.session_logged_in && !_userdata.user_posts && my_getcookie('fa_intro') != 'true') \{\par
+        my_setcookie('fa_intro', 'true');\par
+        FA.Popup.open('', 'Welcome to our community', function(popup) \{\par
+            popup.innerHTML = '<div class="panel introduction" style="font-size:12px;"><div class="inner"><span class="corners-top"><span></span></span>Welcome to the Official Support Forum of <b style="color:#39C;">Forum</b><b style="color:#333;">otion</b>, ' + _userdata.username + '! We\\'re glad to have you ! Before you post please make sure that you read our <a href="/t93820-general-rules" target="_blank">rules</a>. It is recommend that you reread them from time to time because they might change without notice to you. Furthermore, seeing as you\\'re new to the forum there will be some restrictions on your account until you\\'ve made at least <b>1 post</b>. Below you will find some links that will help you get started with the community.<br/><br/><ul><li><b>Profile and Community</b></li><li><a href="/t136243-members-introduction" target="_blank">Introduce yourself</a></li><li><a href="/profile?mode=editprofile" target="_blank">Setup profile</a></li><br/><li><b>Forum</b></li><li><a href="/t368-forumotion-team" target="_blank">Forum Staff</a></li><li><a href="/t61210-list-of-tricks-tips" target="_blank">Tips and Tricks</a></li><li><a href="/t59451-frequently-asked-questions" target="_blank">Frequently Asked Questions</a></li><br/><li><b>Problems</b></li><li><a href="/h7-post-a-new-topic" target="_blank">Submit a request for help</a></li><li><a href="/t12330-complaint-against-a-forum-how-to" target="_blank">Complaint against a forum</a></li><li><a href="/t127211-password-problems#849991" target="_blank">Password Problems</a></li></ul><br/><br/>We look forward to seeing you on the forum !<br/><br/>Cordially,<br/>The <b style="color:#39C">Forum</b><b style="color:#333">otion</b> team<span class="corners-bottom"><span></span></span><div></div>'\par
+        \})\par
+    \}\par
+\});\par
+(function() \{\par
+    if (!window.FA) window.FA = \{\};\par
+    if (FA.Nav) \{\par
+        if (window.console && console.warn) console.warn('FA.Nav has already been defined');\par
+        return\par
+    \}\par
+    FA.Nav = \{\par
+        targetNode: '#page-header .navlinks',\par
+        customNav: '<li id="sticky_forum_options"><a href="javascript:FA.Nav.copyURL();" class="mainmenu" title="Copy BBCode URL"><i class="fa">&#xf0c1;</i></a>' + (/\\/t\\d+/.test(window.location.href) ? '<a href="/search?add_favourite=' + window.location.href.replace(/.*?\\/t(\\d+).*/, '$1') + '&search_id=favouritesearch" class="mainmenu" title="Add this topic to your favourites"><i class="fa">&#xf005;</i></a>' : '') + '</li>',\par
+        keepDefault: true,\par
+        collapsible: true,\par
+        offsets: \{\par
+            tbVisible: \{\par
+                bottom: 31,\par
+                top: '31px'\par
+            \},\par
+            tbHidden: \{\par
+                bottom: 0,\par
+                top: '0px'\par
+            \},\par
+            toggler: '30px'\par
+        \},\par
+        activeOffset: \{\},\par
+        visible: false,\par
+        checkState: function() \{\par
+            if (!FA.Nav.animating) \{\par
+                var hidden = FA.Nav.barStatic.getBoundingClientRect().bottom <= FA.Nav.activeOffset.bottom;\par
+                if (hidden && FA.Nav.barSticky.style.top != FA.Nav.activeOffset.top) \{\par
+                    if (FA.Nav.toggler) FA.Nav.toggler.style.top = FA.Nav.offsets.toggler;\par
+                    FA.Nav.barSticky.style.top = FA.Nav.activeOffset.top;\par
+                    FA.Nav.visible = true\par
+                \} else if (!hidden && FA.Nav.barSticky.style.top != '-30px') \{\par
+                    if (FA.Nav.toggler) FA.Nav.toggler.style.top = '-30px';\par
+                    FA.Nav.barSticky.style.top = '-30px';\par
+                    FA.Nav.visible = false\par
+                \}\par
+            \}\par
+        \},\par
+        animating: false,\par
+        animate: function() \{\par
+            if (FA.Nav.visible) \{\par
+                FA.Nav.animating = true;\par
+                FA.Nav.barSticky.style.transition = 'none';\par
+                $(FA.Nav.barSticky).animate(\{\par
+                    top: FA.Nav.activeOffset.top\par
+                \}, function() \{\par
+                    FA.Nav.barSticky.style.transition = '';\par
+                    FA.Nav.animating = false;\par
+                    FA.Nav.checkState()\par
+                \})\par
+            \}\par
+        \},\par
+        toggle: function() \{\par
+            if (FA.Nav.barSticky.style.width == '100%') \{\par
+                my_setcookie('fa_sticky_nav', 'hidden');\par
+                FA.Nav.barSticky.style.width = '0%'\par
+            \} else \{\par
+                my_setcookie('fa_sticky_nav', 'shown');\par
+                FA.Nav.barSticky.style.width = '100%'\par
+            \}\par
+            return false\par
+        \},\par
+        copyURL: function() \{\par
+            prompt('Copy the BBCode URL of this page ?', '[url=' + window.location.href + ']' + document.title + '[/url]')\par
+        \}\par
+    \};\par
+    $(function() \{\par
+        FA.Nav.activeOffset = (my_getcookie('toolbar_state') == 'fa_hide' || !_userdata.activate_toolbar) ? FA.Nav.offsets.tbHidden : FA.Nav.offsets.tbVisible;\par
+        if (!_userdata.activate_toolbar) FA.Nav.offsets.toggler = '0px';\par
+        FA.Nav.barStatic = document.querySelector ? document.querySelector(FA.Nav.targetNode) : $(FA.Nav.targetNode)[0];\par
+        if (FA.Nav.barStatic) \{\par
+            FA.Nav.barSticky = FA.Nav.barStatic.cloneNode(FA.Nav.keepDefault);\par
+            if (FA.Nav.customNav) FA.Nav.barSticky.insertAdjacentHTML('beforeEnd', FA.Nav.customNav);\par
+            FA.Nav.barSticky.id = 'fa_sticky_nav';\par
+            FA.Nav.barSticky.style.width = my_getcookie('fa_sticky_nav') == 'hidden' ? '0%' : '100%';\par
+            FA.Nav.barSticky.style.top = '-30px';\par
+            document.body.appendChild(FA.Nav.barSticky);\par
+            if (FA.Nav.collapsible) \{\par
+                FA.Nav.toggler = document.createElement('A');\par
+                FA.Nav.toggler.id = 'fa_sticky_toggle';\par
+                FA.Nav.toggler.href = '#';\par
+                FA.Nav.toggler.style.top = '-30px';\par
+                FA.Nav.toggler.onclick = FA.Nav.toggle;\par
+                document.body.appendChild(FA.Nav.toggler)\par
+            \};\par
+            window.onscroll = FA.Nav.checkState;\par
+            FA.Nav.checkState();\par
+            $(function() \{\par
+                $('#fa_hide').click(function() \{\par
+                    FA.Nav.activeOffset = FA.Nav.offsets.tbHidden;\par
+                    FA.Nav.animate()\par
+                \});\par
+                $('#fa_show').click(function() \{\par
+                    FA.Nav.activeOffset = FA.Nav.offsets.tbVisible;\par
+                    FA.Nav.animate()\par
+                \})\par
+            \})\par
+        \}\par
+    \})\par
+\}());\par
+$(function() \{\par
+    if (!$.sceditor) return;\par
+    var defaultSize = 18,\par
+        autoClose = 0,\par
+        fa = \{\par
+            '500px': '&#62062;',\par
+            'adjust': '&#61506;',\par
+            'adn': '&#61808;',\par
+            'align-center': '&#61495;',\par
+            'align-justify': '&#61497;',\par
+            'align-left': '&#61494;',\par
+            'align-right': '&#61496;',\par
+            'amazon': '&#62064;',\par
+            'ambulance': '&#61689;',\par
+            'anchor': '&#61757;',\par
+            'android': '&#61819;',\par
+            'angellist': '&#61961;',\par
+            'angle-double-down': '&#61699;',\par
+            'angle-double-left': '&#61696;',\par
+            'angle-double-right': '&#61697;',\par
+            'angle-double-up': '&#61698;',\par
+            'angle-down': '&#61703;',\par
+            'angle-left': '&#61700;',\par
+            'angle-right': '&#61701;',\par
+            'angle-up': '&#61702;',\par
+            'apple': '&#61817;',\par
+            'archive': '&#61831;',\par
+            'area-chart': '&#61950;',\par
+            'arrow-circle-down': '&#61611;',\par
+            'arrow-circle-left': '&#61608;',\par
+            'arrow-circle-o-down': '&#61466;',\par
+            'arrow-circle-o-left': '&#61840;',\par
+            'arrow-circle-o-right': '&#61838;',\par
+            'arrow-circle-o-up': '&#61467;',\par
+            'arrow-circle-right': '&#61609;',\par
+            'arrow-circle-up': '&#61610;',\par
+            'arrow-down': '&#61539;',\par
+            'arrow-left': '&#61536;',\par
+            'arrow-right': '&#61537;',\par
+            'arrow-up': '&#61538;',\par
+            'arrows': '&#61511;',\par
+            'arrows-alt': '&#61618;',\par
+            'arrows-h': '&#61566;',\par
+            'arrows-v': '&#61565;',\par
+            'asterisk': '&#61545;',\par
+            'at': '&#61946;',\par
+            'backward': '&#61514;',\par
+            'balance-scale': '&#62030;',\par
+            'ban': '&#61534;',\par
+            'bar-chart': '&#61568;',\par
+            'barcode': '&#61482;',\par
+            'bars': '&#61641;',\par
+            'battery-empty': '&#62020;',\par
+            'battery-full': '&#62016;',\par
+            'battery-half': '&#62018;',\par
+            'battery-quarter': '&#62019;',\par
+            'battery-three-quarters': '&#62017;',\par
+            'bed': '&#62006;',\par
+            'beer': '&#61692;',\par
+            'behance': '&#61876;',\par
+            'behance-square': '&#61877;',\par
+            'bell': '&#61683;',\par
+            'bell-o': '&#61602;',\par
+            'bell-slash': '&#61942;',\par
+            'bell-slash-o': '&#61943;',\par
+            'bicycle': '&#61958;',\par
+            'binoculars': '&#61925;',\par
+            'birthday-cake': '&#61949;',\par
+            'bitbucket': '&#61809;',\par
+            'bitbucket-square': '&#61810;',\par
+            'black-tie': '&#62078;',\par
+            'bluetooth': '&#62099;',\par
+            'bluetooth-b': '&#62100;',\par
+            'bold': '&#61490;',\par
+            'bolt': '&#61671;',\par
+            'bomb': '&#61922;',\par
+            'book': '&#61485;',\par
+            'bookmark': '&#61486;',\par
+            'bookmark-o': '&#61591;',\par
+            'briefcase': '&#61617;',\par
+            'btc': '&#61786;',\par
+            'bug': '&#61832;',\par
+            'building': '&#61869;',\par
+            'building-o': '&#61687;',\par
+            'bullhorn': '&#61601;',\par
+            'bullseye': '&#61760;',\par
+            'bus': '&#61959;',\par
+            'buysellads': '&#61965;',\par
+            'calculator': '&#61932;',\par
+            'calendar': '&#61555;',\par
+            'calendar-check-o': '&#62068;',\par
+            'calendar-minus-o': '&#62066;',\par
+            'calendar-o': '&#61747;',\par
+            'calendar-plus-o': '&#62065;',\par
+            'calendar-times-o': '&#62067;',\par
+            'camera': '&#61488;',\par
+            'camera-retro': '&#61571;',\par
+            'car': '&#61881;',\par
+            'caret-down': '&#61655;',\par
+            'caret-left': '&#61657;',\par
+            'caret-right': '&#61658;',\par
+            'caret-square-o-down': '&#61776;',\par
+            'caret-square-o-left': '&#61841;',\par
+            'caret-square-o-right': '&#61778;',\par
+            'caret-square-o-up': '&#61777;',\par
+            'caret-up': '&#61656;',\par
+            'cart-arrow-down': '&#61976;',\par
+            'cart-plus': '&#61975;',\par
+            'cc': '&#61962;',\par
+            'cc-amex': '&#61939;',\par
+            'cc-diners-club': '&#62028;',\par
+            'cc-discover': '&#61938;',\par
+            'cc-jcb': '&#62027;',\par
+            'cc-mastercard': '&#61937;',\par
+            'cc-paypal': '&#61940;',\par
+            'cc-stripe': '&#61941;',\par
+            'cc-visa': '&#61936;',\par
+            'certificate': '&#61603;',\par
+            'chain-broken': '&#61735;',\par
+            'check': '&#61452;',\par
+            'check-circle': '&#61528;',\par
+            'check-circle-o': '&#61533;',\par
+            'check-square': '&#61770;',\par
+            'check-square-o': '&#61510;',\par
+            'chevron-circle-down': '&#61754;',\par
+            'chevron-circle-left': '&#61751;',\par
+            'chevron-circle-right': '&#61752;',\par
+            'chevron-circle-up': '&#61753;',\par
+            'chevron-down': '&#61560;',\par
+            'chevron-left': '&#61523;',\par
+            'chevron-right': '&#61524;',\par
+            'chevron-up': '&#61559;',\par
+            'child': '&#61870;',\par
+            'chrome': '&#62056;',\par
+            'circle': '&#61713;',\par
+            'circle-o': '&#61708;',\par
+            'circle-o-notch': '&#61902;',\par
+            'circle-thin': '&#61915;',\par
+            'clipboard': '&#61674;',\par
+            'clock-o': '&#61463;',\par
+            'clone': '&#62029;',\par
+            'cloud': '&#61634;',\par
+            'cloud-download': '&#61677;',\par
+            'cloud-upload': '&#61678;',\par
+            'code': '&#61729;',\par
+            'code-fork': '&#61734;',\par
+            'codepen': '&#61899;',\par
+            'codiepie': '&#62084;',\par
+            'coffee': '&#61684;',\par
+            'cog': '&#61459;',\par
+            'cogs': '&#61573;',\par
+            'columns': '&#61659;',\par
+            'comment': '&#61557;',\par
+            'comment-o': '&#61669;',\par
+            'commenting': '&#62074;',\par
+            'commenting-o': '&#62075;',\par
+            'comments': '&#61574;',\par
+            'comments-o': '&#61670;',\par
+            'compass': '&#61774;',\par
+            'compress': '&#61542;',\par
+            'connectdevelop': '&#61966;',\par
+            'contao': '&#62061;',\par
+            'copyright': '&#61945;',\par
+            'creative-commons': '&#62046;',\par
+            'credit-card': '&#61597;',\par
+            'credit-card-alt': '&#62083;',\par
+            'crop': '&#61733;',\par
+            'crosshairs': '&#61531;',\par
+            'css3': '&#61756;',\par
+            'cube': '&#61874;',\par
+            'cubes': '&#61875;',\par
+            'cutlery': '&#61685;',\par
+            'dashcube': '&#61968;',\par
+            'database': '&#61888;',\par
+            'delicious': '&#61861;',\par
+            'desktop': '&#61704;',\par
+            'deviantart': '&#61885;',\par
+            'diamond': '&#61977;',\par
+            'digg': '&#61862;',\par
+            'dot-circle-o': '&#61842;',\par
+            'download': '&#61465;',\par
+            'dribbble': '&#61821;',\par
+            'dropbox': '&#61803;',\par
+            'drupal': '&#61865;',\par
+            'edge': '&#62082;',\par
+            'eject': '&#61522;',\par
+            'ellipsis-h': '&#61761;',\par
+            'ellipsis-v': '&#61762;',\par
+            'empire': '&#61905;',\par
+            'envelope': '&#61664;',\par
+            'envelope-o': '&#61443;',\par
+            'envelope-square': '&#61849;',\par
+            'eraser': '&#61741;',\par
+            'eur': '&#61779;',\par
+            'exchange': '&#61676;',\par
+            'exclamation': '&#61738;',\par
+            'exclamation-circle': '&#61546;',\par
+            'exclamation-triangle': '&#61553;',\par
+            'expand': '&#61541;',\par
+            'expeditedssl': '&#62014;',\par
+            'external-link': '&#61582;',\par
+            'external-link-square': '&#61772;',\par
+            'eye': '&#61550;',\par
+            'eye-slash': '&#61552;',\par
+            'eyedropper': '&#61947;',\par
+            'facebook': '&#61594;',\par
+            'facebook-official': '&#62000;',\par
+            'facebook-square': '&#61570;',\par
+            'fast-backward': '&#61513;',\par
+            'fast-forward': '&#61520;',\par
+            'fax': '&#61868;',\par
+            'female': '&#61826;',\par
+            'fighter-jet': '&#61691;',\par
+            'file': '&#61787;',\par
+            'file-archive-o': '&#61894;',\par
+            'file-audio-o': '&#61895;',\par
+            'file-code-o': '&#61897;',\par
+            'file-excel-o': '&#61891;',\par
+            'file-image-o': '&#61893;',\par
+            'file-o': '&#61462;',\par
+            'file-pdf-o': '&#61889;',\par
+            'file-powerpoint-o': '&#61892;',\par
+            'file-text': '&#61788;',\par
+            'file-text-o': '&#61686;',\par
+            'file-video-o': '&#61896;',\par
+            'file-word-o': '&#61890;',\par
+            'files-o': '&#61637;',\par
+            'film': '&#61448;',\par
+            'filter': '&#61616;',\par
+            'fire': '&#61549;',\par
+            'fire-extinguisher': '&#61748;',\par
+            'firefox': '&#62057;',\par
+            'flag': '&#61476;',\par
+            'flag-checkered': '&#61726;',\par
+            'flag-o': '&#61725;',\par
+            'flask': '&#61635;',\par
+            'flickr': '&#61806;',\par
+            'floppy-o': '&#61639;',\par
+            'folder': '&#61563;',\par
+            'folder-o': '&#61716;',\par
+            'folder-open': '&#61564;',\par
+            'folder-open-o': '&#61717;',\par
+            'font': '&#61489;',\par
+            'fonticons': '&#62080;',\par
+            'fort-awesome': '&#62086;',\par
+            'forumbee': '&#61969;',\par
+            'forward': '&#61518;',\par
+            'foursquare': '&#61824;',\par
+            'frown-o': '&#61721;',\par
+            'futbol-o': '&#61923;',\par
+            'gamepad': '&#61723;',\par
+            'gavel': '&#61667;',\par
+            'gbp': '&#61780;',\par
+            'genderless': '&#61997;',\par
+            'get-pocket': '&#62053;',\par
+            'gg': '&#62048;',\par
+            'gg-circle': '&#62049;',\par
+            'gift': '&#61547;',\par
+            'git': '&#61907;',\par
+            'git-square': '&#61906;',\par
+            'github': '&#61595;',\par
+            'github-alt': '&#61715;',\par
+            'github-square': '&#61586;',\par
+            'glass': '&#61440;',\par
+            'globe': '&#61612;',\par
+            'google': '&#61856;',\par
+            'google-plus': '&#61653;',\par
+            'google-plus-square': '&#61652;',\par
+            'google-wallet': '&#61934;',\par
+            'graduation-cap': '&#61853;',\par
+            'gratipay': '&#61828;',\par
+            'h-square': '&#61693;',\par
+            'hacker-news': '&#61908;',\par
+            'hand-lizard-o': '&#62040;',\par
+            'hand-o-down': '&#61607;',\par
+            'hand-o-left': '&#61605;',\par
+            'hand-o-right': '&#61604;',\par
+            'hand-o-up': '&#61606;',\par
+            'hand-paper-o': '&#62038;',\par
+            'hand-peace-o': '&#62043;',\par
+            'hand-pointer-o': '&#62042;',\par
+            'hand-rock-o': '&#62037;',\par
+            'hand-scissors-o': '&#62039;',\par
+            'hand-spock-o': '&#62041;',\par
+            'hashtag': '&#62098;',\par
+            'hdd-o': '&#61600;',\par
+            'header': '&#61916;',\par
+            'headphones': '&#61477;',\par
+            'heart': '&#61444;',\par
+            'heart-o': '&#61578;',\par
+            'heartbeat': '&#61982;',\par
+            'history': '&#61914;',\par
+            'home': '&#61461;',\par
+            'hospital-o': '&#61688;',\par
+            'hourglass': '&#62036;',\par
+            'hourglass-end': '&#62035;',\par
+            'hourglass-half': '&#62034;',\par
+            'hourglass-o': '&#62032;',\par
+            'hourglass-start': '&#62033;',\par
+            'houzz': '&#62076;',\par
+            'html5': '&#61755;',\par
+            'i-cursor': '&#62022;',\par
+            'ils': '&#61963;',\par
+            'inbox': '&#61468;',\par
+            'indent': '&#61500;',\par
+            'industry': '&#62069;',\par
+            'info': '&#61737;',\par
+            'info-circle': '&#61530;',\par
+            'inr': '&#61782;',\par
+            'instagram': '&#61805;',\par
+            'internet-explorer': '&#62059;',\par
+            'ioxhost': '&#61960;',\par
+            'italic': '&#61491;',\par
+            'joomla': '&#61866;',\par
+            'jpy': '&#61783;',\par
+            'jsfiddle': '&#61900;',\par
+            'key': '&#61572;',\par
+            'keyboard-o': '&#61724;',\par
+            'krw': '&#61785;',\par
+            'language': '&#61867;',\par
+            'laptop': '&#61705;',\par
+            'lastfm': '&#61954;',\par
+            'lastfm-square': '&#61955;',\par
+            'leaf': '&#61548;',\par
+            'leanpub': '&#61970;',\par
+            'lemon-o': '&#61588;',\par
+            'level-down': '&#61769;',\par
+            'level-up': '&#61768;',\par
+            'life-ring': '&#61901;',\par
+            'lightbulb-o': '&#61675;',\par
+            'line-chart': '&#61953;',\par
+            'link': '&#61633;',\par
+            'linkedin': '&#61665;',\par
+            'linkedin-square': '&#61580;',\par
+            'linux': '&#61820;',\par
+            'list': '&#61498;',\par
+            'list-alt': '&#61474;',\par
+            'list-ol': '&#61643;',\par
+            'list-ul': '&#61642;',\par
+            'location-arrow': '&#61732;',\par
+            'lock': '&#61475;',\par
+            'long-arrow-down': '&#61813;',\par
+            'long-arrow-left': '&#61815;',\par
+            'long-arrow-right': '&#61816;',\par
+            'long-arrow-up': '&#61814;',\par
+            'magic': '&#61648;',\par
+            'magnet': '&#61558;',\par
+            'male': '&#61827;',\par
+            'map': '&#62073;',\par
+            'map-marker': '&#61505;',\par
+            'map-o': '&#62072;',\par
+            'map-pin': '&#62070;',\par
+            'map-signs': '&#62071;',\par
+            'mars': '&#61986;',\par
+            'mars-double': '&#61991;',\par
+            'mars-stroke': '&#61993;',\par
+            'mars-stroke-h': '&#61995;',\par
+            'mars-stroke-v': '&#61994;',\par
+            'maxcdn': '&#61750;',\par
+            'meanpath': '&#61964;',\par
+            'medium': '&#62010;',\par
+            'medkit': '&#61690;',\par
+            'meh-o': '&#61722;',\par
+            'mercury': '&#61987;',\par
+            'microphone': '&#61744;',\par
+            'microphone-slash': '&#61745;',\par
+            'minus': '&#61544;',\par
+            'minus-circle': '&#61526;',\par
+            'minus-square': '&#61766;',\par
+            'minus-square-o': '&#61767;',\par
+            'mixcloud': '&#62089;',\par
+            'mobile': '&#61707;',\par
+            'modx': '&#62085;',\par
+            'money': '&#61654;',\par
+            'moon-o': '&#61830;',\par
+            'motorcycle': '&#61980;',\par
+            'mouse-pointer': '&#62021;',\par
+            'music': '&#61441;',\par
+            'neuter': '&#61996;',\par
+            'newspaper-o': '&#61930;',\par
+            'object-group': '&#62023;',\par
+            'object-ungroup': '&#62024;',\par
+            'odnoklassniki': '&#62051;',\par
+            'odnoklassniki-square': '&#62052;',\par
+            'opencart': '&#62013;',\par
+            'openid': '&#61851;',\par
+            'opera': '&#62058;',\par
+            'optin-monster': '&#62012;',\par
+            'outdent': '&#61499;',\par
+            'pagelines': '&#61836;',\par
+            'paint-brush': '&#61948;',\par
+            'paper-plane': '&#61912;',\par
+            'paper-plane-o': '&#61913;',\par
+            'paperclip': '&#61638;',\par
+            'paragraph': '&#61917;',\par
+            'pause': '&#61516;',\par
+            'pause-circle': '&#62091;',\par
+            'pause-circle-o': '&#62092;',\par
+            'paw': '&#61872;',\par
+            'paypal': '&#61933;',\par
+            'pencil': '&#61504;',\par
+            'pencil-square': '&#61771;',\par
+            'pencil-square-o': '&#61508;',\par
+            'percent': '&#62101;',\par
+            'phone': '&#61589;',\par
+            'phone-square': '&#61592;',\par
+            'picture-o': '&#61502;',\par
+            'pie-chart': '&#61952;',\par
+            'pied-piper': '&#61863;',\par
+            'pied-piper-alt': '&#61864;',\par
+            'pinterest': '&#61650;',\par
+            'pinterest-p': '&#62001;',\par
+            'pinterest-square': '&#61651;',\par
+            'plane': '&#61554;',\par
+            'play': '&#61515;',\par
+            'play-circle': '&#61764;',\par
+            'play-circle-o': '&#61469;',\par
+            'plug': '&#61926;',\par
+            'plus': '&#61543;',\par
+            'plus-circle': '&#61525;',\par
+            'plus-square': '&#61694;',\par
+            'plus-square-o': '&#61846;',\par
+            'power-off': '&#61457;',\par
+            'print': '&#61487;',\par
+            'product-hunt': '&#62088;',\par
+            'puzzle-piece': '&#61742;',\par
+            'qq': '&#61910;',\par
+            'qrcode': '&#61481;',\par
+            'question': '&#61736;',\par
+            'question-circle': '&#61529;',\par
+            'quote-left': '&#61709;',\par
+            'quote-right': '&#61710;',\par
+            'random': '&#61556;',\par
+            'rebel': '&#61904;',\par
+            'recycle': '&#61880;',\par
+            'reddit': '&#61857;',\par
+            'reddit-alien': '&#62081;',\par
+            'reddit-square': '&#61858;',\par
+            'refresh': '&#61473;',\par
+            'registered': '&#62045;',\par
+            'renren': '&#61835;',\par
+            'repeat': '&#61470;',\par
+            'reply': '&#61714;',\par
+            'reply-all': '&#61730;',\par
+            'retweet': '&#61561;',\par
+            'road': '&#61464;',\par
+            'rocket': '&#61749;',\par
+            'rss': '&#61598;',\par
+            'rss-square': '&#61763;',\par
+            'rub': '&#61784;',\par
+            'safari': '&#62055;',\par
+            'scissors': '&#61636;',\par
+            'scribd': '&#62090;',\par
+            'search': '&#61442;',\par
+            'search-minus': '&#61456;',\par
+            'search-plus': '&#61454;',\par
+            'sellsy': '&#61971;',\par
+            'server': '&#62003;',\par
+            'share': '&#61540;',\par
+            'share-alt': '&#61920;',\par
+            'share-alt-square': '&#61921;',\par
+            'share-square': '&#61773;',\par
+            'share-square-o': '&#61509;',\par
+            'shield': '&#61746;',\par
+            'ship': '&#61978;',\par
+            'shirtsinbulk': '&#61972;',\par
+            'shopping-bag': '&#62096;',\par
+            'shopping-basket': '&#62097;',\par
+            'shopping-cart': '&#61562;',\par
+            'sign-in': '&#61584;',\par
+            'sign-out': '&#61579;',\par
+            'signal': '&#61458;',\par
+            'simplybuilt': '&#61973;',\par
+            'sitemap': '&#61672;',\par
+            'skyatlas': '&#61974;',\par
+            'skype': '&#61822;',\par
+            'slack': '&#61848;',\par
+            'sliders': '&#61918;',\par
+            'slideshare': '&#61927;',\par
+            'smile-o': '&#61720;',\par
+            'sort': '&#61660;',\par
+            'sort-alpha-asc': '&#61789;',\par
+            'sort-alpha-desc': '&#61790;',\par
+            'sort-amount-asc': '&#61792;',\par
+            'sort-amount-desc': '&#61793;',\par
+            'sort-asc': '&#61662;',\par
+            'sort-desc': '&#61661;',\par
+            'sort-numeric-asc': '&#61794;',\par
+            'sort-numeric-desc': '&#61795;',\par
+            'soundcloud': '&#61886;',\par
+            'space-shuttle': '&#61847;',\par
+            'spinner': '&#61712;',\par
+            'spoon': '&#61873;',\par
+            'spotify': '&#61884;',\par
+            'square': '&#61640;',\par
+            'square-o': '&#61590;',\par
+            'stack-exchange': '&#61837;',\par
+            'stack-overflow': '&#61804;',\par
+            'star': '&#61445;',\par
+            'star-half': '&#61577;',\par
+            'star-half-o': '&#61731;',\par
+            'star-o': '&#61446;',\par
+            'steam': '&#61878;',\par
+            'steam-square': '&#61879;',\par
+            'step-backward': '&#61512;',\par
+            'step-forward': '&#61521;',\par
+            'stethoscope': '&#61681;',\par
+            'sticky-note': '&#62025;',\par
+            'sticky-note-o': '&#62026;',\par
+            'stop': '&#61517;',\par
+            'stop-circle': '&#62093;',\par
+            'stop-circle-o': '&#62094;',\par
+            'street-view': '&#61981;',\par
+            'strikethrough': '&#61644;',\par
+            'stumbleupon': '&#61860;',\par
+            'stumbleupon-circle': '&#61859;',\par
+            'subscript': '&#61740;',\par
+            'subway': '&#62009;',\par
+            'suitcase': '&#61682;',\par
+            'sun-o': '&#61829;',\par
+            'superscript': '&#61739;',\par
+            'table': '&#61646;',\par
+            'tablet': '&#61706;',\par
+            'tachometer': '&#61668;',\par
+            'tag': '&#61483;',\par
+            'tags': '&#61484;',\par
+            'tasks': '&#61614;',\par
+            'taxi': '&#61882;',\par
+            'television': '&#62060;',\par
+            'tencent-weibo': '&#61909;',\par
+            'terminal': '&#61728;',\par
+            'text-height': '&#61492;',\par
+            'text-width': '&#61493;',\par
+            'th': '&#61450;',\par
+            'th-large': '&#61449;',\par
+            'th-list': '&#61451;',\par
+            'thumb-tack': '&#61581;',\par
+            'thumbs-down': '&#61797;',\par
+            'thumbs-o-down': '&#61576;',\par
+            'thumbs-o-up': '&#61575;',\par
+            'thumbs-up': '&#61796;',\par
+            'ticket': '&#61765;',\par
+            'times': '&#61453;',\par
+            'times-circle': '&#61527;',\par
+            'times-circle-o': '&#61532;',\par
+            'tint': '&#61507;',\par
+            'toggle-off': '&#61956;',\par
+            'toggle-on': '&#61957;',\par
+            'trademark': '&#62044;',\par
+            'train': '&#62008;',\par
+            'transgender': '&#61988;',\par
+            'transgender-alt': '&#61989;',\par
+            'trash': '&#61944;',\par
+            'trash-o': '&#61460;',\par
+            'tree': '&#61883;',\par
+            'trello': '&#61825;',\par
+            'tripadvisor': '&#62050;',\par
+            'trophy': '&#61585;',\par
+            'truck': '&#61649;',\par
+            'try': '&#61845;',\par
+            'tty': '&#61924;',\par
+            'tumblr': '&#61811;',\par
+            'tumblr-square': '&#61812;',\par
+            'twitch': '&#61928;',\par
+            'twitter': '&#61593;',\par
+            'twitter-square': '&#61569;',\par
+            'umbrella': '&#61673;',\par
+            'underline': '&#61645;',\par
+            'undo': '&#61666;',\par
+            'university': '&#61852;',\par
+            'unlock': '&#61596;',\par
+            'unlock-alt': '&#61758;',\par
+            'upload': '&#61587;',\par
+            'usb': '&#62087;',\par
+            'usd': '&#61781;',\par
+            'user': '&#61447;',\par
+            'user-md': '&#61680;',\par
+            'user-plus': '&#62004;',\par
+            'user-secret': '&#61979;',\par
+            'user-times': '&#62005;',\par
+            'users': '&#61632;',\par
+            'venus': '&#61985;',\par
+            'venus-double': '&#61990;',\par
+            'venus-mars': '&#61992;',\par
+            'viacoin': '&#62007;',\par
+            'video-camera': '&#61501;',\par
+            'vimeo': '&#62077;',\par
+            'vimeo-square': '&#61844;',\par
+            'vine': '&#61898;',\par
+            'vk': '&#61833;',\par
+            'volume-down': '&#61479;',\par
+            'volume-off': '&#61478;',\par
+            'volume-up': '&#61480;',\par
+            'weibo': '&#61834;',\par
+            'weixin': '&#61911;',\par
+            'whatsapp': '&#62002;',\par
+            'wheelchair': '&#61843;',\par
+            'wifi': '&#61931;',\par
+            'wikipedia-w': '&#62054;',\par
+            'windows': '&#61818;',\par
+            'wordpress': '&#61850;',\par
+            'wrench': '&#61613;',\par
+            'xing': '&#61800;',\par
+            'xing-square': '&#61801;',\par
+            'y-combinator': '&#62011;',\par
+            'yahoo': '&#61854;',\par
+            'yelp': '&#61929;',\par
+            'youtube': '&#61799;',\par
+            'youtube-play': '&#61802;',\par
+            'youtube-square': '&#61798;'\par
+        \},\par
+        A = '',\par
+        O = A;\par
+    if (defaultSize) \{\par
+        A += '[size=' + defaultSize + ']';\par
+        O += '[/size]'\par
+    \}\par
+    $.sceditor.command.set('fontawesome', \{\par
+        dropDown: function(editor, caller, callback) \{\par
+            var a, b = '',\par
+                c = document.createElement('DIV'),\par
+                i, j;\par
+            for (i in fa) b += '<i class="fa" title="' + i.replace(/-/g, ' ') + '">' + fa[i] + '</i>';\par
+            c.innerHTML = b;\par
+            for (a = c.getElementsByTagName('I'), i = 0, j = a.length; i < j; i++) \{\par
+                a[i].onclick = function() \{\par
+                    callback(this.innerHTML);\par
+                    autoClose && editor.closeDropDown(true)\par
+                \}\par
+            \}\par
+            editor.createDropDown(caller, 'fontawesome', c)\par
+        \},\par
+        exec: function(c) \{\par
+            var e = this;\par
+            $.sceditor.command.get('fontawesome').dropDown(e, c, function(icon) \{\par
+                e.insert('&nbsp;[font=FontAwesome]' + A + icon + O + '[/font]&nbsp;', '', true, true, true)\par
+            \})\par
+        \},\par
+        txtExec: function(c) \{\par
+            var e = this;\par
+            $.sceditor.command.get('fontawesome').dropDown(e, c, function(icon) \{\par
+                e.insertText(' [font=FontAwesome]' + A + icon + O + '[/font] ', '')\par
+            \})\par
+        \},\par
+        tooltip: 'Font Awesome Icons'\par
+    \});\par
+    toolbar = toolbar.replace(/date,/, 'fontawesome,date,')\par
+\});\par
+(function() \{\par
+    var version = 1;\par
+    if (!window.FA) window.FA = \{\};\par
+    if (FA.Popup) \{\par
+        if (window.console) console.warn('FA.Popup has already been initialized.');\par
+        return\par
+    \}\par
+    FA.Popup = \{\par
+        lang: \{\par
+            button_close: 'X',\par
+            default_title: 'Popup',\par
+            loading: 'Loading...',\par
+            error_getPage: 'An error occurred while getting the page. Please try again later.',\par
+            error_connection: 'A connection error occurred. Please check your internet connection and try again later.'\par
+        \},\par
+        active: false,\par
+        forum: \{\par
+            version: version,\par
+            content: version ? '#main-content' : '#content-container > table > tbody > tr > td[width="100%"]',\par
+            pages: ['.gensmall:has(.sprite-arrow_subsilver_left, .sprite-arrow_subsilver_right) a[href^="/"], .nav:has(.sprite-arrow_subsilver_left, .sprite-arrow_subsilver_right) a[href^="/"]', '.pagination:not(strong) span a', '.paging a[href^="/"]', '.pagination a[href^="/"]'][version]\par
+        \},\par
+        open: function(href, title, callback) \{\par
+            if (FA.Popup.active) FA.Popup.close();\par
+            var box = document.createElement('DIV'),\par
+                overlay = document.createElement('DIV'),\par
+                content = document.createElement('DIV'),\par
+                close = document.createElement('INPUT');\par
+            close.type = 'button';\par
+            close.value = FA.Popup.lang.button_close;\par
+            close.className = 'fa_popup_button fa_popup_close';\par
+            close.onclick = FA.Popup.close;\par
+            content.id = 'fa_popup_content';\par
+            content.innerHTML = '<div class="fa_popup_loading">' + FA.Popup.lang.loading + '</div>';\par
+            overlay.id = 'fa_popup_overlay';\par
+            overlay.style.zIndex = '99998';\par
+            overlay.onclick = FA.Popup.close;\par
+            if (FA.Popup.forum.version == 2) box.className += ' pun';\par
+            box.id = 'fa_popup';\par
+            box.style.zIndex = '99999';\par
+            box.innerHTML = '<div class="fa_popup_title">' + (title ? title : FA.Popup.lang.default_title) + '</div>';\par
+            box.appendChild(close);\par
+            box.appendChild(content);\par
+            if (href) \{\par
+                $.get(href, function(data) \{\par
+                    content.innerHTML = '';\par
+                    if (callback) callback(data, content);\par
+                    else \{\par
+                        var main = $(FA.Popup.forum.content, data)[0];\par
+                        if (main) \{\par
+                            content.appendChild(main);\par
+                            var page = $(FA.Popup.forum.pages, content);\par
+                            if (page[0]) page.click(FA.Popup.getPage)\par
+                        \}\par
+                    \}\par
+                \}).fail(function() \{\par
+                    content.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_connection + '</div>'\par
+                \})\par
+            \} else if (callback) \{\par
+                content.innerHTML = '';\par
+                callback(content)\par
+            \}\par
+            document.body.style.overflow = 'hidden';\par
+            document.body.appendChild(overlay);\par
+            document.body.appendChild(box);\par
+            FA.Popup.active = true\par
+        \},\par
+        close: function() \{\par
+            var box = document.getElementById('fa_popup'),\par
+                overlay = document.getElementById('fa_popup_overlay');\par
+            box && document.body.removeChild(box);\par
+            overlay && document.body.removeChild(overlay);\par
+            document.body.style.overflow = '';\par
+            FA.Popup.active = false\par
+        \},\par
+        getPage: function() \{\par
+            var content = document.getElementById('fa_popup_content');\par
+            $.get(this.href, function(data) \{\par
+                var main = $(FA.Popup.forum.content, data)[0],\par
+                    page;\par
+                if (main) \{\par
+                    content.scrollTop = 0;\par
+                    content.innerHTML = '';\par
+                    content.appendChild(main);\par
+                    page = $(FA.Popup.forum.pages, content);\par
+                    if (page[0]) page.click(FA.Popup.getPage)\par
+                \} else \{\par
+                    content.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_getPage + '</div>'\par
+                \}\par
+            \}).fail(function() \{\par
+                content.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_connection + '</div>'\par
+            \});\par
+            return false\par
+        \}\par
+    \}\par
+\})();\par
+$(function() \{\par
+    $('form[action^="/search"]').submit(function(e) \{\par
+        var keywords = this.search_keywords;\par
+        FA.Popup.open('/search?' + $(this).serialize(), 'Searching' + (keywords.value ? ' : ' + keywords.value : ''));\par
+        keywords.blur();\par
+        e.preventDefault()\par
+    \});\par
+    $(function() \{\par
+        FA.Popup.notif_config = \{\par
+            PMs: true,\par
+            VMs: true,\par
+            Groups: true,\par
+            Replies: true,\par
+            Reports: true,\par
+            Requests: true\par
+        \};\par
+        var lang = \{\par
+                viewing_pm: 'Viewing PM from : ',\par
+                viewing_wall: 'Viewing visitor messages',\par
+                viewing_reply: 'Viewing reply from : ',\par
+                viewing_request: 'Viewing friend requests',\par
+                viewing_group: 'Viewing group',\par
+                viewing_report: 'Viewing reports',\par
+                more_pm: 'View all PMs',\par
+                more_wall: 'Visit your wall',\par
+                more_reply: 'View the whole topic',\par
+                more_request: 'View your Friends and Foes',\par
+                more_group: 'View group',\par
+                more_report: 'View all reports',\par
+                friend_added: 'Added',\par
+                friend_denied: 'Denied',\par
+                friend_error: 'Error',\par
+                error_no_pm: '<b>Error :</b> The PM you tried to view could not be found. Please try using the button below to view your entire inbox.',\par
+                error_no_wall: '<b>Error :</b> Your wall could not be accessed. Please try using the button below to view your wall.',\par
+                error_no_reply: '<b>Error :</b> The reply you tried to view could not be found. Please try using the button below to view the entire topic.',\par
+                error_no_requests: '<b>Error :</b> No friend requests could be found. Please try using the button below to view your Friends / Foes list.',\par
+                error_no_group: '<b>Error :</b> The group you tried to view could not be found. Please try using the button below to access it.',\par
+                error_no_report: '<b>Error :</b> The report page could not be accessed. Please try using the button below to access it.'\par
+            \},\par
+            notif = document.getElementById('notif_list'),\par
+            i;\par
+        if (notif) \{\par
+            $(notif).click(function(e) \{\par
+                var node = e.target,\par
+                    store, id, sender, more = document.createElement('DIV');\par
+                more.className = 'fa_popup_more';\par
+                if (node.tagName == 'A') \{\par
+                    id = node.parentNode.parentNode.parentNode.id.slice(1);\par
+                    store = FA.Notification.getStore();\par
+                    sender = store[id].text.from.name;\par
+                    if (/\\/privmsg/.test(node.href) && FA.Popup.notif_config.PMs) \{\par
+                        FA.Popup.open('/privmsg?folder=inbox&mode=read&p=' + store[id].text.msg_id + '&nid=' + id, FA.Popup.lang.viewing_pm + sender, function(data, popup) \{\par
+                            var PM = $('form[action^="/privmsg"]:has(.postbody)', data)[0];\par
+                            if (PM) popup.appendChild(PM);\par
+                            else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_pm + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_pm + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \} else if (/\\/t\\d+/.test(node.href) && FA.Popup.notif_config.Replies) \{\par
+                        FA.Popup.open(node.href, FA.Popup.lang.viewing_reply + sender, function(data, popup) \{\par
+                            var reply = $('.post--' + store[id].text.post.post_id, data)[0];\par
+                            if (reply) popup.appendChild(reply);\par
+                            else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_reply + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_reply + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \} else if (/\\/u\\d+wall/.test(node.href) && FA.Popup.notif_config.VMs) \{\par
+                        FA.Popup.open(node.href, FA.Popup.lang.viewing_wall, function(data, popup) \{\par
+                            var wall = $('#profile-advanced-details', data)[0];\par
+                            if (wall) popup.appendChild(wall);\par
+                            else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_wall + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_wall + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \} else if (/page_profil=friendsfoes/.test(node.href) && FA.Popup.notif_config.Requests) \{\par
+                        FA.Popup.open(node.href, FA.Popup.lang.viewing_request, function(data, popup) \{\par
+                            var request = $((FA.Popup.forum.version == 2 ? '.main-content.frm dd' : '.friends-foes-list') + ':has(a[href^="/profile?deny"])', data);\par
+                            if (request[0]) \{\par
+                                $(request).addClass('fa_popup_friends');\par
+                                $('a[href^="/profile"]', request).click(function() \{\par
+                                    var t = this,\par
+                                        add = /deny/.test(t.href) ? 0 : 1;\par
+                                    $('a[href^="/profile"]', t.parentNode).hide();\par
+                                    $.get(t.href, function() \{\par
+                                        $(t.parentNode).append('<strong class="' + (add ? 'add' : 'deny') + '_success">' + (add ? FA.Popup.lang.friend_added : FA.Popup.lang.friend_denied) + '</strong>')\par
+                                    \}).fail(function() \{\par
+                                        $(t.parentNode).append('<strong class="add_failed">' + FA.Popup.lang.friend_error + '</strong>')\par
+                                    \});\par
+                                    return false\par
+                                \});\par
+                                $(popup).append(request)\par
+                            \} else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_requests + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_request + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \} else if (/\\/g\\d+-/.test(node.href) && FA.Popup.notif_config.Groups) \{\par
+                        FA.Popup.open(node.href, FA.Popup.lang.viewing_group, function(data, popup) \{\par
+                            var group = $('form[name="post"]', data)[0];\par
+                            if (group) popup.appendChild(group);\par
+                            else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_group + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_group + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \} else if (/\\/report/.test(node.href) && FA.Popup.notif_config.Reports) \{\par
+                        FA.Popup.open(node.href, FA.Popup.lang.viewing_report, function(data, popup) \{\par
+                            var report = $(FA.Popup.forum.content, data)[0];\par
+                            if (report) popup.appendChild(report);\par
+                            else popup.innerHTML = '<div class="fa_popup_error">' + FA.Popup.lang.error_no_report + '</div>';\par
+                            more.innerHTML = '<a href="' + node.href + '" class="fa_popup_button">' + FA.Popup.lang.more_report + '</a>';\par
+                            popup.appendChild(more)\par
+                        \});\par
+                        e.preventDefault()\par
+                    \}\par
+                \}\par
+            \});\par
+            for (i in lang) FA.Popup.lang[i] = lang[i]\par
+        \}\par
+    \})\par
+\});\par
+$(function() \{\par
+    var num_try = 2;\par
+    var private_trash_forum = 86;\par
+    if (!/^\\/u[1-9][0-9]*$/.test(location.pathname)) \{\par
+        return\par
+    \}\par
+    var your_name = _userdata["username"].replace(/[^ -~]/g, "");\par
+    var u = location.pathname.replace(/^\\/u([1-9][0-9]*)$/, "$1");\par
+    var cycle_overkill = function(p, tid, num_try) \{\par
+        if (num_try <= 0) \{\par
+            $.get("/st/" + p, function(c) \{\par
+                $(".topictitle", c).filter(function() \{\par
+                    return $(this).closest("dd").html().indexOf('"/f' + private_trash_forum + '-') == -1\par
+                \}).each(function() \{\par
+                    $.post("/modcp?tid=" + tid, \{\par
+                        tid: tid,\par
+                        new_forum: "f" + private_trash_forum,\par
+                        mode: "move",\par
+                        t: $(this).attr("href").split("-")[0].slice(2),\par
+                        confirm: 1\par
+                    \})\par
+                \})\par
+            \});\par
+            return\par
+        \}\par
+        $.get("/spa/" + p, function(c) \{\par
+            var topics = \{\};\par
+            if ($('h2.h3 a:not([href*="-overkilled-by-"])', c).each(function() \{\par
+                    var m = $(this).attr("href").match(/^\\/t([1-9][0-9]*)(?:p[1-9][0-9]*)?-[^#]*#([1-9][0-9]*)$/);\par
+                    if (!topics[m[1]]) \{\par
+                        topics[m[1]] = []\par
+                    \}\par
+                    topics[m[1]].push(parseInt(m[2]))\par
+                \}).length) \{\par
+                for (i in topics) \{\par
+                    $.post("/modcp?tid=" + tid, \{\par
+                        subject: "overkilled by " + your_name,\par
+                        new_forum_id: "f" + private_trash_forum,\par
+                        split_type_all: 1,\par
+                        post_id_list: topics[i],\par
+                        t: i,\par
+                        mode: "split"\par
+                    \})\par
+                \}\par
+                cycle_overkill(p, tid, num_try - 1)\par
+            \}\par
+        \})\par
+    \};\par
+    $('[href^="/modcp?mode=ban&user_id="]').each(function() \{\par
+        $('<a href="javascript:void(0)">Overkill this member</a>').insertAfter(this).click(function() \{\par
+            if (!confirm('Are you sure?')) return;\par
+            var profile_block = $('#profile-advanced-right').html();\par
+            profile_block = profile_block.replace(/ <em>[^<]+<\\/em><\\/div>/g, "</div>");\par
+            var tid = $("#logout").attr("href").replace(/^.*tid=([a-f0-9]+).*?$/, "$1");\par
+            var p = encodeURIComponent($(profile_block).find("div.h3").first().text().replace(/(^\\s*|\\s*$)/g, "").replace(/[\\u00A0-\\u9999<>\\&]/gim, function(i) \{\par
+                return '&#' + i.charCodeAt(0) + ';'\par
+            \}));\par
+            $.post("/modcp?tid=" + tid, "confirm=1&ban_user_date=&ban_user_reason=spam%20on%20the%20forum&tid=" + tid + "&mode=ban&user_id=" + u);\par
+            cycle_overkill(p, tid, num_try)\par
+        \})\par
+    \}).after(' - ')\par
+\});\par
+(function() \{\par
+    var lang = \{\par
+        title: 'Please enter your username and password to log in.',\par
+        username: 'Username : ',\par
+        password: 'Password : ',\par
+        automatic: 'Log in automatically : ',\par
+        login: 'Log in',\par
+        register: 'Register',\par
+        forgot: 'I forgot my password',\par
+        redirect: window.location.href\par
+    \};\par
+    document.write('<style type="text/css">#fa_quick_login\{color:#333;font-size:13px;font-family:Arial,Verdana,Sans-serif;background:#FFF;border:1px solid #CCC;border-radius:3px;box-shadow:0 6px 12px rgba(0,0,0,.175);margin-top:20px;position:fixed;z-index:40000;width:400px\}#fa_quick_login:before\{content:url(http://i21.servimg.com/u/f21/18/21/41/30/arrfdf10.gif);position:absolute;right:15px;top:-10px\}#fa_right a.rightHeaderLink.fa_login_actif\{color:#FFF!important;background-color:#39C!important\}#fa_quick_login a.gensmall\{color:#39C\}#fa_quick_login a.gensmall:hover\{color:#333\}#fa_quick_login input\{color:#333;background:#FFF;border:1px solid #CCC;border-radius:3px;padding:3px;margin:2px;cursor:text\}#fa_quick_login input:hover\{border-color:#39C\}#fa_quick_login input:focus\{border-color:#333;outline:0\}#fa_quick_login input.mainoption\{color:#39C;border:1px solid #39C;background:0 0;font-weight:700;display:block;width:100%;padding:6px 3px;margin-top:10px;cursor:pointer;transition:300ms\}#fa_quick_login input.mainoption:hover\{color:#FFF;background:#39C\}#fa_quick_login input.mainoption:focus\{color:#FFF;background:#8B5;border-color:#8B5\}#fa_quick_login table.forumline,#fa_quick_login td,#fa_quick_login th,#fa_quick_login tr\{border:none!important;background:0 0!important;border-radius:0!important;white-space:normal\}#fa_quick_login .thHead\{color:#FFF;font-size:13px;font-family:"Trebuchet MS",Arial,Verdana,Sans-serif;background:#39C!important;padding:3px 6px\}#fa_quick_login td\{font-size:13px;padding:3px\}</style>');\par
+    $(function() \{\par
+        if (!_userdata.session_logged_in && _userdata.activate_toolbar) \{\par
+            var container = document.createElement('DIV');\par
+            container.id = 'fa_quick_login';\par
+            container.style.display = 'none';\par
+            container.innerHTML = '<form action="/login" method="post" name="form_login"><table class="forumline" width="100%" border="0" cellspacing="0" cellpadding="4" align="center"><tbody><tr><th colspan="3" class="thHead" nowrap="nowrap" height="25">' + lang.title + '</th></tr><tr><td width="100%" align="center" class="row1"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="row1 align_gauche"><table width="100%" border="0" cellspacing="1" cellpadding="0"><tbody><tr><td class="align_droite" width="50%"><span class="gen">' + lang.username + '</span></td><td width="50%"><input type="text" name="username" value="" size="25" maxlength="40"></td></tr><tr><td class="align_droite"><span class="gen">' + lang.password + '</span></td><td><input type="password" name="password" size="25" maxlength="32"></td></tr><tr align="center"><td colspan="2"><span class="gen">' + lang.automatic + '<input type="checkbox" name="autologin" checked="checked"></span></td></tr><tr align="center"><td colspan="2"><input type="hidden" name="redirect" value="' + lang.redirect + '"><input type="hidden" name="query" value=""><input type="hidden" name="tt" value="1"><input class="mainoption" type="submit" name="login" value="' + lang.login + '"></td></tr><tr align="center"><td colspan="2"><br><span class="gensmall"><a class="gensmall" href="/register">' + lang.register + '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="gensmall" href="/profile?mode=sendpassword">' + lang.forgot + '</a></span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></form>';\par
+            document.body.appendChild(container);\par
+            $(function() \{\par
+                var right = document.getElementById('fa_right');\par
+                if (right) \{\par
+                    right.firstChild.onclick = function() \{\par
+                        var login = document.getElementById('fa_quick_login'),\par
+                            offset = this.getBoundingClientRect(),\par
+                            loffset;\par
+                        if (login) \{\par
+                            if (/none/.test(login.style.display)) \{\par
+                                login.style.display = '';\par
+                                loffset = login.getBoundingClientRect();\par
+                                login.style.top = offset.top + 30 + 'px';\par
+                                login.style.left = Math.abs(offset.left - ((loffset.right - loffset.left) - (offset.right - offset.left))) + 'px';\par
+                                login.getElementsByTagName('FORM')[0].username.focus();\par
+                                this.className += ' fa_login_actif'\par
+                            \} else \{\par
+                                login.style.display = 'none';\par
+                                this.className = this.className.replace(/fa_login_actif/, '')\par
+                            \}\par
+                        \}\par
+                        return false\par
+                    \}\par
+                \}\par
+            \})\par
+        \}\par
+    \})\par
+\}());\par
+(function() \{\par
+    var config = \{\par
+            button_title: 'Emojis',\par
+            auto_close: false,\par
+            async_load: true,\par
+            emoji_size: 16,\par
+            emoji_list: '\\uD83D\\uDE00 \\uD83D\\uDE01 \\uD83D\\uDE02 \\uD83D\\uDE03 \\uD83D\\uDE04 \\uD83D\\uDE05 \\uD83D\\uDE06 \\uD83D\\uDE09 \\uD83D\\uDE0A \\uD83D\\uDE0B \\uD83D\\uDE0E \\uD83D\\uDE0D \\uD83D\\uDE18 \\uD83D\\uDE17 \\uD83D\\uDE19 \\uD83D\\uDE1A \\u263A\\uFE0F \\uD83D\\uDE07 \\uD83D\\uDE10 \\uD83D\\uDE11 \\uD83D\\uDE36 \\uD83D\\uDE0F \\uD83D\\uDE23 \\uD83D\\uDE25 \\uD83D\\uDE2E \\uD83D\\uDE2F \\uD83D\\uDE2A \\uD83D\\uDE2B \\uD83D\\uDE34 \\uD83D\\uDE0C \\uD83D\\uDE1B \\uD83D\\uDE1C \\uD83D\\uDE1D \\uD83D\\uDE12 \\uD83D\\uDE13 \\uD83D\\uDE14 \\uD83D\\uDE15 \\uD83D\\uDE16 \\uD83D\\uDE37 \\uD83D\\uDE32 \\uD83D\\uDE1E \\uD83D\\uDE1F \\uD83D\\uDE24 \\uD83D\\uDE22 \\uD83D\\uDE2D \\uD83D\\uDE26 \\uD83D\\uDE27 \\uD83D\\uDE28 \\uD83D\\uDE29 \\uD83D\\uDE2C \\uD83D\\uDE30 \\uD83D\\uDE31 \\uD83D\\uDE33 \\uD83D\\uDE35 \\uD83D\\uDE21 \\uD83D\\uDE20 \\uD83D\\uDC7F \\uD83D\\uDE08 \\uD83D\\uDC66 \\uD83D\\uDC67 \\uD83D\\uDC68 \\uD83D\\uDC69 \\uD83D\\uDC74 \\uD83D\\uDC75 \\uD83D\\uDC76 \\uD83D\\uDC71 \\uD83D\\uDC6E \\uD83D\\uDC72 \\uD83D\\uDC73 \\uD83D\\uDC77 \\uD83D\\uDC78 \\uD83D\\uDC82 \\uD83C\\uDF85 \\uD83D\\uDC7C \\uD83D\\uDC6F \\uD83D\\uDC86 \\uD83D\\uDC87 \\uD83D\\uDC70 \\uD83D\\uDE4D \\uD83D\\uDE4E \\uD83D\\uDE45 \\uD83D\\uDE46 \\uD83D\\uDC81 \\uD83D\\uDE4B \\uD83D\\uDE47 \\uD83D\\uDE4C \\uD83D\\uDE4F \\uD83D\\uDC64 \\uD83D\\uDC65 \\uD83D\\uDEB6 \\uD83C\\uDFC3 \\uD83D\\uDC83 \\uD83D\\uDC8F \\uD83D\\uDC91 \\uD83D\\uDC6A \\uD83D\\uDC6B \\uD83D\\uDC6C \\uD83D\\uDC6D \\uD83D\\uDCAA \\uD83D\\uDC48 \\uD83D\\uDC49 \\u261D\\uFE0F \\uD83D\\uDC46 \\uD83D\\uDC47 \\u270C\\uFE0F \\u270A \\u270B \\uD83D\\uDC4A \\uD83D\\uDC4C \\uD83D\\uDC4D \\uD83D\\uDC4E \\uD83D\\uDC4B \\uD83D\\uDC4F \\uD83D\\uDC50 \\uD83D\\uDC85 \\uD83D\\uDC63 \\uD83D\\uDC40 \\uD83D\\uDC42 \\uD83D\\uDC43 \\uD83D\\uDC45 \\uD83D\\uDC44 \\uD83D\\uDC8B \\uD83D\\uDC98 \\u2764\\uFE0F \\uD83D\\uDC93 \\uD83D\\uDC94 \\uD83D\\uDC95 \\uD83D\\uDC96 \\uD83D\\uDC97 \\uD83D\\uDC99 \\uD83D\\uDC9A \\uD83D\\uDC9B \\uD83D\\uDC9C \\uD83D\\uDC9D \\uD83D\\uDC9E \\uD83D\\uDC9F \\uD83D\\uDC8C \\uD83D\\uDCA7 \\uD83D\\uDCA4 \\uD83D\\uDCA2 \\uD83D\\uDCA3 \\uD83D\\uDCA5 \\uD83D\\uDCA6 \\uD83D\\uDCA8 \\uD83D\\uDCAB \\uD83D\\uDCAC \\uD83D\\uDCAD \\uD83D\\uDC53 \\uD83D\\uDC54 \\uD83D\\uDC55 \\uD83D\\uDC56 \\uD83D\\uDC57 \\uD83D\\uDC58 \\uD83D\\uDC59 \\uD83D\\uDC5A \\uD83D\\uDC5B \\uD83D\\uDC5C \\uD83D\\uDC5D \\uD83C\\uDF92 \\uD83D\\uDC5E \\uD83D\\uDC5F \\uD83D\\uDC60 \\uD83D\\uDC61 \\uD83D\\uDC62 \\uD83D\\uDC51 \\uD83D\\uDC52 \\uD83C\\uDFA9 \\uD83D\\uDC84 \\uD83D\\uDC8D \\uD83D\\uDC8E \\uD83D\\uDC79 \\uD83D\\uDC7A \\uD83D\\uDC7B \\uD83D\\uDC80 \\uD83D\\uDC7D \\uD83D\\uDC7E \\uD83D\\uDCA9 \\uD83D\\uDC35 \\uD83D\\uDE48 \\uD83D\\uDE49 \\uD83D\\uDE4A \\uD83D\\uDC12 \\uD83D\\uDC36 \\uD83D\\uDC15 \\uD83D\\uDC29 \\uD83D\\uDC3A \\uD83D\\uDC31 \\uD83D\\uDE38 \\uD83D\\uDE39 \\uD83D\\uDE3A \\uD83D\\uDE3B \\uD83D\\uDE3C \\uD83D\\uDE3D \\uD83D\\uDE3E \\uD83D\\uDE3F \\uD83D\\uDE40 \\uD83D\\uDC08 \\uD83D\\uDC2F \\uD83D\\uDC05 \\uD83D\\uDC06 \\uD83D\\uDC34 \\uD83D\\uDC0E \\uD83D\\uDC2E \\uD83D\\uDC02 \\uD83D\\uDC03 \\uD83D\\uDC04 \\uD83D\\uDC37 \\uD83D\\uDC16 \\uD83D\\uDC17 \\uD83D\\uDC3D \\uD83D\\uDC0F \\uD83D\\uDC11 \\uD83D\\uDC10 \\uD83D\\uDC2A \\uD83D\\uDC2B \\uD83D\\uDC18 \\uD83D\\uDC2D \\uD83D\\uDC01 \\uD83D\\uDC00 \\uD83D\\uDC39 \\uD83D\\uDC30 \\uD83D\\uDC07 \\uD83D\\uDC3B \\uD83D\\uDC28 \\uD83D\\uDC3C \\uD83D\\uDC3E \\uD83D\\uDC14 \\uD83D\\uDC13 \\uD83D\\uDC23 \\uD83D\\uDC24 \\uD83D\\uDC25 \\uD83D\\uDC26 \\uD83D\\uDC27 \\uD83D\\uDC38 \\uD83D\\uDC0A \\uD83D\\uDC22 \\uD83D\\uDC0D \\uD83D\\uDC32 \\uD83D\\uDC09 \\uD83D\\uDC33 \\uD83D\\uDC0B \\uD83D\\uDC2C \\uD83D\\uDC1F \\uD83D\\uDC20 \\uD83D\\uDC21 \\uD83D\\uDC19 \\uD83D\\uDC1A \\uD83D\\uDC0C \\uD83D\\uDC1B \\uD83D\\uDC1C \\uD83D\\uDC1D \\uD83D\\uDC1E \\uD83D\\uDC90 \\uD83C\\uDF38 \\uD83D\\uDCAE \\uD83C\\uDF39 \\uD83C\\uDF3A \\uD83C\\uDF3B \\uD83C\\uDF3C \\uD83C\\uDF37 \\uD83C\\uDF31 \\uD83C\\uDF32 \\uD83C\\uDF33 \\uD83C\\uDF34 \\uD83C\\uDF35 \\uD83C\\uDF3E \\uD83C\\uDF3F \\uD83C\\uDF40 \\uD83C\\uDF41 \\uD83C\\uDF42 \\uD83C\\uDF43 \\uD83C\\uDF47 \\uD83C\\uDF48 \\uD83C\\uDF49 \\uD83C\\uDF4A \\uD83C\\uDF4B \\uD83C\\uDF4C \\uD83C\\uDF4D \\uD83C\\uDF4E \\uD83C\\uDF4F \\uD83C\\uDF50 \\uD83C\\uDF51 \\uD83C\\uDF52 \\uD83C\\uDF53 \\uD83C\\uDF45 \\uD83C\\uDF46 \\uD83C\\uDF3D \\uD83C\\uDF44 \\uD83C\\uDF30 \\uD83C\\uDF5E \\uD83C\\uDF56 \\uD83C\\uDF57 \\uD83C\\uDF54 \\uD83C\\uDF5F \\uD83C\\uDF55 \\uD83C\\uDF72 \\uD83C\\uDF71 \\uD83C\\uDF58 \\uD83C\\uDF59 \\uD83C\\uDF5A \\uD83C\\uDF5B \\uD83C\\uDF5C \\uD83C\\uDF5D \\uD83C\\uDF60 \\uD83C\\uDF62 \\uD83C\\uDF63 \\uD83C\\uDF64 \\uD83C\\uDF65 \\uD83C\\uDF61 \\uD83C\\uDF66 \\uD83C\\uDF67 \\uD83C\\uDF68 \\uD83C\\uDF69 \\uD83C\\uDF6A \\uD83C\\uDF82 \\uD83C\\uDF70 \\uD83C\\uDF6B \\uD83C\\uDF6C \\uD83C\\uDF6D \\uD83C\\uDF6E \\uD83C\\uDF6F \\uD83C\\uDF7C \\u2615 \\uD83C\\uDF75 \\uD83C\\uDF76 \\uD83C\\uDF77 \\uD83C\\uDF78 \\uD83C\\uDF79 \\uD83C\\uDF7A \\uD83C\\uDF7B \\uD83C\\uDF74 \\uD83C\\uDF73 \\uD83C\\uDF0D \\uD83C\\uDF0E \\uD83C\\uDF0F \\uD83C\\uDF10 \\uD83C\\uDF0B \\uD83D\\uDDFB \\uD83C\\uDFE0 \\uD83C\\uDFE1 \\u26EA \\uD83C\\uDFE2 \\uD83C\\uDFE3 \\uD83C\\uDFE4 \\uD83C\\uDFE5 \\uD83C\\uDFE6 \\uD83C\\uDFE8 \\uD83C\\uDFE9 \\uD83C\\uDFEA \\uD83C\\uDFEB \\uD83C\\uDFEC \\uD83C\\uDFED \\uD83C\\uDFEF \\uD83C\\uDFF0 \\uD83D\\uDC92 \\uD83D\\uDDFC \\uD83D\\uDDFD \\uD83D\\uDDFE \\u26F2 \\u26FA \\uD83C\\uDF01 \\uD83C\\uDF03 \\uD83C\\uDF04 \\uD83C\\uDF05 \\uD83C\\uDF06 \\uD83C\\uDF07 \\uD83C\\uDF09 \\uD83C\\uDF0A \\u2668\\uFE0F \\uD83D\\uDDFF \\uD83C\\uDF0C \\uD83C\\uDFA0 \\uD83C\\uDFA1 \\uD83C\\uDFA2 \\uD83D\\uDC88 \\uD83C\\uDFAA \\uD83C\\uDFAD \\uD83C\\uDFA8 \\uD83C\\uDFB0 \\uD83D\\uDE82 \\uD83D\\uDE83 \\uD83D\\uDE84 \\uD83D\\uDE85 \\uD83D\\uDE86 \\uD83D\\uDE87 \\uD83D\\uDE88 \\uD83D\\uDE89 \\uD83D\\uDE8A \\uD83D\\uDE9D \\uD83D\\uDE9E \\uD83D\\uDE8B \\uD83D\\uDE8C \\uD83D\\uDE8D \\uD83D\\uDE8E \\uD83D\\uDE8F \\uD83D\\uDE90 \\uD83D\\uDE91 \\uD83D\\uDE92 \\uD83D\\uDE93 \\uD83D\\uDE94 \\uD83D\\uDE95 \\uD83D\\uDE96 \\uD83D\\uDE97 \\uD83D\\uDE98 \\uD83D\\uDE99 \\uD83D\\uDE9A \\uD83D\\uDE9B \\uD83D\\uDE9C \\uD83D\\uDEB2 \\uD83D\\uDEB3 \\u26FD \\uD83D\\uDEA8 \\u2693 \\uD83D\\uDD31 \\u26F5 \\uD83D\\uDEA3 \\uD83D\\uDEA4 \\uD83D\\uDEA2 \\u2708\\uFE0F \\uD83D\\uDCBA \\uD83D\\uDE81 \\uD83D\\uDE9F \\uD83D\\uDEA0 \\uD83D\\uDEA1 \\uD83D\\uDE80 \\uD83C\\uDFE7 \\uD83D\\uDEAE \\uD83D\\uDEA5 \\uD83D\\uDEA6 \\uD83D\\uDEA7 \\uD83D\\uDEAB \\uD83D\\uDEAD \\uD83D\\uDEAF \\uD83D\\uDEB0 \\uD83D\\uDEB1 \\uD83D\\uDEB7 \\uD83D\\uDEB8 \\u267F \\uD83D\\uDEB9 \\uD83D\\uDEBA \\uD83D\\uDEBB \\uD83D\\uDEBC \\uD83D\\uDEBE \\uD83D\\uDEC2 \\uD83D\\uDEC3 \\uD83D\\uDEC4 \\uD83D\\uDEC5 \\u26A0\\uFE0F \\u26D4 \\uD83D\\uDEAA \\uD83D\\uDEBD \\uD83D\\uDEBF \\uD83D\\uDEC0 \\uD83D\\uDEC1 \\u231B \\u23F3 \\u231A \\u23F0 \\uD83D\\uDD5B \\uD83D\\uDD67 \\uD83D\\uDD50 \\uD83D\\uDD5C \\uD83D\\uDD51 \\uD83D\\uDD5D \\uD83D\\uDD52 \\uD83D\\uDD5E \\uD83D\\uDD53 \\uD83D\\uDD5F \\uD83D\\uDD54 \\uD83D\\uDD60 \\uD83D\\uDD55 \\uD83D\\uDD61 \\uD83D\\uDD56 \\uD83D\\uDD62 \\uD83D\\uDD57 \\uD83D\\uDD63 \\uD83D\\uDD58 \\uD83D\\uDD64 \\uD83D\\uDD59 \\uD83D\\uDD65 \\uD83D\\uDD5A \\uD83D\\uDD66 \\u2648 \\u2649 \\u264A \\u264B \\u264C \\u264D \\u264E \\u264F \\u2650 \\u2651 \\u2652 \\u2653 \\u26CE \\uD83C\\uDF11 \\uD83C\\uDF12 \\uD83C\\uDF13 \\uD83C\\uDF14 \\uD83C\\uDF15 \\uD83C\\uDF16 \\uD83C\\uDF17 \\uD83C\\uDF18 \\uD83C\\uDF19 \\uD83C\\uDF1A \\uD83C\\uDF1B \\uD83C\\uDF1C \\u2600\\uFE0F \\uD83C\\uDF1D \\uD83C\\uDF1E \\u2601\\uFE0F \\u26C5 \\uD83C\\uDF00 \\uD83C\\uDF08 \\uD83C\\uDF02 \\u2614 \\u2744\\uFE0F \\u26C4 \\uD83C\\uDF1F \\uD83C\\uDF20 \\uD83D\\uDD25 \\uD83C\\uDF83 \\uD83C\\uDF84 \\uD83C\\uDF86 \\uD83C\\uDF87 \\u2728 \\uD83C\\uDF88 \\uD83C\\uDF89 \\uD83C\\uDF8A \\uD83C\\uDF8B \\uD83C\\uDF8C \\uD83C\\uDF8D \\uD83C\\uDF8E \\uD83C\\uDF8F \\uD83C\\uDF90 \\uD83C\\uDF91 \\uD83C\\uDF93 \\uD83C\\uDFAF \\uD83C\\uDFB4 \\uD83C\\uDF80 \\uD83C\\uDF81 \\uD83C\\uDFAB \\u26BD \\u26BE \\uD83C\\uDFC0 \\uD83C\\uDFC8 \\uD83C\\uDFC9 \\uD83C\\uDFBE \\uD83C\\uDFB1 \\uD83C\\uDFB3 \\u26F3 \\uD83C\\uDFA3 \\uD83C\\uDFBD \\uD83C\\uDFBF \\uD83C\\uDFC2 \\uD83C\\uDFC4 \\uD83C\\uDFC7 \\uD83C\\uDFCA \\uD83D\\uDEB4 \\uD83D\\uDEB5 \\uD83C\\uDFC6 \\uD83C\\uDFAE \\uD83C\\uDFB2 \\u2660\\uFE0F \\u2665\\uFE0F \\u2666\\uFE0F \\u2663\\uFE0F \\uD83C\\uDCCF \\uD83C\\uDC04 \\uD83D\\uDD07 \\uD83D\\uDD08 \\uD83D\\uDD09 \\uD83D\\uDD0A \\uD83D\\uDCE2 \\uD83D\\uDCE3 \\uD83D\\uDCEF \\uD83D\\uDD14 \\uD83D\\uDD15 \\uD83D\\uDD00 \\uD83D\\uDD01 \\uD83D\\uDD02 \\u25B6\\uFE0F \\u23E9 \\u25C0\\uFE0F \\u23EA \\uD83D\\uDD3C \\u23EB \\uD83D\\uDD3D \\u23EC \\uD83C\\uDFBC \\uD83C\\uDFB5 \\uD83C\\uDFB6 \\uD83C\\uDFA4 \\uD83C\\uDFA7 \\uD83C\\uDFB7 \\uD83C\\uDFB8 \\uD83C\\uDFB9 \\uD83C\\uDFBA \\uD83C\\uDFBB \\uD83D\\uDCFB \\uD83D\\uDCF1 \\uD83D\\uDCF3 \\uD83D\\uDCF4 \\uD83D\\uDCF2 \\uD83D\\uDCF5 \\u260E\\uFE0F \\uD83D\\uDCDE #\\u20E3\\uFE0F 0\\u20E3\\uFE0F 1\\u20E3\\uFE0F 2\\u20E3\\uFE0F 3\\u20E3\\uFE0F 4\\u20E3\\uFE0F 5\\u20E3\\uFE0F 6\\u20E3\\uFE0F 7\\u20E3\\uFE0F 8\\u20E3\\uFE0F 9\\u20E3\\uFE0F \\uD83D\\uDD1F \\uD83D\\uDCF6 \\uD83D\\uDCDF \\uD83D\\uDCE0 \\uD83D\\uDD0B \\uD83D\\uDD0C \\uD83D\\uDCBB \\uD83D\\uDCBD \\uD83D\\uDCBE \\uD83D\\uDCBF \\uD83D\\uDCC0 \\uD83C\\uDFA5 \\uD83C\\uDFA6 \\uD83C\\uDFAC \\uD83D\\uDCFA \\uD83D\\uDCF7 \\uD83D\\uDCF9 \\uD83D\\uDCFC \\uD83D\\uDD05 \\uD83D\\uDD06 \\uD83D\\uDD0D \\uD83D\\uDD0E \\uD83D\\uDD2C \\uD83D\\uDD2D \\uD83D\\uDCE1 \\uD83D\\uDCA1 \\uD83D\\uDD26 \\uD83C\\uDFEE \\uD83D\\uDCD4 \\uD83D\\uDCD5 \\uD83D\\uDCD6 \\uD83D\\uDCD7 \\uD83D\\uDCD8 \\uD83D\\uDCD9 \\uD83D\\uDCDA \\uD83D\\uDCD3 \\uD83D\\uDCD2 \\uD83D\\uDCC3 \\uD83D\\uDCDC \\uD83D\\uDCC4 \\uD83D\\uDCF0 \\uD83D\\uDCD1 \\uD83D\\uDD16 \\uD83D\\uDCB0 \\uD83D\\uDCB4 \\uD83D\\uDCB5 \\uD83D\\uDCB6 \\uD83D\\uDCB7 \\uD83D\\uDCB8 \\uD83D\\uDCB1 \\uD83D\\uDCB2 \\uD83D\\uDCB3 \\uD83D\\uDCB9 \\u2709\\uFE0F \\uD83D\\uDCE7 \\uD83D\\uDCE8 \\uD83D\\uDCE9 \\uD83D\\uDCE4 \\uD83D\\uDCE5 \\uD83D\\uDCE6 \\uD83D\\uDCEB \\uD83D\\uDCEA \\uD83D\\uDCEC \\uD83D\\uDCED \\uD83D\\uDCEE \\u270F\\uFE0F \\u2712\\uFE0F \\uD83D\\uDCDD \\uD83D\\uDCBC \\uD83D\\uDCC1 \\uD83D\\uDCC2 \\uD83D\\uDCC5 \\uD83D\\uDCC6 \\uD83D\\uDCC7 \\uD83D\\uDCC8 \\uD83D\\uDCC9 \\uD83D\\uDCCA \\uD83D\\uDCCB \\uD83D\\uDCCC \\uD83D\\uDCCD \\uD83D\\uDCCE \\uD83D\\uDCCF \\uD83D\\uDCD0 \\uD83D\\uDCDB \\u2702\\uFE0F \\uD83D\\uDD12 \\uD83D\\uDD13 \\uD83D\\uDD0F \\uD83D\\uDD10 \\uD83D\\uDD11 \\uD83D\\uDD28 \\uD83D\\uDD27 \\uD83D\\uDD29 \\uD83D\\uDD17 \\uD83D\\uDC89 \\uD83D\\uDC8A \\uD83D\\uDD2A \\uD83D\\uDD2B \\uD83D\\uDEAC \\uD83C\\uDFC1 \\uD83D\\uDEA9 \\uD83C\\uDDE8\\uD83C\\uDDF3 \\uD83C\\uDDEB\\uD83C\\uDDF7 \\uD83C\\uDDE9\\uD83C\\uDDEA \\uD83C\\uDDEE\\uD83C\\uDDF9 \\uD83C\\uDDEF\\uD83C\\uDDF5 \\uD83C\\uDDF7\\uD83C\\uDDFA \\uD83C\\uDDF0\\uD83C\\uDDF7 \\uD83C\\uDDEA\\uD83C\\uDDF8 \\uD83C\\uDDEC\\uD83C\\uDDE7 \\uD83C\\uDDFA\\uD83C\\uDDF8 \\u2B06\\uFE0F \\u2197\\uFE0F \\u27A1\\uFE0F \\u2198\\uFE0F \\u2B07\\uFE0F \\u2199\\uFE0F \\u2B05\\uFE0F \\u2196\\uFE0F \\u2195\\uFE0F \\u2194\\uFE0F \\u21A9\\uFE0F \\u21AA\\uFE0F \\u2934\\uFE0F \\u2935\\uFE0F \\uD83D\\uDD03 \\uD83D\\uDD04 \\uD83D\\uDD19 \\uD83D\\uDD1A \\uD83D\\uDD1B \\uD83D\\uDD1C \\uD83D\\uDD1D \\uD83D\\uDD30 \\uD83D\\uDD2E \\uD83D\\uDD2F \\u267B\\uFE0F \\u26A1 \\u2B50 \\u2B55 \\u2705 \\u2611\\uFE0F \\u2714\\uFE0F \\u2716\\uFE0F \\u274C \\u274E \\u2795 \\u2796 \\u2797 \\u27B0 \\u27BF \\u303D\\uFE0F \\u2733\\uFE0F \\u2734\\uFE0F \\u2747\\uFE0F \\u203C\\uFE0F \\u2049\\uFE0F \\u2753 \\u2754 \\u2755 \\u2757 \\u3030\\uFE0F \\u00A9\\uFE0F \\u00AE\\uFE0F \\u2122\\uFE0F \\uD83D\\uDCAF \\uD83D\\uDD1E \\uD83D\\uDD20 \\uD83D\\uDD21 \\uD83D\\uDD22 \\uD83D\\uDD23 \\uD83D\\uDD24 \\uD83C\\uDD70\\uFE0F \\uD83C\\uDD8E \\uD83C\\uDD71\\uFE0F \\uD83C\\uDD91 \\uD83C\\uDD92 \\uD83C\\uDD93 \\u2139\\uFE0F \\uD83C\\uDD94 \\u24C2\\uFE0F \\uD83C\\uDD95 \\uD83C\\uDD96 \\uD83C\\uDD7E\\uFE0F \\uD83C\\uDD97 \\uD83C\\uDD7F\\uFE0F \\uD83C\\uDD98 \\uD83C\\uDD99 \\uD83C\\uDD9A \\uD83C\\uDE01 \\uD83C\\uDE02\\uFE0F \\uD83C\\uDE37\\uFE0F \\uD83C\\uDE36 \\uD83C\\uDE2F \\uD83C\\uDE50 \\uD83C\\uDE39 \\uD83C\\uDE1A \\uD83C\\uDE32 \\uD83C\\uDE51 \\uD83C\\uDE38 \\uD83C\\uDE34 \\uD83C\\uDE33 \\u3297\\uFE0F \\u3299\\uFE0F \\uD83C\\uDE3A \\uD83C\\uDE35 \\u25AA\\uFE0F \\u25AB\\uFE0F \\u25FB\\uFE0F \\u25FC\\uFE0F \\u25FD \\u25FE \\u2B1B \\u2B1C \\uD83D\\uDD36 \\uD83D\\uDD37 \\uD83D\\uDD38 \\uD83D\\uDD39 \\uD83D\\uDD3A \\uD83D\\uDD3B \\uD83D\\uDCA0 \\uD83D\\uDD18 \\uD83D\\uDD32 \\uD83D\\uDD33 \\u26AA \\u26AB \\uD83D\\uDD34 \\uD83D\\uDD35 \\uE50A \\uD83C\\uDDE6 \\uD83C\\uDDE7 \\uD83C\\uDDE8 \\uD83C\\uDDE9 \\uD83C\\uDDEA \\uD83C\\uDDEB \\uD83C\\uDDEC \\uD83C\\uDDED \\uD83C\\uDDEE \\uD83C\\uDDEF \\uD83C\\uDDF0 \\uD83C\\uDDF1 \\uD83C\\uDDF2 \\uD83C\\uDDF3 \\uD83C\\uDDF4 \\uD83C\\uDDF5 \\uD83C\\uDDF6 \\uD83C\\uDDF7 \\uD83C\\uDDF8 \\uD83C\\uDDF9 \\uD83C\\uDDFA \\uD83C\\uDDFB \\uD83C\\uDDFC \\uD83C\\uDDFD \\uD83C\\uDDFE \\uD83C\\uDDFF'\par
+        \},\par
+        script = document.createElement('SCRIPT');\par
+    script.type = 'text/javascript';\par
+    script.src = '{{\field{\*\fldinst{HYPERLINK http://twemoji.maxcdn.com/twemoji.min.js }}{\fldrslt{http://twemoji.maxcdn.com/twemoji.min.js\ul0\cf0}}}}\f0\fs22 ';\par
+    document.getElementsByTagName('HEAD')[0].appendChild(script);\par
+    document.write('<style type="text/css">.sceditor-button-twemoji div\{background:url(http://twemoji.maxcdn.com/16x16/1f600.png)!important\}.sceditor-twemoji\{width:220px;height:250px;overflow-y:auto\}.sceditor-twemoji img\{cursor:pointer;padding:3px\}.sceditor-twemoji img:hover\{opacity:.7\}</style>');\par
+    $(function() \{\par
+        if ($.sceditor) \{\par
+            $.sceditor.command.set('twemoji', \{\par
+                dropDown: function(editor, caller, callback) \{\par
+                    if (!fa_twemoji.element) \{\par
+                        fa_twemoji.element = document.createElement('DIV');\par
+                        fa_twemoji.element.innerHTML = twemoji.parse(fa_twemoji.emoji_list, \{\par
+                            size: fa_twemoji.emoji_size,\par
+                            attributes: function() \{\par
+                                return \{\par
+                                    style: 'display:none;'\par
+                                \}\par
+                            \}\par
+                        \}).replace(/\\s(?=<|$)/g, '');\par
+                        if (fa_twemoji.async_load) \{\par
+                            fa_twemoji.image = \{\par
+                                collection: $('img', fa_twemoji.element),\par
+                                index: 0,\par
+                                timeout: [0, 6000],\par
+                                load: window.setInterval(function() \{\par
+                                    if (fa_twemoji.image.collection[fa_twemoji.image.index].complete) \{\par
+                                        fa_twemoji.image.index++;\par
+                                        if (fa_twemoji.image.collection[fa_twemoji.image.index]) \{\par
+                                            fa_twemoji.image.collection[fa_twemoji.image.index].style.display = '';\par
+                                            fa_twemoji.image.timeout[0] = 0\par
+                                        \} else \{\par
+                                            window.clearInterval(fa_twemoji.image.load);\par
+                                            fa_twemoji.image.load = 'COMPLETE'\par
+                                        \}\par
+                                    \} else if (++fa_twemoji.image.timeout[0] > fa_twemoji.image.timeout[1]) \{\par
+                                        window.clearInterval(fa_twemoji.image.load);\par
+                                        fa_twemoji.image.load = 'ERROR'\par
+                                    \}\par
+                                \}, 10)\par
+                            \};\par
+                            fa_twemoji.image.collection[fa_twemoji.image.index].style.display = ''\par
+                        \} else \{\par
+                            $('img', fa_twemoji.element).show()\par
+                        \}\par
+                    \}\par
+                    $(fa_twemoji.element).click(function(e) \{\par
+                        var target = e.target;\par
+                        if (target.tagName == 'IMG') \{\par
+                            callback(target.src);\par
+                            fa_twemoji.auto_close && editor.closeDropDown(true)\par
+                        \}\par
+                    \});\par
+                    editor.createDropDown(caller, 'twemoji', fa_twemoji.element)\par
+                \},\par
+                exec: function(c) \{\par
+                    var e = this;\par
+                    $.sceditor.command.get('twemoji').dropDown(e, c, function(icon) \{\par
+                        e.insert('&nbsp;[img]' + icon + '[/img]&nbsp;', '', true, true, true)\par
+                    \})\par
+                \},\par
+                txtExec: function(c) \{\par
+                    var e = this;\par
+                    $.sceditor.command.get('twemoji').dropDown(e, c, function(icon) \{\par
+                        e.insert(' [img]' + icon + '[/img] ', '', true, true, true)\par
+                    \})\par
+                \},\par
+                tooltip: fa_twemoji.button_title\par
+            \});\par
+            toolbar = /fontawesome/.test(toolbar) ? toolbar.replace(/fontawesome,/, 'twemoji,fontawesome,') : toolbar.replace(/date,/, 'twemoji,date,')\par
+        \}\par
+    \});\par
+    if (!window.fa_twemoji) \{\par
+        window.fa_twemoji = config\par
+    \}\par
+\}());\par
+$(function() \{\par
+    var s = document.createElement('STYLE'),\par
+        code = document.getElementsByTagName('CODE'),\par
+        i = 0,\par
+        j = code.length,\par
+        txt;\par
+    if (j) \{\par
+        s.appendChild(document.createTextNode('dl.codebox code.prettyprint\{font-family:Monaco,"DejaVu Sans Mono","Bitstream Vera Sans Mono","Lucida Console",monospace;font-size:13px;padding:3px;white-space:normal\}.prettyprint .pln\{color:#333\}.prettyprint .str\{color:#080\}.prettyprint .kwd\{color:#008\}.prettyprint .com\{color:#800\}.prettyprint .typ\{color:#606\}.prettyprint .lit\{color:#066\}.prettyprint .pun\{color:#660\}.prettyprint .tag\{color:#008\}.prettyprint .atn\{color:#606\}.prettyprint .atv\{color:#080\}.prettyprint .dec\{color:#606\}.prettyprint .linenums li\{border-left:3px solid #DDD;padding-left:5px\}.prettyprint ol.linenums\{margin:0px 0px 0px 50px\}'));\par
+        document.getElementsByTagName('HEAD')[0].appendChild(s);\par
+        for (; i < j; i++) \{\par
+            txt = $(code[i]).text();\par
+            code[i].className += ' prettyprint ' + (txt.indexOf('<') == -1 && /[\\s\\S]+\{[\\s\\S]+:[\\s\\S]+\}/.test(txt) ? 'lang-css ' : '') + ($(code[i]).closest('.inline-code').length ? '' : 'linenums')\par
+        \}\par
+        var q = null;\par
+        window.PR_SHOULD_USE_CONTINUATION = !0;\par
+        (function() \{\par
+            function L(a) \{\par
+                function m(a) \{\par
+                    var f = a.charCodeAt(0);\par
+                    if (f !== 92) \{\par
+                        return f\par
+                    \}\par
+                    var b = a.charAt(1);\par
+                    return (f = r[b]) ? f : "0" <= b && b <= "7" ? parseInt(a.substring(1), 8) : b === "u" || b === "x" ? parseInt(a.substring(2), 16) : a.charCodeAt(1)\par
+                \};\par
+\par
+                function e(a) \{\par
+                    if (a < 32) \{\par
+                        return (a < 16 ? "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\x0"}}{\fldrslt{\\\\x0\ul0\cf0}}}}\f0\fs22 " : "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\x"}}{\fldrslt{\\\\x\ul0\cf0}}}}\f0\fs22 ") + a.toString(16)\par
+                    \}\par
+                    a = String.fromCharCode(a);\par
+                    if (a === "\\\\" || a === "-" || a === "[" || a === "]") \{\par
+                        a = "\\\\" + a\par
+                    \}\par
+                    return a\par
+                \};\par
+\par
+                function h(a) \{\par
+                    for (var f = a.substring(1, a.length - 1).match(/\\\\u[\\dA-Fa-f]\{4\}|\\\\x[\\dA-Fa-f]\{2\}|\\\\[0-3][0-7]\{0,2\}|\\\\[0-7]\{1,2\}|\\\\[\\S\\s]|[^\\\\]/g), a = [], b = [], o = f[0] === "^", c = o ? 1 : 0, i = f.length; c < i; ++c) \{\par
+                        var j = f[c];\par
+                        if (/\\\\[bdsw]/i.test(j)) \{\par
+                            a.push(j)\par
+                        \} else \{\par
+                            var j = m(j),\par
+                                d;\par
+                            c + 2 < i && "-" === f[c + 1] ? (d = m(f[c + 2]), c += 2) : d = j;\par
+                            b.push([j, d]);\par
+                            d < 65 || j > 122 || (d < 65 || j > 90 || b.push([Math.max(65, j) | 32, Math.min(d, 90) | 32]), d < 97 || j > 122 || b.push([Math.max(97, j) & -33, Math.min(d, 122) & -33]))\par
+                        \}\par
+                    \}\par
+                    b.sort(function(a, f) \{\par
+                        return a[0] - f[0] || f[1] - a[1]\par
+                    \});\par
+                    f = [];\par
+                    j = [NaN, NaN];\par
+                    for (c = 0; c < b.length; ++c) \{\par
+                        i = b[c], i[0] <= j[1] + 1 ? j[1] = Math.max(j[1], i[1]) : f.push(j = i)\par
+                    \}\par
+                    b = ["["];\par
+                    o && b.push("^");\par
+                    b.push.apply(b, a);\par
+                    for (c = 0; c < f.length; ++c) \{\par
+                        i = f[c], b.push(e(i[0])), i[1] > i[0] && (i[1] + 1 > i[0] && b.push("-"), b.push(e(i[1])))\par
+                    \}\par
+                    b.push("]");\par
+                    return b.join("")\par
+                \};\par
+\par
+                function y(a) \{\par
+                    for (var f = a.source.match(/\\[(?:[^\\\\\\]]|\\\\[\\S\\s])*]|\\\\u[\\dA-Fa-f]\{4\}|\\\\x[\\dA-Fa-f]\{2\}|\\\\\\d+|\\\\[^\\dux]|\\(\\?[!:=]|[()^]|[^()[\\\\^]+/g), b = f.length, d = [], c = 0, i = 0; c < b; ++c) \{\par
+                        var j = f[c];\par
+                        j === "(" ? ++i : "\\\\" === j.charAt(0) && (j = +j.substring(1)) && j <= i && (d[j] = -1)\par
+                    \}\par
+                    for (c = 1; c < d.length; ++c) \{\par
+                        -1 === d[c] && (d[c] = ++t)\par
+                    \}\par
+                    for (i = c = 0; c < b; ++c) \{\par
+                        j = f[c], j === "(" ? (++i, d[i] === void 0 && (f[c] = "(?:")) : "\\\\" === j.charAt(0) && (j = +j.substring(1)) && j <= i && (f[c] = "\\\\" + d[i])\par
+                    \}\par
+                    for (i = c = 0; c < b; ++c) \{\par
+                        "^" === f[c] && "^" !== f[c + 1] && (f[c] = "")\par
+                    \}\par
+                    if (a.ignoreCase && s) \{\par
+                        for (c = 0; c < b; ++c) \{\par
+                            j = f[c], a = j.charAt(0), j.length >= 2 && a === "[" ? f[c] = h(j) : a !== "\\\\" && (f[c] = j.replace(/[A-Za-z]/g, function(a) \{\par
+                                a = a.charCodeAt(0);\par
+                                return "[" + String.fromCharCode(a & -33, a | 32) + "]"\par
+                            \}))\par
+                        \}\par
+                    \}\par
+                    return f.join("")\par
+                \};\par
+                for (var t = 0, s = !1, l = !1, p = 0, d = a.length; p < d; ++p) \{\par
+                    var g = a[p];\par
+                    if (g.ignoreCase) \{\par
+                        l = !0\par
+                    \} else \{\par
+                        if (/[a-z]/i.test(g.source.replace(/\\\\u[\\da-f]\{4\}|\\\\x[\\da-f]\{2\}|\\\\[^UXux]/gi, ""))) \{\par
+                            s = !0;\par
+                            l = !1;\par
+                            break\par
+                        \}\par
+                    \}\par
+                \}\par
+                for (var r = \{\par
+                        b: 8,\par
+                        t: 9,\par
+                        n: 10,\par
+                        v: 11,\par
+                        f: 12,\par
+                        r: 13\par
+                    \}, n = [], p = 0, d = a.length; p < d; ++p) \{\par
+                    g = a[p];\par
+                    if (g.global || g.multiline) \{\par
+                        throw Error("" + g)\par
+                    \}\par
+                    n.push("(?:" + y(g) + ")")\par
+                \}\par
+                return RegExp(n.join("|"), l ? "gi" : "g")\par
+            \};\par
+\par
+            function M(a) \{\par
+                function m(a) \{\par
+                    switch (a.nodeType) \{\par
+                        case 1:\par
+                            if (e.test(a.className)) \{\par
+                                break\par
+                            \}\par
+                            for (var g = a.firstChild; g; g = g.nextSibling) \{\par
+                                m(g)\par
+                            \}\par
+                            g = a.nodeName;\par
+                            if ("BR" === g || "LI" === g) \{\par
+                                h[s] = "\\n", t[s << 1] = y++, t[s++ << 1 | 1] = a\par
+                            \}\par
+                            break;\par
+                        case 3:\par
+                            ;\par
+                        case 4:\par
+                            g = a.nodeValue, g.length && (g = p ? g.replace(/\\r\\n?/g, "\\n") : g.replace(/[\\t\\n\\r ]+/g, " "), h[s] = g, t[s << 1] = y, y += g.length, t[s++ << 1 | 1] = a)\par
+                    \}\par
+                \};\par
+                var e = /(?:^|\\s)nocode(?:\\s|$)/,\par
+                    h = [],\par
+                    y = 0,\par
+                    t = [],\par
+                    s = 0,\par
+                    l;\par
+                a.currentStyle ? l = a.currentStyle.whiteSpace : window.getComputedStyle && (l = document.defaultView.getComputedStyle(a, q).getPropertyValue("white-space"));\par
+                var p = l && "pre" === l.substring(0, 3);\par
+                m(a);\par
+                return \{\par
+                    a: h.join("").replace(/\\n$/, ""),\par
+                    c: t\par
+                \}\par
+            \};\par
+\par
+            function B(a, m, e, h) \{\par
+                m && (a = \{\par
+                    a: m,\par
+                    d: a\par
+                \}, e(a), h.push.apply(h, a.e))\par
+            \};\par
+\par
+            function x(a, m) \{\par
+                function e(a) \{\par
+                    for (var l = a.d, p = [l, "pln"], d = 0, g = a.a.match(y) || [], r = \{\}, n = 0, z = g.length; n < z; ++n) \{\par
+                        var f = g[n],\par
+                            b = r[f],\par
+                            o = void 0,\par
+                            c;\par
+                        if (typeof b === "string") \{\par
+                            c = !1\par
+                        \} else \{\par
+                            var i = h[f.charAt(0)];\par
+                            if (i) \{\par
+                                o = f.match(i[1]), b = i[0]\par
+                            \} else \{\par
+                                for (c = 0; c < t; ++c) \{\par
+                                    if (i = m[c], o = f.match(i[1])) \{\par
+                                        b = i[0];\par
+                                        break\par
+                                    \}\par
+                                \}\par
+                                o || (b = "pln")\par
+                            \}\par
+                            if ((c = b.length >= 5 && "lang-" === b.substring(0, 5)) && !(o && typeof o[1] === "string")) \{\par
+                                c = !1, b = "src"\par
+                            \}\par
+                            c || (r[f] = b)\par
+                        \}\par
+                        i = d;\par
+                        d += f.length;\par
+                        if (c) \{\par
+                            c = o[1];\par
+                            var j = f.indexOf(c),\par
+                                k = j + c.length;\par
+                            o[2] && (k = f.length - o[2].length, j = k - c.length);\par
+                            b = b.substring(5);\par
+                            B(l + i, f.substring(0, j), e, p);\par
+                            B(l + i + j, c, C(b, c), p);\par
+                            B(l + i + k, f.substring(k), e, p)\par
+                        \} else \{\par
+                            p.push(l + i, b)\par
+                        \}\par
+                    \}\par
+                    a.e = p\par
+                \};\par
+                var h = \{\},\par
+                    y;\par
+                (function() \{\par
+                    for (var e = a.concat(m), l = [], p = \{\}, d = 0, g = e.length; d < g; ++d) \{\par
+                        var r = e[d],\par
+                            n = r[3];\par
+                        if (n) \{\par
+                            for (var k = n.length; --k >= 0;) \{\par
+                                h[n.charAt(k)] = r\par
+                            \}\par
+                        \}\par
+                        r = r[1];\par
+                        n = "" + r;\par
+                        p.hasOwnProperty(n) || (l.push(r), p[n] = q)\par
+                    \}\par
+                    l.push(/[\\S\\s]/);\par
+                    y = L(l)\par
+                \})();\par
+                var t = m.length;\par
+                return e\par
+            \};\par
+\par
+            function u(a) \{\par
+                var m = [],\par
+                    e = [];\par
+                a.tripleQuotedStrings ? m.push(["str", /^(?:'''(?:[^'\\\\]|\\\\[\\S\\s]|''?(?=[^']))*(?:'''|$)|"""(?:[^"\\\\]|\\\\[\\S\\s]|""?(?=[^"]))*(?:"""|$)|'(?:[^'\\\\]|\\\\[\\S\\s])*(?:'|$)|"(?:[^"\\\\]|\\\\[\\S\\s])*(?:"|$))/, q, "'\\""]) : a.multiLineStrings ? m.push(["str", /^(?:'(?:[^'\\\\]|\\\\[\\S\\s])*(?:'|$)|"(?:[^"\\\\]|\\\\[\\S\\s])*(?:"|$)|`(?:[^\\\\`]|\\\\[\\S\\s])*(?:`|$))/, q, "'\\"`"]) : m.push(["str", /^(?:'(?:[^\\n\\r'\\\\]|\\\\.)*(?:'|$)|"(?:[^\\n\\r"\\\\]|\\\\.)*(?:"|$))/, q, "\\"'"]);\par
+                a.verbatimStrings && e.push(["str", /^@"(?:[^"]|"")*(?:"|$)/, q]);\par
+                var h = a.hashComments;\par
+                h && (a.cStyleComments ? (h > 1 ? m.push(["com", /^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)/, q, "#"]) : m.push(["com", /^#(?:(?:define|elif|else|endif|error|ifdef|include|ifndef|line|pragma|undef|warning)\\b|[^\\n\\r]*)/, q, "#"]), e.push(["str", /^<(?:(?:(?:\\.\\.\\/)*|\\/?)(?:[\\w-]+(?:\\/[\\w-]+)+)?[\\w-]+\\.h|[a-z]\\w*)>/, q])) : m.push(["com", /^#[^\\n\\r]*/, q, "#"]));\par
+                a.cStyleComments && (e.push(["com", /^\\/\\/[^\\n\\r]*/, q]), e.push(["com", /^\\/\\*[\\S\\s]*?(?:\\*\\/|$)/, q]));\par
+                a.regexLiterals && e.push(["lang-regex", /^(?:^^\\.?|[!+-]|!=|!==|#|%|%=|&|&&|&&=|&=|\\(|\\*|\\*=|\\+=|,|-=|->|\\/|\\/=|:|::|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|[?@[^]|\\^=|\\^\\^|\\^\\^=|\{|\\||\\|=|\\|\\||\\|\\|=|~|break|case|continue|delete|do|else|finally|instanceof|return|throw|try|typeof)\\s*(\\/(?=[^*/])(?:[^/[\\\\]|\\\\[\\S\\s]|\\[(?:[^\\\\\\]]|\\\\[\\S\\s])*(?:]|$))+\\/)/]);\par
+                (h = a.types) && e.push(["typ", h]);\par
+                a = ("" + a.keywords).replace(/^ | $/g, "");\par
+                a.length && e.push(["kwd", RegExp("^(?:" + a.replace(/[\\s,]+/g, "|") + "){{\field{\*\fldinst{HYPERLINK "\\\\\\\\b"}}{\fldrslt{\\\\b\ul0\cf0}}}}\f0\fs22 "), q]);\par
+                m.push(["pln", /^\\s+/, q, " \\r\\n\\t\\u00a0"]);\par
+                e.push(["lit", /^@[$_a-z][\\w$@]*/i, q], ["typ", /^(?:[@_]?[A-Z]+[a-z][\\w$@]*|\\w+_t\\b)/, q], ["pln", /^[$_a-z][\\w$@]*/i, q], ["lit", /^(?:0x[\\da-f]+|(?:\\d(?:_\\d+)*\\d*(?:\\.\\d*)?|\\.\\d\\+)(?:e[+-]?\\d+)?)[a-z]*/i, q, "0123456789"], ["pln", /^\\\\[\\S\\s]?/, q], ["pun", /^.[^\\s\\w"-$'./@\\\\`]*/, q]);\par
+                return x(m, e)\par
+            \};\par
+\par
+            function D(a, m) \{\par
+                function e(a) \{\par
+                    switch (a.nodeType) \{\par
+                        case 1:\par
+                            if (k.test(a.className)) \{\par
+                                break\par
+                            \}\par
+                            if ("BR" === a.nodeName) \{\par
+                                h(a), a.parentNode && a.parentNode.removeChild(a)\par
+                            \} else \{\par
+                                for (a = a.firstChild; a; a = a.nextSibling) \{\par
+                                    e(a)\par
+                                \}\par
+                            \}\par
+                            break;\par
+                        case 3:\par
+                            ;\par
+                        case 4:\par
+                            if (p) \{\par
+                                var b = a.nodeValue,\par
+                                    d = b.match(t);\par
+                                if (d) \{\par
+                                    var c = b.substring(0, d.index);\par
+                                    a.nodeValue = c;\par
+                                    (b = b.substring(d.index + d[0].length)) && a.parentNode.insertBefore(s.createTextNode(b), a.nextSibling);\par
+                                    h(a);\par
+                                    c || a.parentNode.removeChild(a)\par
+                                \}\par
+                            \}\par
+                    \}\par
+                \};\par
+\par
+                function h(a) \{\par
+                    function b(a, d) \{\par
+                        var e = d ? a.cloneNode(!1) : a,\par
+                            f = a.parentNode;\par
+                        if (f) \{\par
+                            var f = b(f, 1),\par
+                                g = a.nextSibling;\par
+                            f.appendChild(e);\par
+                            for (var h = g; h; h = g) \{\par
+                                g = h.nextSibling, f.appendChild(h)\par
+                            \}\par
+                        \}\par
+                        return e\par
+                    \}\par
+                    for (; !a.nextSibling;) \{\par
+                        if (a = a.parentNode, !a) \{\par
+                            return\par
+                        \}\par
+                    \}\par
+                    for (var a = b(a.nextSibling, 0), e;\par
+                        (e = a.parentNode) && e.nodeType === 1;) \{\par
+                        a = e\par
+                    \}\par
+                    d.push(a)\par
+                \};\par
+                var k = /(?:^|\\s)nocode(?:\\s|$)/,\par
+                    t = /\\r\\n?|\\n/,\par
+                    s = a.ownerDocument,\par
+                    l;\par
+                a.currentStyle ? l = a.currentStyle.whiteSpace : window.getComputedStyle && (l = s.defaultView.getComputedStyle(a, q).getPropertyValue("white-space"));\par
+                var p = l && "pre" === l.substring(0, 3);\par
+                for (l = s.createElement("LI"); a.firstChild;) \{\par
+                    l.appendChild(a.firstChild)\par
+                \}\par
+                for (var d = [l], g = 0; g < d.length; ++g) \{\par
+                    e(d[g])\par
+                \}\par
+                m === (m | 0) && d[0].setAttribute("value", m);\par
+                var r = s.createElement("OL");\par
+                r.className = "linenums";\par
+                for (var n = Math.max(0, m - 1 | 0) || 0, g = 0, z = d.length; g < z; ++g) \{\par
+                    l = d[g], l.className = "L" + (g + n) % 10, l.firstChild || l.appendChild(s.createTextNode("\\u00a0")), r.appendChild(l)\par
+                \}\par
+                a.appendChild(r)\par
+            \};\par
+\par
+            function k(a, m) \{\par
+                for (var e = m.length; --e >= 0;) \{\par
+                    var h = m[e];\par
+                    A.hasOwnProperty(h) ? window.console && console.warn("cannot override language handler %s", h) : A[h] = a\par
+                \}\par
+            \};\par
+\par
+            function C(a, m) \{\par
+                if (!a || !A.hasOwnProperty(a)) \{\par
+                    a = /^\\s*</.test(m) ? "default-markup" : "default-code"\par
+                \}\par
+                return A[a]\par
+            \};\par
+\par
+            function E(a) \{\par
+                var m = a.g;\par
+                try \{\par
+                    var e = M(a.h),\par
+                        h = e.a;\par
+                    a.a = h;\par
+                    a.c = e.c;\par
+                    a.d = 0;\par
+                    C(m, h)(a);\par
+                    var k = /\\bMSIE\\b/.test(navigator.userAgent),\par
+                        m = /\\n/g,\par
+                        t = a.a,\par
+                        s = t.length,\par
+                        e = 0,\par
+                        l = a.c,\par
+                        p = l.length,\par
+                        h = 0,\par
+                        d = a.e,\par
+                        g = d.length,\par
+                        a = 0;\par
+                    d[g] = s;\par
+                    var r, n;\par
+                    for (n = r = 0; n < g;) \{\par
+                        d[n] !== d[n + 2] ? (d[r++] = d[n++], d[r++] = d[n++]) : n += 2\par
+                    \}\par
+                    g = r;\par
+                    for (n = r = 0; n < g;) \{\par
+                        for (var z = d[n], f = d[n + 1], b = n + 2; b + 2 <= g && d[b + 1] === f;) \{\par
+                            b += 2\par
+                        \}\par
+                        d[r++] = z;\par
+                        d[r++] = f;\par
+                        n = b\par
+                    \}\par
+                    for (d.length = r; h < p;) \{\par
+                        var o = l[h + 2] || s,\par
+                            c = d[a + 2] || s,\par
+                            b = Math.min(o, c),\par
+                            i = l[h + 1],\par
+                            j;\par
+                        if (i.nodeType !== 1 && (j = t.substring(e, b))) \{\par
+                            k && (j = j.replace(m, "\\r"));\par
+                            i.nodeValue = j;\par
+                            var u = i.ownerDocument,\par
+                                v = u.createElement("SPAN");\par
+                            v.className = d[a + 1];\par
+                            var x = i.parentNode;\par
+                            x.replaceChild(v, i);\par
+                            v.appendChild(i);\par
+                            e < o && (l[h + 1] = i = u.createTextNode(t.substring(b, o)), x.insertBefore(i, v.nextSibling))\par
+                        \}\par
+                        e = b;\par
+                        e >= o && (h += 2);\par
+                        e >= c && (a += 2)\par
+                    \}\par
+                \} catch (w) \{\par
+                    "console" in window && console.log(w && w.stack ? w.stack : w)\par
+                \}\par
+            \};\par
+            var v = ["break,continue,do,else,for,if,return,while"],\par
+                w = [\par
+                    [v, "auto,case,char,const,default,double,enum,extern,float,goto,int,long,register,short,signed,sizeof,static,struct,switch,typedef,union,unsigned,void,volatile"], "catch,class,delete,false,import,new,operator,private,protected,public,this,throw,true,try,typeof"\par
+                ],\par
+                F = [w, "alignof,align_union,asm,axiom,bool,concept,concept_map,const_cast,constexpr,decltype,dynamic_cast,explicit,export,friend,inline,late_check,mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,template,typeid,typename,using,virtual,where"],\par
+                G = [w, "abstract,boolean,byte,extends,final,finally,implements,import,instanceof,null,native,package,strictfp,super,synchronized,throws,transient"],\par
+                H = [G, "as,base,by,checked,decimal,delegate,descending,dynamic,event,fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var"],\par
+                w = [w, "debugger,eval,export,function,get,null,set,undefined,var,with,Infinity,NaN"],\par
+                I = [v, "and,as,assert,class,def,del,elif,except,exec,finally,from,global,import,in,is,lambda,nonlocal,not,or,pass,print,raise,try,with,yield,False,True,None"],\par
+                J = [v, "alias,and,begin,case,class,def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,rescue,retry,self,super,then,true,undef,unless,until,when,yield,BEGIN,END"],\par
+                v = [v, "case,done,elif,esac,eval,fi,function,in,local,set,then,until"],\par
+                K = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\\d*)/,\par
+                N = /\\S/,\par
+                O = u(\{\par
+                    keywords: [F, H, w, "caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END" + I, J, v],\par
+                    hashComments: !0,\par
+                    cStyleComments: !0,\par
+                    multiLineStrings: !0,\par
+                    regexLiterals: !0\par
+                \}),\par
+                A = \{\};\par
+            k(O, ["default-code"]);\par
+            k(x([], [\par
+                ["pln", /^[^<?]+/],\par
+                ["dec", /^<!\\w[^>]*(?:>|$)/],\par
+                ["com", /^<\\!--[\\S\\s]*?(?:--\\>|$)/],\par
+                ["lang-", /^<\\?([\\S\\s]+?)(?:\\?>|$)/],\par
+                ["lang-", /^<%([\\S\\s]+?)(?:%>|$)/],\par
+                ["pun", /^(?:<[%?]|[%?]>)/],\par
+                ["lang-", /^<xmp\\b[^>]*>([\\S\\s]+?)<\\/xmp\\b[^>]*>/i],\par
+                ["lang-js", /^<script\\b[^>]*>([\\S\\s]*?)(<\\/script\\b[^>]*>)/i],\par
+                ["lang-css", /^<style\\b[^>]*>([\\S\\s]*?)(<\\/style\\b[^>]*>)/i],\par
+                ["lang-in.tag", /^(<\\/?[a-z][^<>]*>)/i]\par
+            ]), "default-markup,htm,html,mxml,xhtml,xml,xsl".split(","));\par
+            k(x([\par
+                ["pln", /^\\s+/, q, " \\t\\r\\n"],\par
+                ["atv", /^(?:"[^"]*"?|'[^']*'?)/, q, "\\"'"]\par
+            ], [\par
+                ["tag", /^^<\\/?[a-z](?:[\\w-.:]*\\w)?|\\/?>$/i],\par
+                ["atn", /^(?!style[\\s=]|on)[a-z](?:[\\w:-]*\\w)?/i],\par
+                ["lang-uq.val", /^=\\s*([^\\s"'>]*(?:[^\\s"'/>]|\\/(?=\\s)))/],\par
+                ["pun", /^[/<->]+/],\par
+                ["lang-js", /^on\\w+\\s*=\\s*"([^"]+)"/i],\par
+                ["lang-js", /^on\\w+\\s*=\\s*'([^']+)'/i],\par
+                ["lang-js", /^on\\w+\\s*=\\s*([^\\s"'>]+)/i],\par
+                ["lang-css", /^style\\s*=\\s*"([^"]+)"/i],\par
+                ["lang-css", /^style\\s*=\\s*'([^']+)'/i],\par
+                ["lang-css", /^style\\s*=\\s*([^\\s"'>]+)/i]\par
+            ]), ["in.tag"]);\par
+            k(x([], [\par
+                ["atv", /^[\\S\\s]+/]\par
+            ]), ["uq.val"]);\par
+            k(u(\{\par
+                keywords: F,\par
+                hashComments: !0,\par
+                cStyleComments: !0,\par
+                types: K\par
+            \}), "c,cc,cpp,cxx,cyc,m".split(","));\par
+            k(u(\{\par
+                keywords: "null,true,false"\par
+            \}), ["json"]);\par
+            k(u(\{\par
+                keywords: H,\par
+                hashComments: !0,\par
+                cStyleComments: !0,\par
+                verbatimStrings: !0,\par
+                types: K\par
+            \}), ["cs"]);\par
+            k(u(\{\par
+                keywords: G,\par
+                cStyleComments: !0\par
+            \}), ["java"]);\par
+            k(u(\{\par
+                keywords: v,\par
+                hashComments: !0,\par
+                multiLineStrings: !0\par
+            \}), ["bsh", "csh", "sh"]);\par
+            k(u(\{\par
+                keywords: I,\par
+                hashComments: !0,\par
+                multiLineStrings: !0,\par
+                tripleQuotedStrings: !0\par
+            \}), ["cv", "py"]);\par
+            k(u(\{\par
+                keywords: "caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END",\par
+                hashComments: !0,\par
+                multiLineStrings: !0,\par
+                regexLiterals: !0\par
+            \}), ["perl", "pl", "pm"]);\par
+            k(u(\{\par
+                keywords: J,\par
+                hashComments: !0,\par
+                multiLineStrings: !0,\par
+                regexLiterals: !0\par
+            \}), ["rb"]);\par
+            k(u(\{\par
+                keywords: w,\par
+                cStyleComments: !0,\par
+                regexLiterals: !0\par
+            \}), ["js"]);\par
+            k(u(\{\par
+                keywords: "all,and,by,catch,class,else,extends,false,finally,for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then,true,try,unless,until,when,while,yes",\par
+                hashComments: 3,\par
+                cStyleComments: !0,\par
+                multilineStrings: !0,\par
+                tripleQuotedStrings: !0,\par
+                regexLiterals: !0\par
+            \}), ["coffee"]);\par
+            k(x([], [\par
+                ["str", /^[\\S\\s]+/]\par
+            ]), ["regex"]);\par
+            window.prettyPrintOne = function(a, m, e) \{\par
+                var h = document.createElement("PRE");\par
+                h.innerHTML = a;\par
+                e && D(h, e);\par
+                E(\{\par
+                    g: m,\par
+                    i: e,\par
+                    h: h\par
+                \});\par
+                return h.innerHTML\par
+            \};\par
+            window.prettyPrint = function(a) \{\par
+                function m() \{\par
+                    for (var e = window.PR_SHOULD_USE_CONTINUATION ? l.now() + 250 : Infinity; p < h.length && l.now() < e; p++) \{\par
+                        var n = h[p],\par
+                            k = n.className;\par
+                        if (k.indexOf("prettyprint") >= 0) \{\par
+                            var k = k.match(g),\par
+                                f, b;\par
+                            if (b = !k) \{\par
+                                b = n;\par
+                                for (var o = void 0, c = b.firstChild; c; c = c.nextSibling) \{\par
+                                    var i = c.nodeType,\par
+                                        o = i === 1 ? o ? b : c : i === 3 ? N.test(c.nodeValue) ? b : o : o\par
+                                \}\par
+                                b = (f = o === b ? void 0 : o) && "CODE" === f.tagName\par
+                            \}\par
+                            b && (k = f.className.match(g));\par
+                            k && (k = k[1]);\par
+                            b = !1;\par
+                            for (o = n.parentNode; o; o = o.parentNode) \{\par
+                                if ((o.tagName === "pre" || o.tagName === "code" || o.tagName === "xmp") && o.className && o.className.indexOf("prettyprint") >= 0) \{\par
+                                    b = !0;\par
+                                    break\par
+                                \}\par
+                            \}\par
+                            b || ((b = (b = n.className.match(/\\blinenums\\b(?::(\\d+))?/)) ? b[1] && b[1].length ? +b[1] : !0 : !1) && D(n, b), d = \{\par
+                                g: k,\par
+                                h: n,\par
+                                i: b\par
+                            \}, E(d))\par
+                        \}\par
+                    \}\par
+                    p < h.length ? setTimeout(m, 250) : a && a()\par
+                \}\par
+                for (var e = [document.getElementsByTagName("pre"), document.getElementsByTagName("code"), document.getElementsByTagName("xmp")], h = [], k = 0; k < e.length; ++k) \{\par
+                    for (var t = 0, s = e[k].length; t < s; ++t) \{\par
+                        h.push(e[k][t])\par
+                    \}\par
+                \}\par
+                var e = q,\par
+                    l = Date;\par
+                l.now || (l = \{\par
+                    now: function() \{\par
+                        return +new Date\par
+                    \}\par
+                \});\par
+                var p = 0,\par
+                    d, g = /\\blang(?:uage)?-([\\w.]+)(?!\\S)/;\par
+                m()\par
+            \};\par
+            window.PR = \{\par
+                createSimpleLexer: x,\par
+                registerLangHandler: k,\par
+                sourceDecorator: u,\par
+                PR_ATTRIB_NAME: "atn",\par
+                PR_ATTRIB_VALUE: "atv",\par
+                PR_COMMENT: "com",\par
+                PR_DECLARATION: "dec",\par
+                PR_KEYWORD: "kwd",\par
+                PR_LITERAL: "lit",\par
+                PR_NOCODE: "nocode",\par
+                PR_PLAIN: "pln",\par
+                PR_PUNCTUATION: "pun",\par
+                PR_SOURCE: "src",\par
+                PR_STRING: "str",\par
+                PR_TAG: "tag",\par
+                PR_TYPE: "typ"\par
+            \}\par
+        \})();\par
+        PR.registerLangHandler(PR.createSimpleLexer([\par
+            ["pln", /^[\\t\\n\\f\\r ]+/, null, " \\t\\r\\n\\u000c"]\par
+        ], [\par
+            ["str", /^"(?:[^\\n\\f\\r"\\\\]|\\\\(?:\\r\\n?|\\n|\\f)|\\\\[\\S\\s])*"/, null],\par
+            ["str", /^'(?:[^\\n\\f\\r'\\\\]|\\\\(?:\\r\\n?|\\n|\\f)|\\\\[\\S\\s])*'/, null],\par
+            ["lang-css-str", /^url\\(([^"')]*)\\)/i],\par
+            ["kwd", /^(?:url|rgb|!important|@import|@page|@media|@charset|inherit)(?=[^\\w-]|$)/i, null],\par
+            ["lang-css-kw", /^(-?(?:[_a-z]|\\\\[\\da-f]+ ?)(?:[\\w-]|\\\\\\\\[\\da-f]+ ?)*)\\s*:/i],\par
+            ["com", /^\\/\\*[^*]*\\*+(?:[^*/][^*]*\\*+)*\\//],\par
+            ["com", /^(?:<\\!--|--\\>)/],\par
+            ["lit", /^(?:\\d+|\\d*\\.\\d+)(?:%|[a-z]+)?/i],\par
+            ["lit", /^#[\\da-f]\{3,6\}/i],\par
+            ["pln", /^-?(?:[_a-z]|\\\\[\\da-f]+ ?)(?:[\\w-]|\\\\\\\\[\\da-f]+ ?)*/i],\par
+            ["pun", /^[^\\s\\w"']+/]\par
+        ]), ["css"]);\par
+        PR.registerLangHandler(PR.createSimpleLexer([], [\par
+            ["kwd", /^-?(?:[_a-z]|\\\\[\\da-f]+ ?)(?:[\\w-]|\\\\\\\\[\\da-f]+ ?)*/i]\par
+        ]), ["css-kw"]);\par
+        PR.registerLangHandler(PR.createSimpleLexer([], [\par
+            ["str", /^[^"')]+/]\par
+        ]), ["css-str"]);\par
+        prettyPrint()\par
+    \}\par
+\});\par
+$(function() \{\par
+    if ($.sceditor) \{\par
+        $.sceditor.command.set('inline-code', \{\par
+            exec: function() \{\par
+                this.insert('[table class="inline-code"][tr][td][code]', '[/code][/td][/tr][/table]')\par
+            \},\par
+            txtExec: function() \{\par
+                this.insert('[table class="inline-code"][tr][td][code]', '[/code][/td][/tr][/table]')\par
+            \},\par
+            tooltip: 'Code snippet'\par
+        \});\par
+        toolbar = toolbar.replace(/code/, 'code,inline-code')\par
+    \}\par
+\});\par
+}
+ 

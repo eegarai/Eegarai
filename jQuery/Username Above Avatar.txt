@@ -1,0 +1,14 @@
+ <script>
+    jQuery(function(){
+      jQuery('.postprofile dl').each(function(){
+        var theBox = jQuery(this).children('dt');
+        var uNameX = theBox.children('strong').html()+'<br>';
+        theBox.children('a').before(uNameX);
+        theBox.children('strong').hide();
+       
+        var rankX = jQuery(this).children('dd:first').html();
+        jQuery(this).children('dt').children('a:first').after('<br>'+rankX);
+        jQuery(this).children('dd:first').hide();
+      });
+    });
+</script>

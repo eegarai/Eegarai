@@ -1,0 +1,367 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 <style>\par
+    .forabg \{\par
+    border-radius: 10px;\par
+    -webkit-border-radius: 10px;\par
+    -o-border-radius: 10px;\par
+    -khtml-border-radius: 10px;\par
+    \}\par
+    .forumbg \{\par
+    -webkit-border-radius: 10px;\par
+    -moz-border-radius: 10px;\par
+    \}\par
+    #wrap \{\par
+      border-radius:10px;\par
+      -moz-border-radius:10px;\par
+      -webkit-border-radius:10px;\par
+    \}\par
+     .postprofile-details dt a span \{\par
+    display: none !important;\par
+    \}\par
+</style>  <style>\par
+    .lightboxOverlay \{\par
+      position: absolute;\par
+      top: 0;\par
+      left: 0;\par
+      z-index: 9999;\par
+      background-color: black;\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\par
+      opacity: 0.8;\par
+      display: none;\par
+    \}\par
+    .lightbox \{\par
+      position: absolute;\par
+      left: 0;\par
+      width: 100%;\par
+      z-index: 10000;\par
+      text-align: center;\par
+      line-height: 0;\par
+      font-weight: normal;\par
+    \}\par
+    .lightbox .lb-image \{\par
+      width: auto;\par
+      height: auto;\par
+      -webkit-border-radius: 3px;\par
+      -moz-border-radius: 3px;\par
+      -ms-border-radius: 3px;\par
+      -o-border-radius: 3px;\par
+      border-radius: 3px;\par
+    \}\par
+    .lightbox a img \{\par
+      border: none;\par
+    \}\par
+    .lb-outerContainer \{\par
+      position: relative;\par
+      background-color: white;\par
+      *zoom: 1;\par
+      min-width: 250px;\par
+      min-height: 130px;\par
+      width: 250px;\par
+      height: 250px;\par
+      margin: 0 auto;\par
+      -moz-border-radius-topleft: 4px;\par
+      -webkit-border-top-left-radius: 4px;\par
+      border-top-left-radius: 4px;\par
+      -moz-border-radius-topright: 4px;\par
+      -webkit-border-top-right-radius: 4px;\par
+      border-top-right-radius: 4px;\par
+    \}\par
+    .lb-outerContainer:after \{\par
+      content: "";\par
+      display: table;\par
+      clear: both;\par
+    \}\par
+    .lb-container \{\par
+      padding: 4px;\par
+    \}\par
+    .lb-loader \{\par
+      position: absolute;\par
+      top: 43%;\par
+      left: 0%;\par
+      height: 25%;\par
+      width: 100%;\par
+      text-align: center;\par
+      line-height: 0;\par
+    \}\par
+    .lb-cancel \{\par
+      display: block;\par
+      width: 32px;\par
+      height: 32px;\par
+      margin: 0 auto;\par
+      background: url(https://i.servimg.com/u/f56/18/07/42/17/loadin10.gif) no-repeat;\par
+    \}\par
+    .lb-nav \{\par
+      position: absolute;\par
+      top: 0;\par
+      left: 0;\par
+      height: 100%;\par
+      width: 100%;\par
+      z-index: 10;\par
+    \}\par
+    .lb-container > .nav \{\par
+      left: 0;\par
+    \}\par
+    .lb-nav a \{\par
+      outline: none;\par
+    \}\par
+    .lb-prev, .lb-next \{\par
+      width: 49%;\par
+      height: 100%;\par
+      cursor: pointer;\par
+      /* Trick IE into showing hover */\par
+      display: block;\par
+    \}\par
+    .lb-prev \{\par
+      left: 0;\par
+      float: left;\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\par
+      opacity: 0;\par
+      -webkit-transition: opacity 0.6s;\par
+      -moz-transition: opacity 0.6s;\par
+      -o-transition: opacity 0.6s;\par
+      transition: opacity 0.6s;\par
+    \}\par
+    .lb-prev:hover \{\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\par
+      opacity: 1;\par
+      background: url(https://i.servimg.com/u/f56/18/07/42/17/prev11.png) left 48% no-repeat;\par
+    \}\par
+    .lb-next \{\par
+      right: 0;\par
+      float: right;\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\par
+      opacity: 0;\par
+      -webkit-transition: opacity 0.6s;\par
+      -moz-transition: opacity 0.6s;\par
+      -o-transition: opacity 0.6s;\par
+      transition: opacity 0.6s;\par
+    \}\par
+    .lb-next:hover \{\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\par
+      opacity: 1;\par
+      background: url(https://i.servimg.com/u/f56/18/07/42/17/next11.png) right 48% no-repeat;\par
+    \}\par
+    .lb-dataContainer \{\par
+      margin: 0 auto;\par
+      padding-top: 5px;\par
+      *zoom: 1;\par
+      min-width: 250px;\par
+      width: 100%;\par
+      background: white;\par
+      -moz-border-radius-bottomleft: 4px;\par
+      -webkit-border-bottom-left-radius: 4px;\par
+      border-bottom-left-radius: 4px;\par
+      -moz-border-radius-bottomright: 4px;\par
+      -webkit-border-bottom-right-radius: 4px;\par
+      border-bottom-right-radius: 4px;\par
+    \}\par
+    .lb-dataContainer:after \{\par
+      content: "";\par
+      display: table;\par
+      clear: both;\par
+    \}\par
+    .lb-data \{\par
+      padding: 0 4px;\par
+      color: #666;\par
+    \}\par
+    .lb-data .lb-details \{\par
+      width: 85%;\par
+      float: left;\par
+      text-align: left;\par
+      line-height: 1.1em;\par
+    \}\par
+    .lb-data .lb-caption \{\par
+      font-size: 13px;\par
+      font-weight: bold;\par
+      line-height: 1em;\par
+    \}\par
+    .lb-data .lb-number \{\par
+      display: block;\par
+      clear: left;\par
+      padding-bottom: 1em;\par
+      font-size: 12px;\par
+      color: #999999;\par
+    \}\par
+    .lb-data .lb-close \{\par
+      display: block;\par
+      float: right;\par
+      width: 66px;\par
+      height: 30px;\par
+      background: url(https://i.servimg.com/u/f56/18/07/42/17/closel10.gif) top right no-repeat;\par
+      text-align: right;\par
+      outline: none;\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);\par
+      opacity: 0.7;\par
+      -webkit-transition: opacity 0.2s;\par
+      -moz-transition: opacity 0.2s;\par
+      -o-transition: opacity 0.2s;\par
+      transition: opacity 0.2s;\par
+    \}\par
+    .lb-data .lb-close:hover \{\par
+      cursor: pointer;\par
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\par
+      opacity: 1;\par
+    \}\par
+</style> <style>\par
+/*REGISTRO-DINAMIC-15-TRONOS*/\par
+#main form#ucp .panel\{\par
+background: #F0F0F0;\par
+color: #505050;\par
+font-family: Tahoma;\par
+border: 1px solid #CCC;\par
+padding: 0;\par
+\}\par
+#main form#ucp .panel p\{\par
+background: #E60000;\par
+color: white;\par
+font-weight: bold;\par
+font-size: 15px;\par
+margin: 0;\par
+font-family: helvetica;\par
+text-shadow: 1px 1px 1px #600;\par
+border: 0;\par
+border-bottom: 1px solid #F3F3F3;\par
+padding: 1em;\}\par
+#main form#ucp fieldset\{\par
+padding: 0;\par
+border: 0;\par
+\}\par
+form#ucp fieldset dl dt, form#ucp fieldset dl dt label \{\par
+color: #505050;\par
+font-family: Tahoma;\par
+font-size: 23px;\par
+font-style: normal;\par
+font-weight: 300;\par
+text-align: right;\par
+\}\par
+#main #ucp #username_reg, #main #ucp #email, #main #ucp #password_reg \{\par
+background: white;\par
+border: 1px solid #C8C8C8;\par
+color: #A0A0A0;\par
+font-weight: normal;\par
+font-size: 16px;\par
+padding: 16px;\par
+border-radius: 3px;\par
+box-shadow: 0px 1px 0px white;\par
+\}\par
+#main form#ucp fieldset\{\par
+padding: 0;\par
+border: 0;\par
+\}\par
+#main form#ucp .submit-buttons \{\par
+border-top: 1px solid #D5D5D5;\par
+padding: 0;\par
+\}\par
+form#form_confirm fieldset.fields2 dl dd input[value="Registrar"]:hover, form#ucp fieldset.submit-buttons input[value="Registrar"]:hover, form#form_confirm fieldset.fields2 input[value="Registrar"] ,form#ucp fieldset.submit-buttons input[value="Registrar"] \{\par
+background: #80B700;\par
+font-size: 16px;\par
+color: white;\par
+font-weight: normal;\par
+border: 1px solid #608A00;\par
+box-shadow: 0px 0px 0px 1px #9ACF1E inset;\par
+font-family: Tahoma;\par
+padding: 10px 40px;\par
+text-shadow: 1px 0 0 #5B8F00;\par
+\}\par
+form#form_confirm span.corners-top, form#form_confirm span.corners-bottom ,#cp-main span.corners-top, #cp-main span.corners-bottom ,form#form_confirm fieldset.fields2 dl dd input[value="Inicializar de nuevo"] ,form#ucp fieldset.submit-buttons input[value="Inicializar de nuevo"] \{\par
+display: none;\par
+\}\par
+form#form_confirm \{\par
+border: 0px;\par
+background: #F0F0F0;\par
+color: #505050;\par
+font-family: Tahoma;\par
+\}\par
+form#form_confirm fieldset.fields2 \{\par
+border-right: 1px solid white;\par
+max-width: 60%;\par
+margin: 0 0 0 20px;\par
+\}\par
+form#form_confirm fieldset.fields2 dl \{\par
+border-right: 1px solid #D8D8D8;\par
+\}\par
+form#form_confirm fieldset.fields2 label ,form#form_confirm fieldset.fields2 dl dt, form#form_confirm fieldset.fields2 dl dt strong \{\par
+color: #505050;\par
+font-family: Tahoma;\par
+font-size: 23px;\par
+font-style: normal;\par
+font-weight: normal!important;\par
+width: 92%;\par
+display: inline-table;\par
+float: none;\par
+text-align: left;\par
+margin: 5px 0;\}\par
+form#form_confirm label \{\par
+padding: 5px;\par
+display: inline-block;\par
+\}\par
+form#form_confirm dl dd input[name="cp"], form#form_confirm #reg_key, form#form_confirm .inputbox.narrow \{\par
+background: white;\par
+border: 1px solid #C8C8C8;\par
+color: #A0A0A0;\par
+font-weight: normal;\par
+font-size: 16px;\par
+padding: 16px;\par
+border-radius: 3px;\par
+box-shadow: 0px 1px 0px white;\par
+min-width: 85%;\par
+display: block;\par
+\}\par
+form#form_confirm fieldset.fields2 dl dd \{\par
+margin: 0;\par
+\}\par
+form#form_confirm .panel \{\par
+background: none;\par
+background-image: url(https://i.imgur.com/yEJNSMI.png);\par
+background-position: 87% 68px;\par
+background-repeat: no-repeat;\par
+border: 1px solid #CCC;\par
+\}\par
+form#form_confirm select \{\par
+background: white;\par
+border: 1px solid #C8C8C8;\par
+color: #A0A0A0;\par
+font-weight: normal;\par
+font-size: 16px;\par
+padding: 16px;\par
+border-radius: 3px;\par
+box-shadow: 0px 1px 0px white;\par
+margin-right: 16px;\par
+overflow: hidden;\par
+\}\par
+form#form_confirm fieldset.fields2 dl.frm-buttons \{\par
+text-align: center;\par
+margin: auto;\par
+border-top: 0;\par
+\}\par
+/*REGISTRO-DINAMIC-15-TRONOS*/\par
+</style><style>\par
+    .postbody .content img:hover \{\par
+        cursor: url('http://icons.iconarchive.com/icons/gakuseisean/ivista-2/32/Start-Menu-Search-icon.png'), auto;\par
+        max-width: 100%;\par
+        \}\par
+        .postbody .content img \{\par
+        max-width: 250px;\par
+        transition: all ease-out .2s;\par
+        \}\par
+/* button image */\par
+.sceditor-button-mention div \{ background-image:url(https://i.servimg.com/u/f19/18/21/60/73/scemen10.png) !important \}\par
+\par
+/* drop down input */\par
+#fa-mention \{\par
+  background:url(https://i.servimg.com/u/f19/18/21/60/73/scemen10.png) no-repeat 3px 50% #FFF;\par
+  padding-left:22px;\par
+\}\par
+/* default styles */\par
+a.fa-mention \{\par
+  color:#333;\par
+\}\par
+\par
+/* hover styles */\par
+a.fa-mention:hover \{\par
+  color:#666;\par
+\}\par
+</style>\par
+}
+ 

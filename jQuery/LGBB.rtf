@@ -1,0 +1,95 @@
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Vijaya;}}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 (function()\{"LGBB, a Javascript BBCode parser and API. Copyright \\u00a9 by AvacWeb 2011-2013. All Rights Reserved. Use of this script is not allowed without this entire copyright notice in place. No Distribution without authors consent.";var h=\{expando:"\{LGBB:"+(new Date).getMilliseconds()+"\}",bbcodes:\{\},basics:[],attrReg:/([\\w-]+)=("|'|)(.*?)\\2(?=[\\s\\]])/g,parseTag:function(a,b,c)\{for(var d=b.insensitive?"i":"",e="\\\\["+b.tag+"[^\\\\]]*?\\\\]",k="\\\\[\\\\/"+b.tag+"\\\\]",d=c?RegExp("("+e+")(?!.*"+e+")((?:.|[\\\\r\\\\n])*?)"+\par
+    k,d):RegExp(e,d),l=[];d.test(a);)a=a.replace(d,function(a,d,e)\{c||(d=a);var f=\{\},g;for(g in b.defaultAttr)f[g]=b.defaultAttr[g];d=h.attrReg.test(d)?d.match(h.attrReg):[];if(d.length)for(var k=0;g=d[k++];)(a=/([\\w-]+)=['"]?(.*?)['"]?$/.exec(g))&&a.length&&(a[1]===b.tag&&(a[1]="default"),f[a[1]]=a[2]);if(b.validate&&(c?!b.validate.call(b,e,f):!b.validate.call(b,f)))return l.push(a),h.expando;a=b.replacement;b.replace&&(g=c?b.replace.call(b,e,f):b.replace(f),"string"===typeof g?a=g:g&&"object"===typeof g&&\par
+    (e=g.content||e,f=g.attr||f,"string"===typeof f&&(f=\{"default":f\})));return h.swapReplacers(a,e,f)\});for(d=0;e=l[d++];)a=a.replace(h.expando,e);return a\},swapReplacers:function(a,b,c)\{if(!a)return"";b||(b="");c||(c=\{\});a=a.replace(/\{CONTENT\}/g,b);for(var d in c)a=a.replace(RegExp("\{ATTR-"+d.toUpperCase()+"\}","g"),c[d]);c["default"]&&(a=a.replace(/\{ATTR\}/g,c["default"]));return a.replace(/\{ATTR(-[A-Z-]+)?\}/g,"")\},parse:function(a)\{var b=h.bbcodes,c=h.basics;h.expando="\{LGBB:"+(new Date).getMilliseconds()+\par
+    "\}";for(var d=0,e;e=c[d++];)\{var k=e[0];if("string"===typeof k&&-1===e[1].indexOf(k))for(;-1!==a.indexOf(k);)a=a.replace(k,e[1]);else a=a.replace(k,e[1])\}for(var l in b)if(b.hasOwnProperty(l)&&(c=b[l])&&c.replacement&&c.tag)try\{a=h.parseTag(a,c,c.close)\}catch(m)\{console.log("LGBB: Error parsing "+c.tag+" tag.",m)\}return a\},add:function(a,b)\{if(!/^\\w+$/.test(a))throw new Exception("Invalid LGBB tag name: "+a);b.tag||(b.tag=a);b.defaultAttr?"string"===typeof b.defaultAttr&&(b.defaultAttr=\{"default":b.defaultAttr\}):\par
+    b.defaultAttr=\{\};"close"in b||(b.close=!1);h.bbcodes[a]=b;return this\},addSwap:function(a,b)\{h.basics.push([a,b]);return this\}\};window.LGBB=h\})();\par
+\par
+            $(function()\{\par
+              var p = $('.post .content');\par
+              for(var i = 0, post; (post = p[ i++ ]); ) \{\par
+                  var codes = post.getElementsByTagName('code'), store = [];\par
+                  for(var j = 0, c; (c = codes[j++]); ) \{\par
+                    store.push(c.innerHTML);\par
+                    c.innerHTML = '';\par
+                  \}\par
+                  post.innerHTML = LGBB.parse( post.innerHTML );\par
+                  for(var s, j = 0; (s = store[j]); ) codes[j++].innerHTML = s;\par
+              \}\par
+            \});\par
+\par
+LGBB.addSwap(/(\\W)@([^\\s<\\n]+)/g, '$1@<a href="/profile?mode=viewprofile&u=$2">$2</a>');\par
+\par
+LGBB.addSwap(/(\\W)#(?![^<]+>)([^\\s<\\n]+)/g, function(m, pre, word) \{\par
+                     return pre + '#<a href="https://www.google.com/search?hl=en&as_oq='+word+'&as_sitesearch=eegarai.net" target="_blank" ' + encodeURIComponent(word) + '">' + word + '</a>';\par
+                \});\par
+\par
+            LGBB.add('div', \{\par
+              close : true,\par
+              replacement : '<div class="\{ATTR\}">\{CONTENT\}</div>'\par
+            \});\par
+            LGBB.add('span', \{\par
+              close : true,\par
+              replacement : '<span class="\{ATTR\}">\{CONTENT\}</span>'\par
+            \});\par
+            LGBB.addSwap(/Code:(.*?)\\<code\\>(?:\\<br\\>)?\\[codetitle=["']?([^\\]]+?)["']?]/gi, '$2:$1<code>');\par
+            for(var LG = 1; LG<7; LG++) \{\par
+              LGBB.add('h' + LG, \{\par
+                  close : true,\par
+                  insensitive : true,\par
+                  replacement : '<h' + LG + '>\{CONTENT\}</h' + LG + '>'\par
+              \});\par
+            \}\par
+\par
+LGBB.add('noguest', \{\par
+   close : true,\par
+   replacement : '<span class="noguest">\{CONTENT\}</span>',\par
+   replace : function(content) \{\par
+      if(!document.getElementById('logout')) return '\f1\lang1097\u2951?\u2984?\u3021?\u2980? \u2986?\u2980?\u3007?\u2997?\u3016?\u2986?\u3021? \u2986?\u2975?\u3007?\u2965?\u3021?\u2965? \u2952?\u2965?\u2992?\u3016?\u2991?\u3007?\u2994?\u3021? \u2953?\u2993?\u3009?\u2986?\u3021?\u2986?\u3007?\u2985?\u2992?\u3006?\u2965? \u2986?\u2980?\u3007?\u2997?\u3009? \u2970?\u3014?\u2991?\u3021?\u2991?\u3009?\u2969?\u3021?\u2965?\u2995?\u3021?. ';\f0\lang1033\par
+      return content;  \par
+   \}\par
+\});\par
+\par
+LGBB.add('thanks', \{\par
+   close: true,\par
+   replacement: '<div style="padding: 3px; float: right; border: 1px solid; font-size: 0.8em">\f1\lang1097\u2984?\u2985?\u3021?\u2993?\u3007?: \f0\lang1033\{CONTENT\}</div>'\par
+\});\par
+        LGBB.add('eegarai', \{\par
+            close : true, \par
+            insensitive : true,\par
+            defaultAttr : '\f1\lang1097\u2952?\u2965?\u2992?\u3016?',\f0\lang1033\par
+            replacement : '<div class="post-modbox"><div>\{ATTR\} \f1\lang1097\u2984?\u3007?\u2992?\u3021?\u2997?\u3006?\u2965? \u2949?\u2993?\u3007?\u2997?\u3007?\u2986?\u3021?\u2986?\u3009?: </\f0\lang1033 div><p>\{CONTENT\}</p></div>',\par
+            replace : function(content, attr) \{\par
+                if(_userdata && _userdata.username === attr.default) \{\par
+                    return \{attr: 'You'\};\par
+                \}\par
+            \}\par
+        \});\par
+LGBB.add("note",\{close:true,replacement:'<div style="padding: 10px; float: center; border: 1px dashed #D17D00; border-left: 5px solid #D17D00; font-size: 11px;font-family:Noto Sans Tamil; font-weight:bold; border-radius: 5px; margin: 1em 1px 1em 1px;background:#fff; "><img src="https://i.servimg.com/u/f57/14/94/21/38/accept10.png" border="0"  />\f1\lang1097\u2965?\u3009?\u2993?\u3007?\u2986?\u3021?\u2986?\u3009?:<\f0\lang1033 br><span style="font-weight:normal;font-size:12px;top: 50%;position: relative;left: 6%;width: 100px!important;text-overflow: ellipsis;">\{CONTENT\}</span></div>'\});\par
+\par
+LGBB.add('ic',\{close:true,replacement:'<pre class="inline_code">\{CONTENT\}</pre>'\});LGBB.add("download",\{close:true,replacement:'<div class=descargar ><div class=marco2><div class=titulo><p style="display:table;margin:0 auto;padding-top:10px">The link will be visible your post published</p></div><span style="display:none"><center style="padding:5px;background:#F0FFF0;margin-top:15px;margin-bottom:-15px;border:1px solid darkgray;border-radius:5px;">Download Link: \{CONTENT\} </center></span></div> </div>'\});\par
+\par
+LGBB.add("info",\{close:true,replacement:'<div class="fa_info">\{CONTENT\}</div>'\});LGBB.add("ok",\{close:true,replacement:'<div class="fa_ok">\{CONTENT\}</div>'\});LGBB.add("warning",\{close:true,replacement:'<div class="fa_warning">\{CONTENT\}</div>'\});LGBB.add("alert",\{close:true,replacement:'<div class="fa_alert">\{CONTENT\}</div>'\});\par
+\par
+LGBB.addSwap(/:<\\/cite>\\[quotelink="(.*?)"]/gi," in [post]$1[/post]:</cite>");\par
+\par
+LGBB.add("iq",\{close:!0,defaultAttr:"",replace:function(a,b)\{return\{attr:b&&b.length?"Por"+b:""\};\},replacement:'<span class="inline_quote" title="\{ATTR\}">\{CONTENT\}</span>'\});\par
+\par
+LGBB.addSwap(/Code:(.*?)\\<code\\>(?:\\<br\\>)?\\[codetitle=["']?([^\\]]+?)["']?]/gi,"$2:$1<code>");for(var LG=1;LG<7;LG++)\{LGBB.add("h"+LG,\{close:true,insensitive:true,replacement:"<h"+LG+">\{CONTENT\}</h"+LG+">"\});\}\par
+\par
+        LGBB.add('bspoiler', \{\par
+           close: true,\par
+           defaultAttr : '\f1\lang1097\u2951?\u2969?\u3021?\u2965?\u3009? \u2949?\u2996?\u3009?\u2980?\u3021?\u2980?\u2997?\u3009?\u2990?\u3021?',\f0\lang1033\par
+           replacement: '<div style="padding: 3px; text-align:center; border-bottom: 1px solid"><em>\{ATTR\}: </em><input type="button" onclick="togglebspoiler(this)" value="Show"/></div><div class="bspoiler" style="display:none">\{CONTENT\}</div>'\par
+        \});\par
+        function togglebspoiler(elem) \{\par
+           $(elem.parentNode.nextSibling).toggle();\par
+           elem.value = (elem.value === 'Show') ? 'Hide' : 'Show';\par
+        \}\par
+        LGBB.add('d', \{\par
+            close : true, \par
+            replacement : '<div class="post-d-div">\{CONTENT\}</div>'\par
+        \});\lang9\par
+}
+ 

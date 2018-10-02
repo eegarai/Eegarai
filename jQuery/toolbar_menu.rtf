@@ -1,0 +1,73 @@
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Vijaya;}}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 (function() \{\par
+          window.fmtabs = \{\par
+              add: function (name) \{\par
+                $('#fa_right').prepend('<div class="toolbar_name">' + name + '</div>');\par
+              \},\par
+              list: function (name, html) \{\par
+                    $('#fa_right').prepend('<div id="toolbar_list_name_' + name + '" class="toolbar_list_name">' + name + '</div><div id="toolbar_list_' + name.replace(/\\s/g, '_') + '" class="toolbar_list">' + html + '</div>');\par
+                    $('#toolbar_list_name_' + name.replace(/\\s/g, '_')).click(function() \{\par
+                      if (this.className == "toolbar_list_name") this.className += " active";\par
+                      else this.className = "toolbar_list_name";\par
+                      this.nextSibling.style.left = this.offsetLeft + 'px';\par
+                      this.nextSibling.style.top = this.offsetHeight + 'px';\par
+                      $(this.nextSibling).slideToggle();\par
+                    \});\par
+              \}\par
+          \};\par
+        \})();\par
+        $(window).load(function () \{\par
+            fmtabs.list('\f1\lang1097\u2952?\u2965?\u2992?\u3016?', '<\f0\lang1033 a href="/search?search_id=activetopics">\f1\lang1097\u2997?\u3007?\u2993?\u3009?\u2997?\u3007?\u2993?\u3009?  \u2980?\u2994?\u3016?\u2986?\u3021?\u2986?\u3009?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/memberlist?mode=today_posters">\f1\lang1097\u2951?\u2985?\u3021?\u2993?\u3016?\u2991?  \f0\lang1033 20 \f1\lang1097\u2949?\u2980?\u3007?\u2965?  \u2986?\u2980?\u3007?\u2997?\u2992?\u3021?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/memberlist?mode=overall_posters">20  \f1\lang1097\u2949?\u2980?\u3007?\u2965?\u2986?\u2975?\u3021?\u2970?  \u2986?\u2980?\u3007?\u2997?\u2992?\u3021?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/search?search_id=unanswered">\f1\lang1097\u2986?\u2980?\u3007?\u2994?\u2993?\u3021?\u2993?  \u2986?\u2980?\u3007?\u2997?\u3009?\u2965?\u2995?\u3016?\u2965?\u3021?  \u2965?\u3006?\u2979?\u3021?</\f0\lang1033 a><br />\par
+<a href="/search?search_id=newposts">\f1\lang1097\u2986?\u3009?\u2980?\u3007?\u2991?  \u2986?\u2980?\u3007?\u2997?\u3009?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/?mode=delete_cookies">\f1\lang1097\u2965?\u3009?\u2965?\u3021?\u2965?\u3008?\u2965?\u2995?\u3016?  \u2984?\u3008?\u2965?\u3021?\u2965?\u3009?\u2965?</\f0\lang1033 a><br />\par
+<a href="/memberlist">\f1\lang1097\u2953?\u2993?\u3009?\u2986?\u3021?\u2986?\u3007?\u2985?\u2992?\u3021?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/forum?mark=forums">\f1\lang1097\u2949?\u2985?\u3016?\u2980?\u3021?\u2980?\u3016?\u2991?\u3009?\u2990?\u3021?  \u2986?\u2975?\u3007?\u2980?\u3021?\u2980?\u2997?\u3016?\u2991?\u3006?\u2965?  \u2990?\u3006?\u2993?\u3021?\u2993?\u3009?\u2965?</\f0\lang1033 a><br />\par
+<a href="/t104323-topic">\f1\lang1097\u2949?\u2980?\u3007?\u2965?\u2990?\u3021?  \u2986?\u3006?\u2992?\u3021?\u2997?\u3016?\u2991?\u3007?\u2975?\u3009?\u2990?\u3021?  \u2980?\u3007?\u2992?\u3007?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />');\par
+\par
+                  fmtabs.list('\f1\lang1097\u2986?\u3009?\u2980?\u3007?\u2991?\u2986?\u2980?\u3007?\u2997?\u3007?\u2975?', '<\f0\lang1033 a href="/post?f=37&mode=newtopic">\f1\lang1097\u2965?\u3015?\u2995?\u3021?\u2997?\u3007?  -  \u2986?\u2980?\u3007?\u2994?\u3021?  \u2986?\u2965?\u3009?\u2980?\u3007? </\f0\lang1033 a><br />\par
+<a href="/post?f=53&mode=newtopic">\f1\lang1097\u2997?\u2994?\u3016?\u2986?\u3010?\u2965?\u3021?\u2965?\u2995?\u3007?\u2985?\u3021?  \u2970?\u3007?\u2993?\u2984?\u3021?\u2980?  \u2986?\u2980?\u3007?\u2997?\u3009?\u2965?\u2995?\u3021? </\f0\lang1033 a><br />\par
+<a href="/post?f=2&mode=newtopic">\f1\lang1097\u2965?\u2997?\u3007?\u2980?\u3016?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=32&mode=newtopic">\f1\lang1097\u2970?\u3018?\u2984?\u3021?\u2980?\u2965?\u3021?  \u2965?\u2997?\u3007?\u2980?\u3016?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=52&mode=newtopic">\f1\lang1097\u2992?\u2970?\u3007?\u2980?\u3021?\u2980?  \u2965?\u2997?\u3007?\u2980?\u3016?\u2965?\u2995?\u3021? </\f0\lang1033 a><br />\par
+<a href="/post?f=5&mode=newtopic">\f1\lang1097\u2980?\u3007?\u2985?\u2970?\u2992?\u3007?   \u2970?\u3014?\u2991?\u3021?\u2980?\u3007?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=22&mode=newtopic">\f1\lang1097\u2997?\u3008?\u2975?\u3007?\u2991?\u3019?  \u2990?\u2993?\u3021?\u2993?\u3009?\u2990?\u3021?  \u2986?\u3009?\u2965?\u3016?\u2986?\u3021?\u2986?\u2975?\u2969?\u3021?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=23&mode=newtopic">\f1\lang1097\u2965?\u2979?\u3007?\u2985?\u3007?   \u2980?\u2965?\u2997?\u2994?\u3021?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=10&mode=newtopic">\f1\lang1097\u2984?\u2965?\u3016?\u2970?\u3021?\u2970?\u3009?\u2997?\u3016?</\f0\lang1033 a><br />\par
+<a href="/post?f=18&mode=newtopic">\f1\lang1097\u2970?\u3007?\u2985?\u3007?\u2990?\u3006? </\f0\lang1033 a><br />\par
+<a href="/post?f=49&mode=newtopic">\f1\lang1097\u2970?\u3007?\u2993?\u3009?\u2997?\u2992?\u3021?   \u2965?\u2980?\u3016?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=9&mode=newtopic">\f1\lang1097\u2990?\u2965?\u2995?\u3007?\u2992?\u3021?  \u2965?\u2975?\u3021?\u2975?\u3009?\u2992?\u3016?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=11&mode=newtopic">\f1\lang1097\u2970?\u2990?\u3016?\u2991?\u2994?\u3021?  \u2965?\u3009?\u2993?\u3007?\u2986?\u3021?\u2986?\u3009?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=12&mode=newtopic">\f1\lang1097\u2949?\u2996?\u2965?\u3009?\u2965?\u3021?   \u2965?\u3009?\u2993?\u3007?\u2986?\u3021?\u2986?\u3009?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=8&mode=newtopic">\f1\lang1097\u2951?\u2984?\u3021?\u2980?\u3009?</\f0\lang1033 a><br />\par
+<a href="/post?f=14&mode=newtopic">\f1\lang1097\u2990?\u2992?\u3009?\u2980?\u3021?\u2980?\u3009?\u2997?\u2965?\u3021?  \u2965?\u2975?\u3021?\u2975?\u3009?\u2992?\u3016?\u2965?\u2995?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=13&mode=newtopic">\f1\lang1097\u2970?\u3007?\u2980?\u3021?\u2980?  \u2990?\u2992?\u3009?\u2980?\u3021?\u2980?\u3009?\u2997?\u2990?\u3021?</\f0\lang1033 a><br />\par
+<a href="/post?f=17&mode=newtopic">\f1\lang1097\u2965?\u2975?\u3021?\u2975?\u3009?\u2992?\u3016?\u2965?\u2995?\u3021? - \u2986?\u3018?\u2980?\u3009?</\f0\lang1033 a><br />\par
+<a href="/post?f=16&mode=newtopic">\f1\lang1097\u2986?\u3018?\u2980?\u3009?  \u2949?\u2993?\u3007?\u2997?\u3009?</\f0\lang1033 a>');\par
+\par
+            fmtabs.list('\f1\lang1097\u2980?\u3007?\u2985?\u2970?\u2992?\u3007?\u2965?\u2995?\u3021?', '<\f0\lang1033 a href="http://tamil.thehindu.com/" target="_blank">\f1\lang1097\u2980?\u3007? \u2951?\u2984?\u3021?\u2980?\u3009?</\f0\lang1033 a><br />\par
+<a href="http://www.dinakaran.com/" target="_blank">\f1\lang1097\u2980?\u3007?\u2985?\u2965?\u2992?\u2985?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://www.selliyal.com/" target="_blank">\f1\lang1097\u2970?\u3014?\u2994?\u3021?\u2994?\u3007?\u2991?\u2994?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://news.vikatan.com/" target="_blank">\f1\lang1097\u2997?\u3007?\u2965?\u2975?\u2985?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://www.dinamalar.com" target="_blank">\f1\lang1097\u2980?\u3007?\u2985?\u2990?\u2994?\u2992?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://www.maalaimalar.com" target="_blank">\f1\lang1097\u2990?\u3006?\u2994?\u3016?\u2990?\u2994?\u2992?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://www.dailythanthi.com" target="_blank">\f1\lang1097\u2980?\u3007?\u2985?\u2980?\u3021?\u2980?\u2984?\u3021?\u2980?\u3007?</\f0\lang1033 a><br />\par
+<a href="http://tamil.oneindia.in" target="_blank">\f1\lang1097\u2980?\u2975?\u3021?\u3000?\u3021?\u2980?\u2990?\u3007?\u2996?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://onlineuthayan.com" target="_blank">\f1\lang1097\u2953?\u2980?\u2991?\u2985?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://www.thinakkural.lk" target="_blank">\f1\lang1097\u2980?\u3007?\u2985?\u2965?\u3021?\u2965?\u3009?\u2992?\u2994?\u3021?</\f0\lang1033 a><br />\par
+<a href="http://dinamani.com/" target="_blank">\f1\lang1097\u2980?\u3007?\u2985?\u2990?\u2979?\u3007?</\f0\lang1033 a><br />');\par
+\par
+\par
+            fmtabs.add('<a href="/">\f1\lang1097\u2990?\u3009?\u2965?\u2986?\u3021?\u2986?\u3009?</\f0\lang1033 a>');\par
+        \});\par
+\par
+        $(window).load(function () \{\par
+            $('#fa_welcome').click(function () \{\par
+                $('#fa_menulist').slideToggle();\par
+            \});\par
+        \});\lang9\par
+}
+ 
